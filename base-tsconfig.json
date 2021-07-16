@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@hooks": [
+        "hooks"
+      ],
+      "@styles": [
+        "styles"
+      ],
+      "@data": [
+        "data"
+      ]
+    },
+    "jsx": "preserve"
+  }
+}

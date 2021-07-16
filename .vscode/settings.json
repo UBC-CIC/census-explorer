@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.suggest.paths": false,
+  "path-intellisense.mappings": {
+    "/": "${workspaceRoot}",
+    "lib": "${workspaceRoot}/lib",
+    "@styles": "${workspaceRoot}/styles",
+    "global": "/Users/dummy/globalLibs"
+  }
+}
