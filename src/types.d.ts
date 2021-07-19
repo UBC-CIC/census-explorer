@@ -25,3 +25,14 @@ export interface Properties {
   PRUID: string;
   PRNAME: string;
 }
+
+export type PathFunctionType = () => string | null;
+
+export type FSAFeatureType = ExtendedFeature<
+  GeoGeometryObjects | null,
+  Properties
+>;
+
+export type CanadaTopologyType = TopoJSON.Topology & {
+  properties: { CFSAUID: string; PRUID: string; PRNAME: string };
+};
