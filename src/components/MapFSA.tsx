@@ -12,15 +12,16 @@ const MapFSA = ({ path, feature }: MapFSAProps) => {
   const [active, setActive] = useState(false);
   const selectedColor = randomColor();
   const fsaPath = path();
+  const style = {
+    stroke: "#000",
+    strokeWidth: 0.01,
+    fill: active ? "black" : selectedColor,
+  };
   return (
     <path
       key={fsaPath}
       d={fsaPath || ""}
-      style={{
-        stroke: "#000",
-        strokeWidth: 0.01,
-        fill: active ? "black" : selectedColor,
-      }}
+      style={style}
       onClickCapture={() => console.log(feature.properties.CFSAUID)}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}

@@ -1,3 +1,5 @@
+import { ExtendedFeature, GeoGeometryObjects } from "d3";
+
 export interface Topology {
   type: "Topology";
   arcs?: ((number[] | null)[] | null)[] | null;
@@ -36,3 +38,22 @@ export type FSAFeatureType = ExtendedFeature<
 export type CanadaTopologyType = TopoJSON.Topology & {
   properties: { CFSAUID: string; PRUID: string; PRNAME: string };
 };
+
+export enum TopoJSONNames {
+  AB = "ab",
+  BC = "bc",
+  // CANADA = "canada",
+  MB = "mb",
+  NB = "nb",
+  NL = "nl",
+  NS = "ns",
+  NT = "nt",
+  NU = "nu",
+  ON = "on",
+  PE = "pe",
+  QC = "qc",
+  SK = "sk",
+  YT = "yt",
+}
+
+export type EnumType = { [s: number]: string };
