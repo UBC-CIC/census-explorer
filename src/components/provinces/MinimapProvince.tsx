@@ -1,21 +1,17 @@
-import { randomColor } from "@utils/randomColor";
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
-import { useState } from "react";
 import { PathFunctionType, Properties } from "types";
 
-type MapFSAProps = {
+type MinimapProvinceProps = {
   feature: ExtendedFeature<GeoGeometryObjects | null, Properties>;
   path: PathFunctionType;
 };
 
-const MapFSA = ({ path, feature }: MapFSAProps) => {
-  const [active, setActive] = useState(false);
-  const selectedColor = randomColor();
+const MinimapProvince = ({ path, feature }: MinimapProvinceProps) => {
   const fsaPath = path();
   const style = {
     stroke: "#000",
-    strokeWidth: 0.01,
-    fill: active ? "black" : selectedColor,
+    strokeWidth: 1,
+    fill: "#8e918f",
   };
   return (
     <path
@@ -23,10 +19,8 @@ const MapFSA = ({ path, feature }: MapFSAProps) => {
       d={fsaPath || ""}
       style={style}
       onClickCapture={() => console.log(feature.properties.CFSAUID)}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
     />
   );
 };
 
-export default MapFSA;
+export default MinimapProvince;

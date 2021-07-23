@@ -1,0 +1,15 @@
+.optionContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #eaeaea;
+}
+
+.provinceSelectorContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+  padding: 1rem;
+}

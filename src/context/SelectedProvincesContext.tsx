@@ -1,7 +1,9 @@
 import { TopoJSONNames } from "@types";
 import React, { ReactNode, useState } from "react";
-
-export type ProvinceOptions = { [province in TopoJSONNames]: boolean };
+export type ProvinceOption = {
+  [i in keyof typeof TopoJSONNames]: string;
+};
+export type ProvinceOptions = { [province in keyof ProvinceOption]: boolean };
 type NewProvinceOptions = { [province in TopoJSONNames]?: boolean };
 
 type SetProvincesInput =
@@ -13,20 +15,22 @@ type SelectedProvincesType = {
   provinces: ProvinceOptions;
 };
 
+const DEFAULT_PROVINCE_VALUE = true;
+
 const defaultProvinces: ProvinceOptions = {
-  bc: true,
-  sk: true,
-  nb: true,
-  qc: true,
-  yt: true,
-  nl: true,
-  ns: true,
-  nt: true,
-  nu: true,
-  on: true,
-  ab: true,
-  mb: true,
-  pe: true,
+  bc: DEFAULT_PROVINCE_VALUE,
+  sk: DEFAULT_PROVINCE_VALUE,
+  nb: DEFAULT_PROVINCE_VALUE,
+  qc: DEFAULT_PROVINCE_VALUE,
+  yt: DEFAULT_PROVINCE_VALUE,
+  nl: DEFAULT_PROVINCE_VALUE,
+  ns: DEFAULT_PROVINCE_VALUE,
+  nt: DEFAULT_PROVINCE_VALUE,
+  nu: DEFAULT_PROVINCE_VALUE,
+  on: DEFAULT_PROVINCE_VALUE,
+  ab: DEFAULT_PROVINCE_VALUE,
+  mb: DEFAULT_PROVINCE_VALUE,
+  pe: DEFAULT_PROVINCE_VALUE,
 };
 
 const SelectedProvincesContext = React.createContext(

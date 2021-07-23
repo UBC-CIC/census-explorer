@@ -32,8 +32,6 @@ const InnerProvincePath = memo(({ provinceName }: InnerProvincePathProps) => {
     fetchTopoData();
   }, [provinceName]);
 
-  console.log(provinceName, "rerendered");
-
   let featuresAndPath = features.map((feature: ExtendedFeature) => [
     feature,
     projection(feature),

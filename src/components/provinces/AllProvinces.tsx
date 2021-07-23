@@ -5,19 +5,19 @@ import ProvincePath from "./ProvincePath";
 const AllProvinces = () => {
   const Provinces = () => (
     <>
-      <ProvincePath provinceName={TopoJSONNames.BC} />
-      <ProvincePath provinceName={TopoJSONNames.AB} />
-      <ProvincePath provinceName={TopoJSONNames.SK} />
-      <ProvincePath provinceName={TopoJSONNames.MB} />
-      <ProvincePath provinceName={TopoJSONNames.ON} />
-      <ProvincePath provinceName={TopoJSONNames.QC} />
-      <ProvincePath provinceName={TopoJSONNames.NB} />
-      <ProvincePath provinceName={TopoJSONNames.NL} />
-      <ProvincePath provinceName={TopoJSONNames.NS} />
-      <ProvincePath provinceName={TopoJSONNames.PE} />
-      <ProvincePath provinceName={TopoJSONNames.YT} />
-      <ProvincePath provinceName={TopoJSONNames.NT} />
-      <ProvincePath provinceName={TopoJSONNames.NU} />
+      <ProvincePath provinceName={TopoJSONNames.bc} />
+      <ProvincePath provinceName={TopoJSONNames.ab} />
+      <ProvincePath provinceName={TopoJSONNames.sk} />
+      <ProvincePath provinceName={TopoJSONNames.mb} />
+      <ProvincePath provinceName={TopoJSONNames.on} />
+      <ProvincePath provinceName={TopoJSONNames.qc} />
+      <ProvincePath provinceName={TopoJSONNames.nb} />
+      <ProvincePath provinceName={TopoJSONNames.nl} />
+      <ProvincePath provinceName={TopoJSONNames.ns} />
+      <ProvincePath provinceName={TopoJSONNames.pe} />
+      <ProvincePath provinceName={TopoJSONNames.yt} />
+      <ProvincePath provinceName={TopoJSONNames.nt} />
+      <ProvincePath provinceName={TopoJSONNames.nu} />
     </>
   );
   const MemoizedProvinces = memo(Provinces);

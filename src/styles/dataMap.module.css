@@ -1,4 +1,18 @@
 .datamap {
-  flex: 1;
-  display: flex;
+  display: grid;
+  grid-area: "map";
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: white;
+  cursor: nwse-resize;
+  transform: rotate(90deg);
+}
+
+.mapperbox > svg > g {
+  transform: translate(-150%, -150%);
 }

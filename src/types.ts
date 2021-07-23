@@ -40,20 +40,58 @@ export type CanadaTopologyType = TopoJSON.Topology & {
 };
 
 export enum TopoJSONNames {
-  AB = "ab",
-  BC = "bc",
   // CANADA = "canada",
-  MB = "mb",
-  NB = "nb",
-  NL = "nl",
-  NS = "ns",
-  NT = "nt",
-  NU = "nu",
-  ON = "on",
-  PE = "pe",
-  QC = "qc",
-  SK = "sk",
-  YT = "yt",
+  ab = "ab",
+  bc = "bc",
+  mb = "mb",
+  nb = "nb",
+  nl = "nl",
+  ns = "ns",
+  nt = "nt",
+  nu = "nu",
+  on = "on",
+  pe = "pe",
+  qc = "qc",
+  sk = "sk",
+  yt = "yt",
+}
+
+export enum LongProvinceNames {
+  ab = "Alberta",
+  bc = "British Columbia",
+  mb = "Manitoba",
+  nb = "New Brunswick",
+  nl = "Newfoundland and Labrador",
+  ns = "Nova Scotia",
+  nt = "Northwest Territories",
+  nu = "Nunavut",
+  on = "Ontario",
+  pe = "Prince Edward Island",
+  qc = "Quebec",
+  sk = "Saskatchewan",
+  yt = "Yukon",
 }
 
 export type EnumType = { [s: number]: string };
+
+export type ValueType = {
+  mode: "idle" | "panning" | "zooming";
+  focus: boolean;
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+  e: number;
+  f: number;
+  startX?: number;
+  startY?: number;
+  endX?: number;
+  endY?: number;
+  miniatureOpen: boolean;
+  SVGMinX: number;
+  SVGMinY: number;
+  SVGWidth: number;
+  SVGHeight: number;
+  viewerWidth: number;
+  viewerHeight: number;
+};
