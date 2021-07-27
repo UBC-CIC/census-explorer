@@ -18,7 +18,6 @@ const ProvinceSelectMap = (props: ProvinceSelectMapProps) => {
   const toggleAllProvinces = (value: boolean) => {
     setProvinces(!value ? DEFAULT_TRUE_PROVINCES : DEFAULT_FALSE_PROVINCES);
   };
-  console.log(allProvincesShown);
 
   return (
     <div className={selectorStyles.root}>

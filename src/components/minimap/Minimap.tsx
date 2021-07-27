@@ -114,7 +114,6 @@ export const AllMinimapProvinces = ({
 
 const Minimap = (props: any) => {
   const Memoized = AllMinimapProvinces;
-  console.log(props.value);
 
   return (
     <Miniature SVGWidth={500} SVGHeight={500} {...props}>

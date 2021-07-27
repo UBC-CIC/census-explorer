@@ -109,6 +109,7 @@ export const ProvinceDataProvider = (props: { children?: ReactNode }) => {
       }
     };
     if (data.loading) fetchAllData();
+    console.log("Ran Load Data UseEffect");
   }, []);
 
   return (
