@@ -4,4 +4,6 @@ export { default as dataMapStyles } from "./dataMap.module.css";
 export { default as minimapStyles } from "./minimap.module.css";
 export { default as resizableStyles } from "./resizable.module.css";
 export { default as selectOptionsStyles } from "./selectOptions.module.css";
+export { default as selectorStyles } from "./selector.module.css";
 export { default as sidebarStyles } from "./sidebar.module.css";
+export { default as spinnerStyles } from "./spinner.module.css";

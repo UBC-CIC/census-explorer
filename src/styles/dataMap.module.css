@@ -16,3 +16,11 @@
 .mapperbox > svg > g {
   transform: translate(-150%, -150%);
 }
+
+.loading {
+  background-color: #616264;
+  color: white;
+  display: grid;
+  place-items: center;
+  height: 100%;
+}

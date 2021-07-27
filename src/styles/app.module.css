@@ -1,6 +1,5 @@
 .App {
-  overflow: hidden;
-  display: grid;
-  /* grid-template-areas: "content sidebar"; */
-  grid-template-columns: 1fr 1fr;
+  overflow: visible;
+  flex: 1;
+  display: flex;
 }

@@ -1,12 +1,12 @@
 import { sidebarStyles } from "@styles";
-import ProvinceSelect from "./ProvinceSelect";
+import ProvinceSelectMap from "./selector/ProvinceSelectMap";
 
 type SidebarProps = {};
 
 const Sidebar = (props: SidebarProps) => {
   return (
     <div className={sidebarStyles.sidebar}>
-      <ProvinceSelect />
+      <ProvinceSelectMap />
     </div>
   );
 };

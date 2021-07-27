@@ -1,10 +1,10 @@
+import SelectedProvincesContext from "@context/SelectedProvincesContext";
 import useOutlineData from "@hooks/useOutlineData";
-import useSelectedProvinces from "@hooks/useSelectedProvinces";
 import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
 import projection from "@utils/projection";
 import { ExtendedFeature } from "d3";
-import { memo } from "react";
-import MinimapProvince from "./MinimapProvince";
+import { memo, useContext } from "react";
+import SelectorProvince from "./SelectorProvince";
 
 type InnerProvincePathProps = {
   provinceName: TopoJSONNames;
@@ -12,15 +12,17 @@ type InnerProvincePathProps = {
   height?: number;
   strokeWidth?: number;
   fill?: string;
+  onClick?: () => void;
 };
 
-const InnerMinimapProvincePath = memo(
+const InnerSelectorProvincePath = memo(
   ({
     provinceName,
     width,
     height,
     strokeWidth,
     fill,
+    onClick,
   }: InnerProvincePathProps) => {
     const features = useOutlineData(provinceName);
 
@@ -32,11 +34,12 @@ const InnerMinimapProvincePath = memo(
     return (
       <>
         {featuresAndPath.map(([feature, item]) => (
-          <MinimapProvince
+          <SelectorProvince
             fill={fill}
             strokeWidth={strokeWidth}
             feature={feature}
             path={item}
+            onClick={onClick}
           />
         ))}
       </>
@@ -52,26 +55,33 @@ type ProvincePathProps = {
   fill?: string;
 };
 
-const MinimapProvincePath = ({
+const SELECTED_FILL = "#D9322C";
+
+const SelectorProvincePath = ({
   provinceName,
   width,
   height,
   strokeWidth,
   fill,
 }: ProvincePathProps) => {
-  const provinces = useSelectedProvinces();
+  const { provinces, setProvinces } = useContext(SelectedProvincesContext);
+  const isSelected = provinces[provinceName];
 
+  const handleClick = () => {
+    setProvinces((old) => ({ [provinceName]: !old[provinceName] }));
+  };
   return (
-    <g style={{ visibility: provinces[provinceName] ? "visible" : "hidden" }}>
-      <InnerMinimapProvincePath
-        fill={fill}
+    <g>
+      <InnerSelectorProvincePath
+        fill={isSelected ? SELECTED_FILL : fill}
         provinceName={provinceName}
         width={width}
         height={height}
         strokeWidth={strokeWidth}
+        onClick={handleClick}
       />
     </g>
   );
 };
 
-export default MinimapProvincePath;
+export default SelectorProvincePath;

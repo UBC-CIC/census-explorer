@@ -1,36 +1,17 @@
 import MapFSA from "@components/MapFSA";
+import useProvinceData from "@hooks/useProvinceData";
 import useSelectedProvinces from "@hooks/useSelectedProvinces";
-import {
-  CanadaTopologyType,
-  FSAFeatureType,
-  PathFunctionType,
-  TopoJSONNames,
-} from "@types";
+import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
 import projection from "@utils/projection";
-import { ExtendedFeature, ExtendedFeatureCollection } from "d3";
-import { memo, useEffect, useState } from "react";
-import * as topojson from "topojson-client";
+import { ExtendedFeature } from "d3";
+import { memo } from "react";
 
 type InnerProvincePathProps = {
   provinceName: TopoJSONNames;
 };
 
 const InnerProvincePath = memo(({ provinceName }: InnerProvincePathProps) => {
-  const [features, setFeatures] = useState([] as ExtendedFeature[]);
-
-  useEffect(() => {
-    const fetchTopoData = async () => {
-      const res = await fetch(`/api/${provinceName}`);
-      const provinceTopo = (await res.json()) as unknown as CanadaTopologyType;
-
-      const properties = provinceTopo.objects[provinceName];
-      const features = (
-        topojson.feature(provinceTopo, properties) as ExtendedFeatureCollection
-      ).features;
-      setFeatures(features);
-    };
-    fetchTopoData();
-  }, [provinceName]);
+  const features = useProvinceData(provinceName);
 
   let featuresAndPath = features.map((feature: ExtendedFeature) => [
     feature,

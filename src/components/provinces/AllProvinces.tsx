@@ -1,9 +1,8 @@
 import { TopoJSONNames } from "@types";
-import { memo } from "react";
 import ProvincePath from "./ProvincePath";
 
 const AllProvinces = () => {
-  const Provinces = () => (
+  return (
     <>
       <ProvincePath provinceName={TopoJSONNames.bc} />
       <ProvincePath provinceName={TopoJSONNames.ab} />
@@ -20,8 +19,6 @@ const AllProvinces = () => {
       <ProvincePath provinceName={TopoJSONNames.nu} />
     </>
   );
-  const MemoizedProvinces = memo(Provinces);
-  return <MemoizedProvinces />;
 };
 
 export default AllProvinces;

@@ -52,15 +52,6 @@ export default function Miniature(props) {
     background,
   };
 
-  let centerTranslation =
-    ratio >= 1
-      ? `translate(${
-          (miniatureWidth - SVGWidth * zoomToFit) / 2 - SVGMinX * zoomToFit
-        }, ${-SVGMinY * zoomToFit})`
-      : `translate(${-SVGMinX * zoomToFit}, ${
-          (miniatureHeight - SVGHeight * zoomToFit) / 2 - SVGMinY * zoomToFit
-        })`;
-
   return (
     <div role="navigation" className="minimap" style={style}>
       <svg
@@ -100,11 +91,13 @@ export default function Miniature(props) {
           </g>
         </g>
       </svg>
-      {/* <MiniatureToggleButton
+      <MiniatureToggleButton
         value={value}
-        onChangeValue={onChangeValue}
+        onChangeValue={() =>
+          onChangeValue({ ...value, miniatureOpen: !value.miniatureOpen })
+        }
         position={position}
-      /> */}
+      />
     </div>
   );
 }
