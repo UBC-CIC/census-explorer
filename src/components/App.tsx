@@ -6,12 +6,21 @@ import { ProvinceDataProvider } from "@context/ProvinceDataProvider";
 import useProvincesLoading from "@hooks/useProvincesLoading";
 import SidebarLoading from "./sidebar/SidebarLoading";
 import DatamapLoading from "./DatamapLoading";
+import { FamilyDataProvider } from "@context/FamilyDataProvider";
+import useFamilyDataLoading from "@hooks/useFamilyDataLoading";
+import { SelectedDataProvider } from "@context/SelectedDataProvider";
+import ColorLegend from "./colorLegend/ColorLegend";
+import { QuantizedDataProvider } from "@context/QuantizedDataProvider";
 function App() {
   return (
     <div className={appStyles.App}>
       <SelectedProvincesProvider>
         <ProvinceDataProvider>
-          <AppCore />
+          <FamilyDataProvider>
+            <SelectedDataProvider>
+              <AppCore />
+            </SelectedDataProvider>
+          </FamilyDataProvider>
         </ProvinceDataProvider>
       </SelectedProvincesProvider>
     </div>
@@ -19,7 +28,9 @@ function App() {
 }
 
 const AppCore = () => {
-  const loading = useProvincesLoading();
+  const provincesLoading = useProvincesLoading();
+  const familyLoading = useFamilyDataLoading();
+  const loading = provincesLoading || familyLoading;
   if (loading) {
     return (
       <>
@@ -30,8 +41,10 @@ const AppCore = () => {
   }
   return (
     <>
-      <DataMap />
-      <Sidebar />
+      <QuantizedDataProvider>
+        <DataMap />
+        <Sidebar />
+      </QuantizedDataProvider>
     </>
   );
 };

@@ -31,8 +31,9 @@ const InnerMinimapProvincePath = memo(
 
     return (
       <>
-        {featuresAndPath.map(([feature, item]) => (
+        {featuresAndPath.map(([feature, item], index) => (
           <MinimapProvince
+            key={index}
             fill={fill}
             strokeWidth={strokeWidth}
             feature={feature}

@@ -102,9 +102,9 @@ export const ProvinceDataProvider = (props: { children?: ReactNode }) => {
           provinces: formattedProvinces,
           outlines: formattedOutlines,
         });
+        console.log("Finished, Data is ready");
       } catch (e) {
         console.log(e);
-      } finally {
         setData((old) => ({ ...old, loading: false }));
       }
     };

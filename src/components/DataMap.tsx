@@ -7,6 +7,7 @@ import {
   ReactSVGPanZoom,
   UncontrolledReactSVGPanZoom,
 } from "react-svg-pan-zoom";
+import ColorLegend from "./colorLegend/ColorLegend";
 import Minimap from "./minimap/Minimap";
 import AllProvinces from "./provinces/AllProvinces";
 
@@ -45,10 +46,11 @@ const DataMap = () => {
           width={width}
           height={height}
         >
-          <svg>
+          <svg viewBox="">
             <AllProvinces />
           </svg>
         </UncontrolledReactSVGPanZoom>
+        <ColorLegend />
       </ResizableBox>
     </div>
   );

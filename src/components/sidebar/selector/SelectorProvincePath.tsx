@@ -33,8 +33,9 @@ const InnerSelectorProvincePath = memo(
 
     return (
       <>
-        {featuresAndPath.map(([feature, item]) => (
+        {featuresAndPath.map(([feature, item], index) => (
           <SelectorProvince
+            key={index}
             fill={fill}
             strokeWidth={strokeWidth}
             feature={feature}
@@ -71,7 +72,7 @@ const SelectorProvincePath = ({
     setProvinces((old) => ({ [provinceName]: !old[provinceName] }));
   };
   return (
-    <g>
+    <g key={provinceName}>
       <InnerSelectorProvincePath
         fill={isSelected ? SELECTED_FILL : fill}
         provinceName={provinceName}

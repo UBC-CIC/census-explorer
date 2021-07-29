@@ -95,3 +95,65 @@ export type ValueType = {
   viewerWidth: number;
   viewerHeight: number;
 };
+
+export type FamilyDataEntry = {
+  FSA: FSA;
+  FamilyType: FamilyType;
+  NumFam: number;
+  TotDons: number;
+  NumDons: number;
+  MedianDon: number;
+  DonRate: number;
+  Year: 2016;
+};
+
+export type CensusDataEntry = {
+  fsa: FSA;
+  year: 2016;
+  population: number;
+  malePop: number;
+  femalePop: number;
+  title: string;
+};
+
+export type FamilyType =
+  | "Couple with children"
+  | "Couple without children"
+  | "Lone-parent families"
+  | "Persons not in census families";
+
+export type SingleNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type CapitalLetter =
+  | "A"
+  | "B"
+  | "C"
+  | "D"
+  | "E"
+  | "F"
+  | "G"
+  | "H"
+  | "I"
+  | "J"
+  | "K"
+  | "L"
+  | "M"
+  | "N"
+  | "O"
+  | "P"
+  | "Q"
+  | "R"
+  | "S"
+  | "T"
+  | "U"
+  | "V"
+  | "W"
+  | "X"
+  | "Y"
+  | "Z";
+export type FSA = `${CapitalLetter}${SingleNumber}${CapitalLetter}`;
+
+export enum SelectedDataOption {
+  FAMILY = "FAMILY",
+  INCOME = "INCOME",
+  CENSUS = "CENSUS",
+}

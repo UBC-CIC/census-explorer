@@ -20,8 +20,8 @@ const InnerProvincePath = memo(({ provinceName }: InnerProvincePathProps) => {
 
   return (
     <>
-      {featuresAndPath.map(([feature, item]) => (
-        <MapFSA feature={feature} path={item} />
+      {featuresAndPath.map(([feature, item], index) => (
+        <MapFSA key={index} feature={feature} path={item} />
       ))}
     </>
   );

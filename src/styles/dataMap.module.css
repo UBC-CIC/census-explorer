@@ -17,6 +17,10 @@
   transform: translate(-150%, -150%);
 }
 
+button[name="fit-to-viewer"] {
+  display: none !important;
+}
+
 .loading {
   background-color: #616264;
   color: white;
