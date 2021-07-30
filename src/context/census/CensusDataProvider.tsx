@@ -10,9 +10,12 @@ const CensusDataContext = React.createContext({} as DataContextType);
 
 // TODO cache fetched files in browser / service worker
 const fetchCensusData = async () => {
+  console.log("Fetching Census Data");
+
   const res = await fetch("/api/census-data");
   const data = await res.json();
 
+  console.log({ data });
   return data as FSAToCensus;
 };
 

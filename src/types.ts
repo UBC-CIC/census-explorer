@@ -73,6 +73,12 @@ export enum LongProvinceNames {
   yt = "Yukon",
 }
 
+export type ProvinceOption = {
+  [i in keyof typeof TopoJSONNames]: string;
+};
+
+export type ProvinceOptions = { [province in keyof ProvinceOption]: boolean };
+
 export type EnumType = { [s: number]: string };
 
 export type ValueType = {
@@ -105,7 +111,7 @@ export type FSAToFamilyEntry = {
   [FamilyType in FamilyTypeOption]: FamilyDataEntry;
 };
 
-export enum NumericalFamilyKey {
+export enum NumericalDonationKey {
   NumFam = "NumFam",
   TotDons = "TotDons",
   NumDons = "NumDons",
@@ -125,6 +131,24 @@ export type FamilyDataEntry = {
   Place: number | null;
   Name_EN: string | null;
   Name_FR: string | null;
+};
+
+export type IncomeDataEntry = {
+  Year: number;
+  FSA: string;
+  IncomeGroup: string;
+  NumFam: number;
+  TotDons: number;
+  NumDons: number;
+  MedianDon: number;
+  DonRate: number;
+  Place: number | null;
+  Name_EN: string | null;
+  Name_FR: string | null;
+};
+
+export type FSAToIncome = {
+  [FSA in FSAType]?: FSAToIncomeEntry;
 };
 
 export type FSAToCensus = {
@@ -160,6 +184,25 @@ export enum FamilyTypeOption {
   COUPLE_WITHOUT_CHILDREN = "Couple without children",
   COUPLE_WITH_CHILDREN = "Persons not in census families",
 }
+
+export type FSAToIncomeEntry = {
+  [incomeGroup in IncomeTypeOption]: IncomeDataEntry;
+};
+
+export enum IncomeTypeOption {
+  l20K = "<$20K",
+  l40K = "$20K < $40K",
+  l60K = "$40K < $60K",
+  l80K = "$60K < $80K",
+  l100K = "$80K < $100K",
+  l150K = "$100K < $150K",
+  l200K = "$150K < $200K",
+  l250K = " $200K < $250K",
+  ge250K = ">= $250K",
+}
+
+export enum CensusTypeOption {}
+
 export type SingleNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type CapitalLetter =
   | "A"

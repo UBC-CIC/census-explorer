@@ -1,14 +1,15 @@
-import SelectedFamilyTypeContext from "@context/SelectedFamilyTypeProvider";
 import useSelectedData from "@hooks/appstate/useSelectedData";
 import { Button, ButtonGroup, Collapse, makeStyles } from "@material-ui/core";
 import { selectorStyles } from "@styles";
 import {
   FamilyTypeOption,
-  NumericalFamilyKey,
+  NumericalDonationKey,
   SelectedDataOption,
 } from "@types";
 import strings from "@l10n/strings";
 import { useContext } from "react";
+import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
+import DonationOptions from "./DonationOptions";
 
 type FamilyOptionsProps = {};
 
@@ -21,21 +22,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
-  numericalOptionGroup: {
-    flexDirection: "row",
-    display: "flex",
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
-    borderTop: 0,
-    justifyContent: "space-evenly",
-    border: `1px solid ${theme.palette.primary.main}`,
-  },
-  numericalOption: {
-    flex: 1,
-    fontSize: 10,
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
-  },
 }));
 
 const FamilyOptions = () => {
@@ -46,76 +32,13 @@ const FamilyOptions = () => {
     setSelectedFamilyType,
     setSelectedNumericalType,
   } = useContext(SelectedFamilyTypeContext);
-  console.log(selectedFamilyType);
 
   const [, selectedOption] = useSelectedData();
   const active = selectedOption === SelectedDataOption.FAMILY;
   return (
     <Collapse in={active}>
       <div className={selectorStyles.familyOptions}>
-        <ButtonGroup
-          color="primary"
-          variant="text"
-          className={classes.numericalOptionGroup}
-        >
-          <Button
-            variant={
-              selectedNumericalType === NumericalFamilyKey.TotDons
-                ? "contained"
-                : "text"
-            }
-            onClick={() => setSelectedNumericalType(NumericalFamilyKey.TotDons)}
-            className={classes.numericalOption}
-          >
-            Donation Totals ($)
-          </Button>
-          <Button
-            variant={
-              selectedNumericalType === NumericalFamilyKey.NumDons
-                ? "contained"
-                : "text"
-            }
-            onClick={() => setSelectedNumericalType(NumericalFamilyKey.NumDons)}
-            className={classes.numericalOption}
-          >
-            Number of Donations
-          </Button>
-          <Button
-            variant={
-              selectedNumericalType === NumericalFamilyKey.DonRate
-                ? "contained"
-                : "text"
-            }
-            onClick={() => setSelectedNumericalType(NumericalFamilyKey.DonRate)}
-            className={classes.numericalOption}
-          >
-            Donation Rate
-          </Button>
-          <Button
-            variant={
-              selectedNumericalType === NumericalFamilyKey.MedianDon
-                ? "contained"
-                : "text"
-            }
-            onClick={() =>
-              setSelectedNumericalType(NumericalFamilyKey.MedianDon)
-            }
-            className={classes.numericalOption}
-          >
-            Median Donation
-          </Button>
-          <Button
-            variant={
-              selectedNumericalType === NumericalFamilyKey.NumFam
-                ? "contained"
-                : "text"
-            }
-            onClick={() => setSelectedNumericalType(NumericalFamilyKey.NumFam)}
-            className={classes.numericalOption}
-          >
-            Number of Families
-          </Button>
-        </ButtonGroup>
+        <DonationOptions />
         <ButtonGroup
           orientation="vertical"
           variant="text"

@@ -4,9 +4,9 @@ import {
   FamilyTypeOption,
   FSAToFamilyEntry,
   FSAType,
-  NumericalFamilyKey,
+  NumericalDonationKey,
 } from "@types";
-import { createQuantizeFunction } from "@utils/createFamilyQuantizeFunction";
+import { createFamilyQuantizeFunction } from "@utils/createQuantizeFunctions";
 import React, { ReactNode } from "react";
 
 type QuantizedDataContextType = {
@@ -20,7 +20,7 @@ const QuantizedDataFamilyContext = React.createContext(
 export type FamilyTypeToFSAColorMap = {
   [fsa in FSAType]?: {
     [famType in FamilyTypeOption]?: {
-      [numType in NumericalFamilyKey]?: string;
+      [numType in NumericalDonationKey]?: string;
     };
   };
 };
@@ -31,7 +31,7 @@ export type FSADataColorMap = {
 
 type QuantizeFunctions = {
   [famType in FamilyTypeOption]?: {
-    [numType in NumericalFamilyKey]?: (value: any) => any;
+    [numType in NumericalDonationKey]?: (value: any) => any;
   };
 };
 
@@ -52,8 +52,8 @@ export const QuantizedFamilyDataProvider = (props: {
 
   for (const famType of Object.values(FamilyTypeOption)) {
     quantizeFunctions[famType] = {};
-    for (const numType of Object.values(NumericalFamilyKey)) {
-      quantizeFunctions[famType]![numType] = createQuantizeFunction(
+    for (const numType of Object.values(NumericalDonationKey)) {
+      quantizeFunctions[famType]![numType] = createFamilyQuantizeFunction(
         data,
         famType,
         numType
@@ -73,7 +73,7 @@ export const QuantizedFamilyDataProvider = (props: {
       [FamilyTypeOption.PERSONS_NOT_IN_CENSUS_FAMILIES]: {},
     };
     for (const famType of Object.values(FamilyTypeOption)) {
-      for (const numType of Object.values(NumericalFamilyKey)) {
+      for (const numType of Object.values(NumericalDonationKey)) {
         retData![typedKey]![famType]![numType] = quantizeFunctions![famType]![
           numType
         ]!(value[famType][numType]);

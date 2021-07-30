@@ -1,8 +1,7 @@
-import { CanadaTopologyType, TopoJSONNames } from "@types";
+import { CanadaTopologyType, ProvinceOption, TopoJSONNames } from "@types";
 import { ExtendedFeatureCollection } from "d3";
 import React, { ReactNode, useEffect, useState } from "react";
 import * as topojson from "topojson-client";
-import { ProvinceOption } from "./SelectedProvincesContext";
 
 const provinceNames: (keyof typeof TopoJSONNames)[] = [
   "ab",
@@ -102,14 +101,12 @@ export const ProvinceDataProvider = (props: { children?: ReactNode }) => {
           provinces: formattedProvinces,
           outlines: formattedOutlines,
         });
-        console.log("Finished, Data is ready");
       } catch (e) {
         console.log(e);
         setData((old) => ({ ...old, loading: false }));
       }
     };
     if (data.loading) fetchAllData();
-    console.log("Ran Load Data UseEffect");
   }, []);
 
   return (

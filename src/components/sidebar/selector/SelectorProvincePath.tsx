@@ -1,4 +1,4 @@
-import SelectedProvincesContext from "@context/SelectedProvincesContext";
+import SelectedProvincesContext from "@context/appstate/SelectedProvincesContext";
 import useOutlineData from "@hooks/province/useOutlineData";
 import { useTheme } from "@material-ui/core";
 import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";

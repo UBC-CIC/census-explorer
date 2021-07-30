@@ -12,6 +12,15 @@ const strings = new LocalizedStrings({
     familyData: "Family Data",
     censusData: "Census Data",
     incomeData: "Income Data",
+    l20K: "<$20K",
+    l40K: "$20K < $40K",
+    l60K: "$40K < $60K",
+    l80K: "$60K < $80K",
+    l100K: "$80K < $100K",
+    l150K: "$100K < $150K",
+    l200K: "$150K < $200K",
+    l250K: " $200K < $250K",
+    ge250K: ">= $250K",
   },
 });
 

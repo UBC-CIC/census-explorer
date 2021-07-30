@@ -1,32 +1,36 @@
 import DataMap from "./DataMap";
 import { appStyles } from "@styles";
-import { SelectedProvincesProvider } from "@context/SelectedProvincesContext";
 import Sidebar from "./sidebar/Sidebar";
 import { ProvinceDataProvider } from "@context/ProvinceDataProvider";
-import useProvincesLoading from "@hooks/province/useProvincesLoading";
 import SidebarLoading from "./sidebar/SidebarLoading";
 import DatamapLoading from "./DatamapLoading";
-import { FamilyDataProvider } from "@context/FamilyDataProvider";
-import { SelectedDataProvider } from "@context/SelectedDataProvider";
-import { QuantizedFamilyDataProvider } from "@context/QuantizedFamilyDataProvider";
-import { CensusDataProvider } from "@context/CensusDataProvider";
-import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
-import { SelectedFamilyTypeProvider } from "@context/SelectedFamilyTypeProvider";
+import { FamilyDataProvider } from "@context/family/FamilyDataProvider";
+import { SelectedDataProvider } from "@context/appstate/SelectedDataProvider";
+import { CensusDataProvider } from "@context/census/CensusDataProvider";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "@constants/theme";
+import useLoading from "@hooks/appstate/useLoading";
+import { SelectedProvincesProvider } from "@context/appstate/SelectedProvincesContext";
+import { SelectedFamilyTypeProvider } from "@context/appstate/SelectedFamilyTypeProvider";
+import { QuantizedFamilyDataProvider } from "@context/family/QuantizedFamilyDataProvider";
+import { IncomeDataProvider } from "@context/income/IncomeDataProvider";
+import { QuantizedIncomeDataProvider } from "@context/income/QuantizedIncomeDataProvider";
+import { SelectedIncomeTypeProvider } from "@context/appstate/SelectedIncomeTypeProvider";
+
+// ------------------------
+// These Providers are used to pass data to the components
+// ------------------------
 const App = () => {
   return (
     <div className={appStyles.App}>
       <SelectedProvincesProvider>
         <ProvinceDataProvider>
           <FamilyDataProvider>
-            <CensusDataProvider>
-              <SelectedDataProvider>
-                <SelectedFamilyTypeProvider>
-                  <AppCore />
-                </SelectedFamilyTypeProvider>
-              </SelectedDataProvider>
-            </CensusDataProvider>
+            <IncomeDataProvider>
+              <CensusDataProvider>
+                <AppCore />
+              </CensusDataProvider>
+            </IncomeDataProvider>
           </FamilyDataProvider>
         </ProvinceDataProvider>
       </SelectedProvincesProvider>
@@ -34,10 +38,13 @@ const App = () => {
   );
 };
 
+// ------------------------
+// Quantized Providers are passed here because
+// they require the data from the above providers
+// ------------------------
+
 const AppCore = () => {
-  const provincesLoading = useProvincesLoading();
-  const familyLoading = useFamilyDataLoading();
-  const loading = provincesLoading || familyLoading;
+  const loading = useLoading();
   if (loading) {
     return (
       <>
@@ -49,10 +56,18 @@ const AppCore = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <QuantizedFamilyDataProvider>
-          <DataMap />
-          <Sidebar />
-        </QuantizedFamilyDataProvider>
+        <SelectedDataProvider>
+          <SelectedFamilyTypeProvider>
+            <SelectedIncomeTypeProvider>
+              <QuantizedFamilyDataProvider>
+                <QuantizedIncomeDataProvider>
+                  <DataMap />
+                  <Sidebar />
+                </QuantizedIncomeDataProvider>
+              </QuantizedFamilyDataProvider>
+            </SelectedIncomeTypeProvider>
+          </SelectedFamilyTypeProvider>
+        </SelectedDataProvider>
       </ThemeProvider>
     </>
   );

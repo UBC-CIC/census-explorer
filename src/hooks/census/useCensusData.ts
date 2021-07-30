@@ -1,4 +1,4 @@
-import CensusDataContext from "@context/CensusDataProvider";
+import CensusDataContext from "@context/census/CensusDataProvider";
 import { useContext } from "react";
 
 const useCensusData = () => {

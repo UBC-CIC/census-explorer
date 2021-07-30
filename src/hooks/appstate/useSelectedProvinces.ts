@@ -1,4 +1,4 @@
-import SelectedProvincesContext from "@context/SelectedProvincesContext";
+import SelectedProvincesContext from "@context/appstate/SelectedProvincesContext";
 import { TopoJSONNames } from "@types";
 import { useContext } from "react";
 

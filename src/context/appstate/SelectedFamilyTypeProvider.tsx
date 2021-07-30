@@ -1,12 +1,12 @@
-import { FamilyTypeOption, NumericalFamilyKey } from "@types";
+import { FamilyTypeOption, NumericalDonationKey } from "@types";
 import React, { ReactNode, useState } from "react";
 
 type DataContextType = {
   selectedFamilyType: FamilyTypeOption;
   setSelectedFamilyType: React.Dispatch<React.SetStateAction<FamilyTypeOption>>;
-  selectedNumericalType: NumericalFamilyKey;
+  selectedNumericalType: NumericalDonationKey;
   setSelectedNumericalType: React.Dispatch<
-    React.SetStateAction<NumericalFamilyKey>
+    React.SetStateAction<NumericalDonationKey>
   >;
 };
 
@@ -17,7 +17,7 @@ export const SelectedFamilyTypeProvider = (props: { children?: ReactNode }) => {
   const [selectedFamilyType, setSelectedFamilyType] =
     useState<FamilyTypeOption>(FamilyTypeOption.COUPLE_WITH_CHILDREN);
   const [selectedNumericalType, setSelectedNumericalType] =
-    useState<NumericalFamilyKey>(NumericalFamilyKey.TotDons);
+    useState<NumericalDonationKey>(NumericalDonationKey.TotDons);
   return (
     <SelectedFamilyTypeContext.Provider
       value={{

@@ -1,9 +1,6 @@
-import { TopoJSONNames } from "@types";
+import { ProvinceOptions, TopoJSONNames } from "@types";
 import React, { ReactNode, useState } from "react";
-export type ProvinceOption = {
-  [i in keyof typeof TopoJSONNames]: string;
-};
-export type ProvinceOptions = { [province in keyof ProvinceOption]: boolean };
+
 type NewProvinceOptions = { [province in TopoJSONNames]?: boolean };
 
 type SetProvincesInput =

@@ -1,5 +1,4 @@
 import ProvinceDataContext from "@context/ProvinceDataProvider";
-import { ProvinceOption } from "@context/SelectedProvincesContext";
 import { useContext } from "react";
 
 const useProvincesLoading = () => {

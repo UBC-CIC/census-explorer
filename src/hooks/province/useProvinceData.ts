@@ -1,5 +1,5 @@
 import ProvinceDataContext from "@context/ProvinceDataProvider";
-import { ProvinceOption } from "@context/SelectedProvincesContext";
+import { ProvinceOption } from "@types";
 import { useContext } from "react";
 
 const useProvinceData = (provinceName: keyof ProvinceOption) => {

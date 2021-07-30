@@ -3,7 +3,7 @@ import {
   DEFAULT_TRUE_PROVINCES,
   MAP_SIZE,
 } from "@constants/SelectorConstants";
-import SelectedProvincesContext from "@context/SelectedProvincesContext";
+import SelectedProvincesContext from "@context/appstate/SelectedProvincesContext";
 import strings from "@l10n/strings";
 import { Button, makeStyles } from "@material-ui/core";
 import { selectorStyles } from "@styles";

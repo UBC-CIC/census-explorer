@@ -1,15 +1,13 @@
-import SelectedDataContext from "@context/SelectedDataProvider";
+import SelectedDataContext from "@context/appstate/SelectedDataProvider";
 import strings from "@l10n/strings";
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { SelectedDataOption } from "@types";
 import { useContext } from "react";
 import FamilyOptions from "./FamilyOptions";
+import IncomeOptions from "./IncomeOptions";
 
 const useStyles = makeStyles({
-  familyButton: {
-    // borderBottomRightRadius: 0,
-    // borderBottomLeftRadius: 0,
-  },
+  familyButton: {},
 });
 const DataSelector = () => {
   const classes = useStyles();
@@ -33,21 +31,22 @@ const DataSelector = () => {
         <FamilyOptions />
         <Button
           variant={
-            selected === SelectedDataOption.CENSUS ? "contained" : "outlined"
-          }
-          color="primary"
-          onClick={() => handleSelectOption(SelectedDataOption.CENSUS)}
-        >
-          {strings.censusData}
-        </Button>
-        <Button
-          variant={
             selected === SelectedDataOption.INCOME ? "contained" : "outlined"
           }
           color="primary"
           onClick={() => handleSelectOption(SelectedDataOption.INCOME)}
         >
           {strings.incomeData}
+        </Button>
+        <IncomeOptions />
+        <Button
+          variant={
+            selected === SelectedDataOption.CENSUS ? "contained" : "outlined"
+          }
+          color="primary"
+          onClick={() => handleSelectOption(SelectedDataOption.CENSUS)}
+        >
+          {strings.censusData}
         </Button>
       </ButtonGroup>
     </div>

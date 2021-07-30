@@ -1,4 +1,4 @@
-import { ProvinceOptions } from "@context/SelectedProvincesContext";
+import { ProvinceOptions } from "@types";
 
 export const DEFAULT_FALSE_PROVINCES: ProvinceOptions = {
   bc: false,
