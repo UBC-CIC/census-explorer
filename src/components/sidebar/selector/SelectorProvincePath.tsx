@@ -1,5 +1,6 @@
 import SelectedProvincesContext from "@context/SelectedProvincesContext";
-import useOutlineData from "@hooks/useOutlineData";
+import useOutlineData from "@hooks/province/useOutlineData";
+import { useTheme } from "@material-ui/core";
 import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
 import projection from "@utils/projection";
 import { ExtendedFeature } from "d3";
@@ -56,8 +57,6 @@ type ProvincePathProps = {
   fill?: string;
 };
 
-const SELECTED_FILL = "#D9322C";
-
 const SelectorProvincePath = ({
   provinceName,
   width,
@@ -65,6 +64,8 @@ const SelectorProvincePath = ({
   strokeWidth,
   fill,
 }: ProvincePathProps) => {
+  const SELECTED_FILL = useTheme().palette.primary.main;
+
   const { provinces, setProvinces } = useContext(SelectedProvincesContext);
   const isSelected = provinces[provinceName];
 

@@ -1,4 +1,5 @@
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
+import { EmptyStatement } from "typescript";
 
 export interface Topology {
   type: "Topology";
@@ -96,32 +97,69 @@ export type ValueType = {
   viewerHeight: number;
 };
 
+export type FSAToFamily = {
+  [FSA in FSAType]?: FSAToFamilyEntry;
+};
+
+export type FSAToFamilyEntry = {
+  [FamilyType in FamilyTypeOption]: FamilyDataEntry;
+};
+
+export enum NumericalFamilyKey {
+  NumFam = "NumFam",
+  TotDons = "TotDons",
+  NumDons = "NumDons",
+  MedianDon = "MedianDon",
+  DonRate = "DonRate",
+}
+
 export type FamilyDataEntry = {
-  FSA: FSA;
-  FamilyType: FamilyType;
+  Year: 2016;
+  FSA: FSAType;
+  FamilyType: FamilyTypeOption;
   NumFam: number;
   TotDons: number;
   NumDons: number;
   MedianDon: number;
   DonRate: number;
-  Year: 2016;
+  Place: number | null;
+  Name_EN: string | null;
+  Name_FR: string | null;
 };
+
+export type FSAToCensus = {
+  [FSA in FSAType | 1]?: ProfileIDToCensus;
+};
+
+export type MemberIdProfileOfFSAS = number;
 
 export type CensusDataEntry = {
-  fsa: FSA;
-  year: 2016;
-  population: number;
-  malePop: number;
-  femalePop: number;
-  title: string;
+  CENSUS_YEAR: number;
+  GEO_CODE_POR: string;
+  GEO_LEVEL: number;
+  GEO_NAME: string;
+  GNR: number;
+  GNR_LF: number;
+  DATA_QUALITY_FLAG: number;
+  ALT_GEO_CODE: string;
+  dim_profile_of_fsas: string;
+  member_id_profile_of_fsas: number;
+  notes_profile_of_fsas: number;
+  dim_sex3_member_id1_total: number;
+  dim_sex3_member_id2_male: number | null;
+  dim_sex3_member_id3_female: number | null;
 };
 
-export type FamilyType =
-  | "Couple with children"
-  | "Couple without children"
-  | "Lone-parent families"
-  | "Persons not in census families";
+export type ProfileIDToCensus = {
+  [id in MemberIdProfileOfFSAS]: CensusDataEntry;
+};
 
+export enum FamilyTypeOption {
+  PERSONS_NOT_IN_CENSUS_FAMILIES = "Couple with children",
+  LONE_PARENT_FAMILIES = "Lone-parent families",
+  COUPLE_WITHOUT_CHILDREN = "Couple without children",
+  COUPLE_WITH_CHILDREN = "Persons not in census families",
+}
 export type SingleNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type CapitalLetter =
   | "A"
@@ -150,7 +188,7 @@ export type CapitalLetter =
   | "X"
   | "Y"
   | "Z";
-export type FSA = `${CapitalLetter}${SingleNumber}${CapitalLetter}`;
+export type FSAType = `${CapitalLetter}${SingleNumber}${CapitalLetter}`;
 
 export enum SelectedDataOption {
   FAMILY = "FAMILY",

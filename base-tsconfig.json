@@ -25,6 +25,9 @@
       ],
       "@constants/*": [
         "constants/*"
+      ],
+      "@l10n/*": [
+        "l10n/*"
       ]
     },
     "jsx": "preserve"

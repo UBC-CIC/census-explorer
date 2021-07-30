@@ -1,6 +1,6 @@
 import MapFSA from "@components/MapFSA";
-import useProvinceData from "@hooks/useProvinceData";
-import useSelectedProvinces from "@hooks/useSelectedProvinces";
+import useSelectedProvinces from "@hooks/appstate/useSelectedProvinces";
+import useProvinceData from "@hooks/province/useProvinceData";
 import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
 import projection from "@utils/projection";
 import { ExtendedFeature } from "d3";

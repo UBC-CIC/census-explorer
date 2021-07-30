@@ -1,12 +1,13 @@
 import SelectedDataContext from "@context/SelectedDataProvider";
+import useCensusData from "@hooks/census/useCensusData";
+import useFamilyData from "@hooks/family/useFamilyData";
 import { SelectedDataOption } from "@types";
 import { useContext } from "react";
-import useFamilyData from "./useFamilyData";
-import useFamilyDataLoading from "./useFamilyDataLoading";
 
 const useSelectedData = () => {
   const context = useContext(SelectedDataContext);
   const familyData = useFamilyData();
+  const censusData = useCensusData();
 
   if (!context)
     throw new Error(
@@ -15,9 +16,11 @@ const useSelectedData = () => {
 
   switch (context.selected) {
     case SelectedDataOption.FAMILY:
-      return familyData;
+      return [familyData, context.selected];
+    case SelectedDataOption.CENSUS:
+      return [censusData, context.selected];
     default:
-      return {};
+      return [{}, context.selected];
   }
 };
 

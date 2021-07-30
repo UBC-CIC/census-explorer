@@ -1,5 +1,5 @@
-import useOutlineData from "@hooks/useOutlineData";
-import useSelectedProvinces from "@hooks/useSelectedProvinces";
+import useSelectedProvinces from "@hooks/appstate/useSelectedProvinces";
+import useOutlineData from "@hooks/province/useOutlineData";
 import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
 import projection from "@utils/projection";
 import { ExtendedFeature } from "d3";

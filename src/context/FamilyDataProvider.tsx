@@ -1,12 +1,9 @@
-import { FamilyDataEntry, FSA } from "@types";
+import { FSAToFamily } from "@types";
 import React, { ReactNode, useEffect, useState } from "react";
 
-type FamilyDataCollection = {
-  [fsa in FSA]?: FamilyDataEntry;
-};
 type DataContextType = {
   loading: boolean;
-  data: FamilyDataCollection;
+  data: FSAToFamily;
 };
 
 const FamilyDataContext = React.createContext({} as DataContextType);
@@ -15,9 +12,7 @@ const FamilyDataContext = React.createContext({} as DataContextType);
 const fetchFSAData = async () => {
   const res = await fetch("/api/family-data");
   const data = await res.json();
-  console.log({ data });
-
-  return data;
+  return data as FSAToFamily;
 };
 
 export const FamilyDataProvider = (props: { children?: ReactNode }) => {

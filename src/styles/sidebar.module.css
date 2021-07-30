@@ -1,6 +1,9 @@
 .sidebar {
-  display: grid;
-  grid-area: "sidebar";
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  flex: 0;
+  padding: 10px;
 }
 
 .loading {
