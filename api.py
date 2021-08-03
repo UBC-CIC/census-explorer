@@ -1,17 +1,19 @@
+import os
 from flask import Flask
 
-import pandas as pd
+os.system('pip install requests')
 import requests
 
 app = Flask(__name__)
 
 cloudfront = 'https://d16fwanmhq4nj5.cloudfront.net'
 
-# note: this takes about 25s to get the data
+# note: this takes about 15s to get the data
+# note: this is for the creation of the map, NOT user download
 @app.route('/api/census-data')
 def get_census_data():
     # fetch data from AWS S3 via CloudFront
-    data_loc = cloudfront + '/censusdata_reformatted.json'
+    data_loc = cloudfront + '/mappingcensusdata_reformatted.json'
     return requests.get(url=data_loc).content
 
 @app.route('/api/family-data')
