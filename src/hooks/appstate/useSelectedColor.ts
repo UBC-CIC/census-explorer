@@ -14,12 +14,16 @@ import useSelectedData from "./useSelectedData";
 
 const useSelectedColor = (FSA: FSAType) => {
   const [_, selectedType] = useSelectedData();
-  const quantizedFamilyData = useQuantizedFamilyData();
-  const quantizedIncomeData = useQuantizedIncomeData();
+  const { data: quantizedFamilyData, scales: familyScales } =
+    useQuantizedFamilyData();
+  const { data: quantizedIncomeData, scales: incomeScales } =
+    useQuantizedIncomeData();
   const { selectedFamilyType, selectedNumericalType } = useContext(
     SelectedFamilyTypeContext
   );
+
   const { selectedIncomeType } = useContext(SelectedIncomeTypeContext);
+
   switch (selectedType) {
     case SelectedDataOption.INCOME:
       return (

@@ -18,7 +18,7 @@ const MapFSA = ({ path, feature }: MapFSAProps) => {
   const style: CSSProperties = {
     stroke: "#000",
     strokeWidth: 0.01,
-    fill: active ? selectedColor : selectedColor,
+    fill: selectedColor,
     filter: active ? "brightness(88%)" : "",
   };
 

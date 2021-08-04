@@ -11,6 +11,7 @@ import React, { ReactNode } from "react";
 
 type QuantizedDataContextType = {
   data: FamilyTypeToFSAColorMap;
+  scales: QuantizeFunctions;
 };
 
 const QuantizedDataFamilyContext = React.createContext(
@@ -31,7 +32,7 @@ export type FSADataColorMap = {
 
 type QuantizeFunctions = {
   [famType in FamilyTypeOption]?: {
-    [numType in NumericalDonationKey]?: (value: any) => any;
+    [numType in NumericalDonationKey]?: d3.ScaleQuantize<number, string>;
   };
 };
 
@@ -76,7 +77,7 @@ export const QuantizedFamilyDataProvider = (props: {
       for (const numType of Object.values(NumericalDonationKey)) {
         retData![typedKey]![famType]![numType] = quantizeFunctions![famType]![
           numType
-        ]!(value[famType][numType]);
+        ]!(value[famType][numType]) as unknown as string;
       }
     }
   }
@@ -84,7 +85,9 @@ export const QuantizedFamilyDataProvider = (props: {
   console.log(retData);
 
   return (
-    <QuantizedDataFamilyContext.Provider value={{ data: retData }}>
+    <QuantizedDataFamilyContext.Provider
+      value={{ data: retData, scales: quantizeFunctions }}
+    >
       {children}
     </QuantizedDataFamilyContext.Provider>
   );

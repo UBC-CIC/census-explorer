@@ -6,7 +6,7 @@ const useQuantizedIncomeData = () => {
     throw new Error(
       "useQuantizedData must be called inside a QuantizedDataProvider"
     );
-  return income.data;
+  return income;
 };
 
 export default useQuantizedIncomeData;

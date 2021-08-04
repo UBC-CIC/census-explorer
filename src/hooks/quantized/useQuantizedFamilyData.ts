@@ -6,7 +6,7 @@ const useQuantizedFamilyData = () => {
     throw new Error(
       "useQuantizedData must be called inside a QuantizedDataProvider"
     );
-  return family.data;
+  return family;
 };
 
 export default useQuantizedFamilyData;

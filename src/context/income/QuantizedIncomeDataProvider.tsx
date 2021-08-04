@@ -11,6 +11,7 @@ import React, { ReactNode } from "react";
 
 type QuantizedDataContextType = {
   data: IncomeTypeToFSAColorMap;
+  scales: QuantizeFunctions;
 };
 
 const QuantizedDataIncomeContext = React.createContext(
@@ -31,7 +32,7 @@ export type FSADataColorMap = {
 
 type QuantizeFunctions = {
   [famType in IncomeTypeOption]?: {
-    [numType in NumericalDonationKey]?: (value: any) => any;
+    [numType in NumericalDonationKey]?: d3.ScaleQuantize<number, string>;
   };
 };
 
@@ -85,13 +86,15 @@ export const QuantizedIncomeDataProvider = (props: {
       for (const numType of Object.values(NumericalDonationKey)) {
         retData![typedKey]![incomeType]![numType] = quantizeFunctions![
           incomeType
-        ]![numType]!(value[incomeType][numType]);
+        ]![numType]!(value[incomeType][numType]) as unknown as string;
       }
     }
   }
 
   return (
-    <QuantizedDataIncomeContext.Provider value={{ data: retData }}>
+    <QuantizedDataIncomeContext.Provider
+      value={{ data: retData, scales: quantizeFunctions }}
+    >
       {children}
     </QuantizedDataIncomeContext.Provider>
   );
