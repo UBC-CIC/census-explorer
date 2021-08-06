@@ -1,3 +1,4 @@
+import ColorLegend from "@components/colorLegend/ColorLegend";
 import { sidebarStyles } from "@styles";
 import DataSelector from "./data-viewer/DataSelector";
 import ProvinceSelectMap from "./selector/ProvinceSelectMap";

@@ -27,9 +27,9 @@ const App = () => {
         <ProvinceDataProvider>
           <FamilyDataProvider>
             <IncomeDataProvider>
-              <CensusDataProvider>
-                <AppCore />
-              </CensusDataProvider>
+              {/* <CensusDataProvider> */}
+              <AppCore />
+              {/* </CensusDataProvider> */}
             </IncomeDataProvider>
           </FamilyDataProvider>
         </ProvinceDataProvider>

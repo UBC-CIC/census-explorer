@@ -1,11 +1,11 @@
 .colorbar {
-  background-color: white;
-  width: calc(100% - 133px);
-  height: 20px;
+  /* background-color: white; */
+  height: calc(100% - 133px);
+  width: 60px;
   position: absolute;
-  bottom: 5px;
-  left: 113px;
-  border-radius: 5px;
+  top: 5px;
+  left: 5px;
+  /* border-radius: 5px; */
 }
 
 .axisContainer {

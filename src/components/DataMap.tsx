@@ -51,7 +51,7 @@ const DataMap = () => {
           </svg>
         </UncontrolledReactSVGPanZoom>
       </ResizableBox>
-      <ColorLegend width={width} />
+      <ColorLegend height={height} />
     </div>
   );
 };
