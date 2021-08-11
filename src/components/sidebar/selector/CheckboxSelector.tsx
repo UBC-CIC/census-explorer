@@ -58,7 +58,7 @@ const CheckboxSelector = ({ setShown, shown }: CheckboxSelectorProps) => {
         }}
       >
         <ToggleAllButton />
-        <ChangeSelectorButton shown={shown} toggleShown={toggleView} />
+        {/* <ChangeSelectorButton shown={shown} toggleShown={toggleView} /> */}
       </div>
     </div>
   );

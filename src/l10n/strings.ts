@@ -23,6 +23,8 @@ const strings = new LocalizedStrings({
     ge250K: ">= $250K",
     toggleToMap: "Select Provinces as Map",
     toggleToCheckbox: "Select Provinces as List",
+    deviation: "Standard Deviations",
+    zoom: "Zoom",
   },
 });
 

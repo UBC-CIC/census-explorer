@@ -37,7 +37,7 @@ const InnerMinimapProvincePath = memo(
             fill={fill}
             strokeWidth={strokeWidth}
             feature={feature}
-            path={item}
+            path={item()}
           />
         ))}
       </>

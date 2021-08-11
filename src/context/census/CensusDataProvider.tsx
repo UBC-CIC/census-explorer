@@ -28,7 +28,7 @@ export const CensusDataProvider = (props: { children?: ReactNode }) => {
   useEffect(() => {
     if (data.loading)
       fetchCensusData().then((data) => {
-        setData({ data, loading: false });
+        setData(() => ({ data, loading: false }));
       });
   }, []);
 

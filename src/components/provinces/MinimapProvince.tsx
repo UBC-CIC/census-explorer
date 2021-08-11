@@ -4,7 +4,7 @@ import { PathFunctionType, Properties } from "types";
 
 type MinimapProvinceProps = {
   feature: ExtendedFeature<GeoGeometryObjects | null, Properties>;
-  path: PathFunctionType;
+  path: string | null;
   strokeWidth?: number;
   fill?: string;
   hoveredFill?: string;
@@ -17,7 +17,7 @@ const MinimapProvince = ({
   fill = "#8e918f",
   hoveredFill = "#f0f0f0",
 }: MinimapProvinceProps) => {
-  const fsaPath = path();
+  const fsaPath = path;
   const [hovered, setHovered] = useState(false);
   const style = {
     stroke: "#000",

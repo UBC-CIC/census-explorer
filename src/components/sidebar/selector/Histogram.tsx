@@ -4,18 +4,31 @@ import useSelectedData from "@hooks/appstate/useSelectedData";
 import useSelectedScale, {
   useScaleLoading,
 } from "@hooks/appstate/useSelectedScale";
-import { Slider, Typography } from "@material-ui/core";
+import useFSASets from "@hooks/province/useFSASets";
+import strings from "@l10n/strings";
+import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 type HistogramProps = {};
+
+const useStyles = makeStyles((theme) => ({
+  vertical: {
+    height: "150px",
+  },
+}));
+
 const Histogram = (props: HistogramProps) => {
+  const classes = useStyles();
   const loading = useScaleLoading();
+  const fsaSet = useFSASets();
   const [scale, , numericalKey] = useSelectedScale();
   const [selected, type] = useSelectedData();
   const data = useHistogramData();
+  const [offset, setOffset] = useState(0);
   const [deviations, setDeviations] = useState(1);
+  const theme = useTheme();
   //draw and calculate histogram
   useEffect(() => {
     if (!scale) return;
@@ -49,6 +62,33 @@ const Histogram = (props: HistogramProps) => {
       .domain(x.domain() as any)
       .thresholds(x.ticks(numBins) as any);
 
+    // Generate tooltip container
+    var tooltip = d3
+      .select(".tooltip-area")
+      .style("background-color", "black")
+      .style("color", "white")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
+      .style("opacity", 0)
+      .style("position", "absolute");
+
+    const mouseover = (event: any, d: any) => {
+      tooltip.style("opacity", 1);
+    };
+
+    const mouseleave = (event: any, d: any) => {
+      tooltip.style("opacity", 0);
+    };
+
+    const mousemove = (event: any, d: any) => {
+      const text = d3.select(".tooltip-area__text");
+      text.text(`${d.length}`);
+
+      tooltip
+        .style("top", `${event.clientY - 20}px`)
+        .style("opacity", 1)
+        .style("left", `${event.clientX + 10}px`);
+    };
     // append the svg object to the body of the page
     // append a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
@@ -58,6 +98,7 @@ const Histogram = (props: HistogramProps) => {
       .attr("width", width + margin.left + margin.right - 5)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
+      .on("mouseleave", mouseleave)
       .attr("transform", `translate(${margin.left + 10},${margin.top})`);
 
     // group the data for the bars
@@ -67,7 +108,7 @@ const Histogram = (props: HistogramProps) => {
     const paddedYDomain = fc.extentLinear().pad([0, 0.1]).padUnit("percent")([
       0,
       d3.max(bins, function (d) {
-        return d.length as any;
+        return (d.length - (d.length / 100) * offset) as any;
       }),
     ]);
     y.domain(paddedYDomain);
@@ -93,8 +134,9 @@ const Histogram = (props: HistogramProps) => {
         return scale(d.x0!);
       })
       .style("stoke-width", "1px")
-      .style("stroke", "black");
-
+      .style("stroke", "black")
+      .on("mousemove", mousemove)
+      .on("mouseover", mouseover);
     // add the x Axis
     svg
       .append("g")
@@ -109,25 +151,80 @@ const Histogram = (props: HistogramProps) => {
 
     // add the y Axis
     svg.append("g").style("font-size", "7px").call(d3.axisLeft(y));
-  }, [scale, deviations, numericalKey, data]);
+  }, [scale, deviations, numericalKey, data, offset]);
 
-  if (loading) return <Spinner />;
-  const handleSliderChange = (event: any, newValue: number | number[]) => {
+  if (loading || !fsaSet) return <Spinner />;
+  if (!data.length)
+    return (
+      <div
+        style={{
+          minHeight: "210px",
+        }}
+      >
+        Select at least 1 province
+      </div>
+    );
+  const handleDeviationSliderChange = (
+    event: any,
+    newValue: number | number[]
+  ) => {
     if (typeof newValue === "number") {
       setDeviations(newValue);
     }
   };
+
+  const handleOffsetSliderChange = (
+    event: any,
+    newValue: number | number[]
+  ) => {
+    if (typeof newValue === "number") {
+      setOffset(newValue);
+    }
+  };
+
   return (
     <div>
-      <svg viewBox="0 0 310 150" id={"histogram"}></svg>
+      <div
+        id="hist-container"
+        style={{
+          userSelect: "none",
+          msUserSelect: "none",
+          MozUserSelect: "none",
+          WebkitUserSelect: "none",
+          display: "flex",
+          height: "150px",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+      >
+        <svg viewBox="0 0 310 150" id={"histogram"} />
+        <g className="tooltip-area">
+          <text className="tooltip-area__text">aas</text>
+        </g>
+        <Typography id="offset-slider" gutterBottom>
+          {strings.zoom}
+        </Typography>
+        <Slider
+          className={classes.vertical}
+          orientation="vertical"
+          defaultValue={1}
+          value={offset}
+          onChange={handleOffsetSliderChange}
+          step={10}
+          marks
+          min={0}
+          max={99}
+        />
+      </div>
       <Typography id="input-slider" gutterBottom>
-        Standard Deviations: {deviations}
+        {strings.deviation}: {deviations}
       </Typography>
       <Slider
         defaultValue={1}
         valueLabelDisplay="auto"
         value={deviations}
-        onChange={handleSliderChange}
+        onChange={handleDeviationSliderChange}
         step={1}
         marks
         min={1}
