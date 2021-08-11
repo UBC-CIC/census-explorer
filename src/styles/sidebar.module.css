@@ -23,3 +23,22 @@
   color: white;
   border-radius: 5px;
 }
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #f4433680;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+}
+
+.infoMain {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+.infoSub {
+  font-size: 0.8em;
+}

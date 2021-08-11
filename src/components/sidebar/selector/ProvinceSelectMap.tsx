@@ -7,23 +7,26 @@ import SelectedProvincesContext from "@context/appstate/SelectedProvincesContext
 import strings from "@l10n/strings";
 import { Button, makeStyles } from "@material-ui/core";
 import { selectorStyles } from "@styles";
+import { SelectorShown } from "@types";
 import { useContext } from "react";
 import { AllSelectorProvinces } from "./AllSelectorProvinces";
+import ChangeSelectorButton from "./ChangeSelectorButton";
+import ToggleAllButton from "./ToggleAllButton";
 
-type ProvinceSelectMapProps = {};
+type ProvinceSelectMapProps = {
+  shown: SelectorShown;
+  setShown: React.Dispatch<React.SetStateAction<SelectorShown>>;
+};
 const useStyles = makeStyles({
   button: {
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
   },
 });
-const ProvinceSelectMap = (props: ProvinceSelectMapProps) => {
+const ProvinceSelectMap = ({ setShown, shown }: ProvinceSelectMapProps) => {
   const classes = useStyles();
-  const { provinces, setProvinces } = useContext(SelectedProvincesContext);
-  const provinceValues = Object.values(provinces);
-  const allProvincesShown = provinceValues.every((value) => value === true);
-  const toggleAllProvinces = (value: boolean) => {
-    setProvinces(!value ? DEFAULT_TRUE_PROVINCES : DEFAULT_FALSE_PROVINCES);
+  const toggleView = () => {
+    setShown(SelectorShown.CHECKBOX);
   };
 
   return (
@@ -45,16 +48,15 @@ const ProvinceSelectMap = (props: ProvinceSelectMapProps) => {
           </g>
         </svg>
       </div>
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => toggleAllProvinces(allProvincesShown)}
-          className={classes.button}
-        >
-          {allProvincesShown ? strings.hide : strings.show}{" "}
-          {strings.allProvinces}
-        </Button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <ToggleAllButton flat />
+        <ChangeSelectorButton shown={shown} toggleShown={toggleView} />
       </div>
     </div>
   );

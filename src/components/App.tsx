@@ -9,13 +9,13 @@ import { SelectedDataProvider } from "@context/appstate/SelectedDataProvider";
 import { CensusDataProvider } from "@context/census/CensusDataProvider";
 import { ThemeProvider } from "@material-ui/core";
 import theme from "@constants/theme";
-import useLoading from "@hooks/appstate/useLoading";
 import { SelectedProvincesProvider } from "@context/appstate/SelectedProvincesContext";
 import { SelectedFamilyTypeProvider } from "@context/appstate/SelectedFamilyTypeProvider";
 import { QuantizedFamilyDataProvider } from "@context/family/QuantizedFamilyDataProvider";
 import { IncomeDataProvider } from "@context/income/IncomeDataProvider";
 import { QuantizedIncomeDataProvider } from "@context/income/QuantizedIncomeDataProvider";
 import { SelectedIncomeTypeProvider } from "@context/appstate/SelectedIncomeTypeProvider";
+import useProvincesLoading from "@hooks/province/useProvincesLoading";
 
 // ------------------------
 // These Providers are used to pass data to the components
@@ -27,9 +27,9 @@ const App = () => {
         <ProvinceDataProvider>
           <FamilyDataProvider>
             <IncomeDataProvider>
-              {/* <CensusDataProvider> */}
-              <AppCore />
-              {/* </CensusDataProvider> */}
+              <CensusDataProvider>
+                <AppCore />
+              </CensusDataProvider>
             </IncomeDataProvider>
           </FamilyDataProvider>
         </ProvinceDataProvider>
@@ -44,30 +44,23 @@ const App = () => {
 // ------------------------
 
 const AppCore = () => {
-  const loading = useLoading();
-  if (loading) {
-    return (
-      <>
-        <DatamapLoading />
-        <SidebarLoading />
-      </>
-    );
-  }
+  const mapLoading = useProvincesLoading();
+  const Map = mapLoading ? DatamapLoading : DataMap;
   return (
     <>
       <ThemeProvider theme={theme}>
-        <SelectedDataProvider>
-          <SelectedFamilyTypeProvider>
-            <SelectedIncomeTypeProvider>
-              <QuantizedFamilyDataProvider>
-                <QuantizedIncomeDataProvider>
-                  <DataMap />
+        <QuantizedFamilyDataProvider>
+          <QuantizedIncomeDataProvider>
+            <SelectedDataProvider>
+              <SelectedIncomeTypeProvider>
+                <SelectedFamilyTypeProvider>
+                  <Map />
                   <Sidebar />
-                </QuantizedIncomeDataProvider>
-              </QuantizedFamilyDataProvider>
-            </SelectedIncomeTypeProvider>
-          </SelectedFamilyTypeProvider>
-        </SelectedDataProvider>
+                </SelectedFamilyTypeProvider>
+              </SelectedIncomeTypeProvider>
+            </SelectedDataProvider>
+          </QuantizedIncomeDataProvider>
+        </QuantizedFamilyDataProvider>
       </ThemeProvider>
     </>
   );

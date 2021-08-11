@@ -1,19 +1,19 @@
 import useSelectedColor from "@hooks/appstate/useSelectedColor";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FSAType, PathFunctionType, Properties } from "types";
 
 type MapFSAProps = {
   feature: ExtendedFeature<GeoGeometryObjects | null, Properties>;
-  path: PathFunctionType;
+  path: string | null;
 };
 
 const MapFSA = ({ path, feature }: MapFSAProps) => {
   const fsa = feature.properties.CFSAUID as FSAType;
   const [active, setActive] = useState(false);
   const selectedColor = useSelectedColor(fsa);
-  const fsaPath = path();
+  // const fsaPath = useMemo(path, [path]);
 
   const style: CSSProperties = {
     stroke: "#000",
@@ -24,8 +24,8 @@ const MapFSA = ({ path, feature }: MapFSAProps) => {
 
   return (
     <path
-      key={`${fsaPath}`}
-      d={fsaPath || ""}
+      key={`${path}`}
+      d={path || ""}
       style={style}
       onClickCapture={() => console.log(fsa)}
       onMouseEnter={() => setActive(true)}

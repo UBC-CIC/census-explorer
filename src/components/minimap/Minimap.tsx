@@ -1,4 +1,3 @@
-import ColorLegend from "@components/colorLegend/ColorLegend";
 import { TopoJSONNames } from "@types";
 import { memo } from "react";
 import MinimapProvincePath from "../provinces/MinimapProvincePath";

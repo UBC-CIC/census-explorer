@@ -12,7 +12,6 @@ type InnerProvincePathProps = {
 
 const InnerProvincePath = memo(({ provinceName }: InnerProvincePathProps) => {
   const features = useProvinceData(provinceName);
-
   let featuresAndPath = features.map((feature: ExtendedFeature) => [
     feature,
     projection(feature),
@@ -21,7 +20,7 @@ const InnerProvincePath = memo(({ provinceName }: InnerProvincePathProps) => {
   return (
     <>
       {featuresAndPath.map(([feature, item], index) => (
-        <MapFSA key={index} feature={feature} path={item} />
+        <MapFSA key={index} feature={feature} path={item()} />
       ))}
     </>
   );

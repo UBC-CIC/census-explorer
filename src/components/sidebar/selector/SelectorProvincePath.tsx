@@ -40,7 +40,7 @@ const InnerSelectorProvincePath = memo(
             fill={fill}
             strokeWidth={strokeWidth}
             feature={feature}
-            path={item}
+            path={item()}
             onClick={onClick}
           />
         ))}

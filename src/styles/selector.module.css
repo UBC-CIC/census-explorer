@@ -5,6 +5,7 @@
   color: white;
   border-radius: 5px;
   border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .root {
@@ -31,4 +32,10 @@
   text-align: center;
   border: 1px solid blue;
   font-size: 10px;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }

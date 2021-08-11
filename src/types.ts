@@ -179,10 +179,10 @@ export type ProfileIDToCensus = {
 };
 
 export enum FamilyTypeOption {
-  PERSONS_NOT_IN_CENSUS_FAMILIES = "Couple with children",
+  COUPLE_WITH_CHILDREN = "Couple with children",
   LONE_PARENT_FAMILIES = "Lone-parent families",
   COUPLE_WITHOUT_CHILDREN = "Couple without children",
-  COUPLE_WITH_CHILDREN = "Persons not in census families",
+  PERSONS_NOT_IN_CENSUS_FAMILIES = "Persons not in census families",
 }
 
 export type FSAToIncomeEntry = {
@@ -238,3 +238,16 @@ export enum SelectedDataOption {
   INCOME = "INCOME",
   CENSUS = "CENSUS",
 }
+
+export enum SelectorShown {
+  MAP = "MAP",
+  CHECKBOX = "CHECKBOX",
+}
+
+type FamilyInfoOptions = `FAMILY-${FamilyTypeOption}`;
+type IncomeInfoOptions = `INCOME-${IncomeTypeOption}`;
+type CensusInfoOptions = `CENSUS-${CensusTypeOption}`;
+
+export type SelectedInfoOptions = `${SelectedDataOption}-${
+  | FamilyTypeOption
+  | IncomeTypeOption}-${NumericalDonationKey}`;

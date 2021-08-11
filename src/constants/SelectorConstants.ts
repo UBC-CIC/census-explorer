@@ -32,4 +32,4 @@ export const DEFAULT_TRUE_PROVINCES: ProvinceOptions = {
   pe: true,
 };
 
-export const MAP_SIZE = 300;
+export const MAP_SIZE = 175;

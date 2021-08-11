@@ -1,5 +1,6 @@
 import SelectedIncomeTypeContext from "@context/appstate/SelectedIncomeTypeProvider";
 import useSelectedData from "@hooks/appstate/useSelectedData";
+import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import strings from "@l10n/strings";
 import { Button, ButtonGroup, Collapse, makeStyles } from "@material-ui/core";
 import { selectorStyles } from "@styles";
@@ -25,9 +26,10 @@ const IncomeOptions = () => {
   const { selectedIncomeType, setSelectedIncomeType } = useContext(
     SelectedIncomeTypeContext
   );
+  const loading = useIncomeDataLoading();
 
   const [, selectedOption] = useSelectedData();
-  const active = selectedOption === SelectedDataOption.INCOME;
+  const active = !loading && selectedOption === SelectedDataOption.INCOME;
   return (
     <Collapse in={active}>
       <div className={selectorStyles.incomeOptions}>

@@ -1,14 +1,22 @@
-import ColorLegend from "@components/colorLegend/ColorLegend";
 import { sidebarStyles } from "@styles";
+import { SelectorShown } from "@types";
+import { useRef, useState } from "react";
 import DataSelector from "./data-viewer/DataSelector";
-import ProvinceSelectMap from "./selector/ProvinceSelectMap";
+import InfoSection from "./InfoSection";
+import Histogram from "./selector/Histogram";
+import SelectorSelector from "./selector/SelectorSelector";
 
 type SidebarProps = {};
 
 const Sidebar = (props: SidebarProps) => {
+  const [shown, setShown] = useState(SelectorShown.CHECKBOX);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className={sidebarStyles.sidebar}>
-      <ProvinceSelectMap />
+    <div className={sidebarStyles.sidebar} ref={sidebarRef}>
+      <Histogram />
+      <SelectorSelector shown={shown} setShown={setShown} />
+      <InfoSection />
       <DataSelector />
     </div>
   );

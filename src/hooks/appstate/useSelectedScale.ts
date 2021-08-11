@@ -1,5 +1,9 @@
 import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import SelectedIncomeTypeContext from "@context/appstate/SelectedIncomeTypeProvider";
+import useCensusDataLoading from "@hooks/census/useCensusDataLoading";
+import useFamilyData from "@hooks/family/useFamilyData";
+import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
+import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import useQuantizedFamilyData from "@hooks/quantized/useQuantizedFamilyData";
 import useQuantizedIncomeData from "@hooks/quantized/useQuantizedIncomeData";
 import { NumericalDonationKey, SelectedDataOption } from "@types";
@@ -14,6 +18,9 @@ const useSelectedScale = () => {
     SelectedFamilyTypeContext
   );
   const { selectedIncomeType } = useContext(SelectedIncomeTypeContext);
+  const loading = useScaleLoading();
+
+  if (loading) return [];
 
   switch (selectedType) {
     case SelectedDataOption.INCOME:
@@ -32,4 +39,14 @@ const useSelectedScale = () => {
   }
 };
 
+const useScaleLoading = () => {
+  const [, selectedType] = useSelectedData();
+  const familyLoading = useFamilyDataLoading();
+  const incomeLoading = useIncomeDataLoading();
+  const censusLoading = useCensusDataLoading();
+  if (selectedType === SelectedDataOption.FAMILY && familyLoading) return true;
+  if (selectedType === SelectedDataOption.INCOME && incomeLoading) return true;
+  if (selectedType === SelectedDataOption.CENSUS && censusLoading) return true;
+};
+export { useScaleLoading };
 export default useSelectedScale;

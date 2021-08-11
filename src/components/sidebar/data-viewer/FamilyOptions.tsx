@@ -10,6 +10,7 @@ import strings from "@l10n/strings";
 import { useContext } from "react";
 import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import DonationOptions from "./DonationOptions";
+import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
 
 type FamilyOptionsProps = {};
 
@@ -32,9 +33,10 @@ const FamilyOptions = () => {
     setSelectedFamilyType,
     setSelectedNumericalType,
   } = useContext(SelectedFamilyTypeContext);
+  const loading = useFamilyDataLoading();
 
   const [, selectedOption] = useSelectedData();
-  const active = selectedOption === SelectedDataOption.FAMILY;
+  const active = !loading && selectedOption === SelectedDataOption.FAMILY;
   return (
     <Collapse in={active}>
       <div className={selectorStyles.familyOptions}>
