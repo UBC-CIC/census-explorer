@@ -1,5 +1,6 @@
 import useSelectedData from "@hooks/appstate/useSelectedData";
 import useSelectedScale from "@hooks/appstate/useSelectedScale";
+import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import { colorbarStyles } from "@styles";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
@@ -8,7 +9,8 @@ import { useEffect } from "react";
 
 type ColorLegendProps = { height: number };
 const ColorLegend = ({ height }: ColorLegendProps) => {
-  const [scale, , numericalKey] = useSelectedScale();
+  const scale = useCurrentScale();
+  const [, , numericalKey] = useSelectedScale();
 
   useEffect(() => {
     d3.select("#colors").selectAll("*").remove();

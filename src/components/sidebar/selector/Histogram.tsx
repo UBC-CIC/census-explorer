@@ -5,6 +5,7 @@ import useSelectedScale, {
   useScaleLoading,
 } from "@hooks/appstate/useSelectedScale";
 import useFSASets from "@hooks/province/useFSASets";
+import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import strings from "@l10n/strings";
 import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
 import getFormatFunction from "@utils/getFormatFunction";
@@ -23,7 +24,8 @@ const Histogram = (props: HistogramProps) => {
   const classes = useStyles();
   const loading = useScaleLoading();
   const fsaSet = useFSASets();
-  const [scale, , numericalKey] = useSelectedScale();
+  const scale = useCurrentScale();
+  const [, , numericalKey] = useSelectedScale();
   const [selected, type] = useSelectedData();
   const data = useHistogramData();
   const [offset, setOffset] = useState(0);
@@ -200,7 +202,7 @@ const Histogram = (props: HistogramProps) => {
       >
         <svg viewBox="0 0 310 150" id={"histogram"} />
         <g className="tooltip-area">
-          <text className="tooltip-area__text">aas</text>
+          <text className="tooltip-area__text"></text>
         </g>
         <Typography id="offset-slider" gutterBottom>
           {strings.zoom}

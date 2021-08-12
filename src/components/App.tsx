@@ -16,6 +16,7 @@ import { IncomeDataProvider } from "@context/income/IncomeDataProvider";
 import { QuantizedIncomeDataProvider } from "@context/income/QuantizedIncomeDataProvider";
 import { SelectedIncomeTypeProvider } from "@context/appstate/SelectedIncomeTypeProvider";
 import useProvincesLoading from "@hooks/province/useProvincesLoading";
+import { CurrentScaleProvider } from "@context/appstate/CurrentScaleProvider";
 
 // ------------------------
 // These Providers are used to pass data to the components
@@ -54,8 +55,10 @@ const AppCore = () => {
             <SelectedDataProvider>
               <SelectedIncomeTypeProvider>
                 <SelectedFamilyTypeProvider>
-                  <Map />
-                  <Sidebar />
+                  <CurrentScaleProvider>
+                    <Map />
+                    <Sidebar />
+                  </CurrentScaleProvider>
                 </SelectedFamilyTypeProvider>
               </SelectedIncomeTypeProvider>
             </SelectedDataProvider>
@@ -66,4 +69,21 @@ const AppCore = () => {
   );
 };
 
+/** Context Dependencies:
+ * SelectedProvincesProvider passes the object that represents which provinces are selected
+ * <*>DataProvider passes data to rest of app
+ * ThemeProvider passes theme to rest of app
+ * Quantized*DataProvider (may be removed)
+ * SelectedDataProvider passes the current outer dataset (FAMILY, INCOME, CENSUS)
+ * Selected*TypeProvider passes the inner subset ("Couples without children", "< 20k", "...")
+ * CurrentScaleProvider passes the current quantizeFunction according to selected provinces
+ *
+ */
+
+/** Data structured:
+ *
+ * - OUTER: FAMILY, INCOME, CENSUS
+ *  - INNER: [FSA]: FSAToFamilyEntry | FSAToIncomeEntry | FSAToCensusEntry @see types.ts
+ *    - DATA: FamilyDataEntry | IncomeDataEntry | CensusDataEntry @see types.ts
+ */
 export default App;

@@ -1,28 +1,16 @@
 import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import SelectedIncomeTypeContext from "@context/appstate/SelectedIncomeTypeProvider";
 import useFSASets from "@hooks/province/useFSASets";
-import {
-  FSAType,
-  ProvinceOption,
-  ProvinceOptions,
-  SelectedDataOption,
-  TopoJSONNames,
-} from "@types";
+import useCurrentScale from "@hooks/quantized/useCurrentScale";
+import { SelectedDataOption } from "@types";
+import getProvinceFromFSA from "@utils/getProvinceFromFSA";
 import { useContext } from "react";
 import useSelectedData from "./useSelectedData";
 import useSelectedProvinces from "./useSelectedProvinces";
 import { useScaleLoading } from "./useSelectedScale";
 
-const getProvinceFromFSA = (
-  fsa: FSAType,
-  fsaSets: { [province in TopoJSONNames]: Set<string> }
-) => {
-  let selectedEntry = Object.entries(fsaSets).find(([key, value]) =>
-    value.has(fsa)
-  );
-  return selectedEntry ? (selectedEntry[0] as keyof ProvinceOptions) : "";
-};
 const useHistogramData = () => {
+  useCurrentScale();
   const [selected, selectedType] = useSelectedData();
   const { selectedFamilyType, selectedNumericalType } = useContext(
     SelectedFamilyTypeContext

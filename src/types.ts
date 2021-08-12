@@ -152,7 +152,7 @@ export type FSAToIncome = {
 };
 
 export type FSAToCensus = {
-  [FSA in FSAType | 1]?: ProfileIDToCensus;
+  [FSA in FSAType]?: ProfileIDToCensus;
 };
 
 export type MemberIdProfileOfFSAS = number;

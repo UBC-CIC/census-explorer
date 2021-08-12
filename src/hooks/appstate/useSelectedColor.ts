@@ -1,23 +1,17 @@
 import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import SelectedIncomeTypeContext from "@context/appstate/SelectedIncomeTypeProvider";
+import useFamilyData from "@hooks/family/useFamilyData";
+import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import useQuantizedIncomeData from "@hooks/quantized/useQuantizedIncomeData";
-import {
-  FamilyTypeOption,
-  FSAType,
-  IncomeTypeOption,
-  NumericalDonationKey,
-  SelectedDataOption,
-} from "@types";
+import { FSAType, SelectedDataOption } from "@types";
 import { useContext } from "react";
-import useQuantizedFamilyData from "../quantized/useQuantizedFamilyData";
 import useSelectedData from "./useSelectedData";
 
 const useSelectedColor = (FSA: FSAType) => {
   const [_, selectedType] = useSelectedData();
-  const { data: quantizedFamilyData, scales: familyScales } =
-    useQuantizedFamilyData();
-  const { data: quantizedIncomeData, scales: incomeScales } =
-    useQuantizedIncomeData();
+  const quantizedFamilyData = useCurrentScale();
+  const familyData = useFamilyData();
+  const { data: quantizedIncomeData } = useQuantizedIncomeData();
   const { selectedFamilyType, selectedNumericalType } = useContext(
     SelectedFamilyTypeContext
   );
@@ -33,8 +27,9 @@ const useSelectedColor = (FSA: FSAType) => {
     case SelectedDataOption.FAMILY:
     default:
       return (
-        quantizedFamilyData[FSA]![selectedFamilyType]![selectedNumericalType] ||
-        "#c4c4c4"
+        (quantizedFamilyData(
+          familyData[FSA]![selectedFamilyType]![selectedNumericalType]
+        ) as string) || "#c4c4c4"
       );
   }
 };

@@ -1,6 +1,8 @@
 import { NumericalDonationKey } from "@types";
 import * as d3 from "d3";
 const getFormatFunction = (numericalKey: NumericalDonationKey) => {
+  console.log(numericalKey);
+
   switch (numericalKey) {
     case NumericalDonationKey.MedianDon:
     case NumericalDonationKey.TotDons:
@@ -11,7 +13,7 @@ const getFormatFunction = (numericalKey: NumericalDonationKey) => {
     case NumericalDonationKey.DonRate:
       return d3.format("~p");
     default:
-      throw new Error("getFormatFunction: invalid numericalKey");
+      return d3.format("~s");
   }
 };
 

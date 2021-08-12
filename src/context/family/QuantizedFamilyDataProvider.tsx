@@ -43,6 +43,7 @@ export const QuantizedFamilyDataProvider = (props: {
   const loading = useFamilyDataLoading();
   const data = useFamilyData();
   if (loading) return <>{children}</>;
+  console.time("FAMQ");
 
   const quantizeFunctions: QuantizeFunctions = {
     [FamilyTypeOption.COUPLE_WITHOUT_CHILDREN]: {},
@@ -81,6 +82,7 @@ export const QuantizedFamilyDataProvider = (props: {
       }
     }
   }
+  console.timeEnd("FAMQ");
 
   console.log(retData);
 
