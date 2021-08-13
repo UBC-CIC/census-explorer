@@ -1,6 +1,8 @@
+import useFSASets from "@hooks/province/useFSASets";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import { dataMapStyles } from "@styles";
 import "@styles/resizable.module.css";
+import _ from "lodash";
 import { useRef, useState } from "react";
 import { ResizableBox } from "react-resizable";
 import {
@@ -21,10 +23,10 @@ const DataMap = () => {
       <ResizableBox
         width={width}
         height={height}
-        onResize={(_, data) => {
+        onResize={_.throttle((_, data) => {
           setWidth(data.size.width);
           setHeight(data.size.height);
-        }}
+        }, 1)}
         maxConstraints={[1000, window.height]}
         draggableOpts={{}}
         handle={<i className={`fas fa-compress-alt ${dataMapStyles.icon}`}></i>}

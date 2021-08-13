@@ -41,6 +41,7 @@ const CheckboxSelector = ({ setShown, shown }: CheckboxSelectorProps) => {
           const [typedName, value] = entry as [TopoJSONNames, boolean];
           return (
             <FormControlLabel
+              key={index}
               color="primary"
               className={classes.formLabel}
               onChange={() => handleClick(typedName)}

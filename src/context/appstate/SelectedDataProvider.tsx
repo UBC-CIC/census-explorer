@@ -1,22 +1,24 @@
-import { SelectedDataOption } from "@types";
+import { SelectedCategoryOption } from "@types";
 import React, { ReactNode, useEffect, useState } from "react";
 
-type SelectedDataContextType = {
-  selected: SelectedDataOption;
-  setSelected: React.Dispatch<React.SetStateAction<SelectedDataOption>>;
+type SelectedCategoryContextType = {
+  selected: SelectedCategoryOption;
+  setSelected: React.Dispatch<React.SetStateAction<SelectedCategoryOption>>;
 };
 
-const SelectedDataContext = React.createContext({} as SelectedDataContextType);
+const SelectedCategoryContext = React.createContext(
+  {} as SelectedCategoryContextType
+);
 
-export const SelectedDataProvider = (props: { children?: ReactNode }) => {
+export const SelectedCategoryProvider = (props: { children?: ReactNode }) => {
   const { children } = props;
-  const [selected, setSelected] = useState(SelectedDataOption.FAMILY);
+  const [selected, setSelected] = useState(SelectedCategoryOption.FAMILY);
 
   return (
-    <SelectedDataContext.Provider value={{ selected, setSelected }}>
+    <SelectedCategoryContext.Provider value={{ selected, setSelected }}>
       {children}
-    </SelectedDataContext.Provider>
+    </SelectedCategoryContext.Provider>
   );
 };
 
-export default SelectedDataContext;
+export default SelectedCategoryContext;

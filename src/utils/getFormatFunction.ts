@@ -1,8 +1,6 @@
 import { NumericalDonationKey } from "@types";
 import * as d3 from "d3";
 const getFormatFunction = (numericalKey: NumericalDonationKey) => {
-  console.log(numericalKey);
-
   switch (numericalKey) {
     case NumericalDonationKey.MedianDon:
     case NumericalDonationKey.TotDons:

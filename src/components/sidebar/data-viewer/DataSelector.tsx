@@ -1,11 +1,11 @@
 import Spinner from "@components/Spinner";
-import SelectedDataContext from "@context/appstate/SelectedDataProvider";
+import SelectedCategoryContext from "@context/appstate/SelectedDataProvider";
 import useCensusDataLoading from "@hooks/census/useCensusDataLoading";
 import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
 import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import strings from "@l10n/strings";
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
-import { SelectedDataOption } from "@types";
+import { SelectedCategoryOption } from "@types";
 import { useContext } from "react";
 import FamilyOptions from "./FamilyOptions";
 import IncomeOptions from "./IncomeOptions";
@@ -18,8 +18,8 @@ const DataSelector = () => {
   const censusLoading = useCensusDataLoading();
   const incomeLoading = useIncomeDataLoading();
   const familyLoading = useFamilyDataLoading();
-  const { selected, setSelected } = useContext(SelectedDataContext);
-  const handleSelectOption = (option: SelectedDataOption) => {
+  const { selected, setSelected } = useContext(SelectedCategoryContext);
+  const handleSelectOption = (option: SelectedCategoryOption) => {
     setSelected(option);
   };
 
@@ -28,11 +28,13 @@ const DataSelector = () => {
       <ButtonGroup orientation="vertical">
         <Button
           variant={
-            selected === SelectedDataOption.FAMILY ? "contained" : "outlined"
+            selected === SelectedCategoryOption.FAMILY
+              ? "contained"
+              : "outlined"
           }
           className={classes.familyButton}
           color="primary"
-          onClick={() => handleSelectOption(SelectedDataOption.FAMILY)}
+          onClick={() => handleSelectOption(SelectedCategoryOption.FAMILY)}
           disabled={familyLoading}
           endIcon={familyLoading ? <Spinner /> : null}
         >
@@ -41,10 +43,12 @@ const DataSelector = () => {
         <FamilyOptions />
         <Button
           variant={
-            selected === SelectedDataOption.INCOME ? "contained" : "outlined"
+            selected === SelectedCategoryOption.INCOME
+              ? "contained"
+              : "outlined"
           }
           color="primary"
-          onClick={() => handleSelectOption(SelectedDataOption.INCOME)}
+          onClick={() => handleSelectOption(SelectedCategoryOption.INCOME)}
           disabled={incomeLoading}
           endIcon={incomeLoading ? <Spinner /> : null}
         >
@@ -53,12 +57,14 @@ const DataSelector = () => {
         <IncomeOptions />
         <Button
           variant={
-            selected === SelectedDataOption.CENSUS ? "contained" : "outlined"
+            selected === SelectedCategoryOption.CENSUS
+              ? "contained"
+              : "outlined"
           }
           disabled={censusLoading}
           endIcon={censusLoading ? <Spinner /> : null}
           color="primary"
-          onClick={() => handleSelectOption(SelectedDataOption.CENSUS)}
+          onClick={() => handleSelectOption(SelectedCategoryOption.CENSUS)}
         >
           {strings.censusData}
         </Button>

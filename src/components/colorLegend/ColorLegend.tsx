@@ -1,37 +1,57 @@
-import useSelectedData from "@hooks/appstate/useSelectedData";
-import useSelectedScale from "@hooks/appstate/useSelectedScale";
+import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
+import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
+import useHistogramData from "@hooks/appstate/useHistogramData";
+import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
 import useCurrentScale from "@hooks/quantized/useCurrentScale";
+import useFilteredData from "@hooks/quantized/useFilteredData";
 import { colorbarStyles } from "@styles";
+import { NumericalDonationKey } from "@types";
 import getFormatFunction from "@utils/getFormatFunction";
+import isScaleQuantize from "@utils/isScaleQuantize";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 type ColorLegendProps = { height: number };
 const ColorLegend = ({ height }: ColorLegendProps) => {
-  const scale = useCurrentScale();
-  const [, , numericalKey] = useSelectedScale();
+  const scale = useCurrentColorScale();
+  const { selectedNumericalType } = useContext(SelectedNumericalContext);
+  const data = useFilteredData();
+  const { deviations } = useContext(StandardDeviationContext);
 
   useEffect(() => {
     d3.select("#colors").selectAll("*").remove();
+    if (!data.length) return;
     const width = 80;
     const colorBarHeight = (d3.select("#colorbar").node() as Element)
       ?.clientHeight;
     const container = d3.select("#colors");
     const scaleCopy = scale.copy();
-    let numTicks = scaleCopy.ticks().length;
+    // Calculate number of ticks
+    let mi = d3.min(data) as any;
+    let ma = d3.max(data) as any;
+    let dev = d3.deviation(data) as any;
+    const binWidth = (3.5 * dev) / Math.pow(data.length, 1 / 3);
+    const numBins = Math.ceil((ma - mi) / binWidth);
+    let numTicks = 0;
+    if (isScaleQuantize(scaleCopy)) {
+      numTicks = scaleCopy.ticks().length;
+    } else {
+      numTicks = numBins;
+    }
     scaleCopy.range(d3.range(0, colorBarHeight, colorBarHeight / numTicks));
-    const domain = scaleCopy.domain();
-    const colourScale = d3
-      .scaleSequential(d3.interpolateOranges)
-      .domain(domain);
+
+    const domain = [mi, dev * deviations];
 
     const height = colorBarHeight;
 
-    const paddedDomain = fc.extentLinear().pad([0.1, 0.1]).padUnit("percent")(
+    const paddedDomain = fc.extentLinear().pad([0, 0.01]).padUnit("percent")(
       domain
     );
+    if (!domain) return;
+
     const [min, max] = paddedDomain;
+
     const expandedDomain = d3.range(min, max, (max - min) / height);
 
     const xScale = d3
@@ -49,12 +69,12 @@ const ColorLegend = ({ height }: ColorLegendProps) => {
       .baseValue((_: any, i: any) => (i > 0 ? expandedDomain[i - 1] : 0))
       .mainValue((d: any) => d)
       .decorate((selection: any) => {
-        selection.selectAll("path").style("fill", (d: any) => colourScale(d));
+        selection.selectAll("path").style("fill", (d: any) => scale(d));
       });
 
     const axisLabel = fc
       .axisRight(yScale)
-      .tickFormat(getFormatFunction(numericalKey) as any)
+      .tickFormat(getFormatFunction(selectedNumericalType) as any)
       .tickSizeOuter(0);
 
     const legendSvg = container
@@ -73,7 +93,7 @@ const ColorLegend = ({ height }: ColorLegendProps) => {
       .select(".domain")
       .attr("visibility", "hidden");
     container.style("margin", "1em");
-  }, [scale, height, numericalKey]);
+  }, [scale, height, selectedNumericalType, deviations, data]);
 
   return (
     <svg id={"colorbar"} className={colorbarStyles.colorbar}>

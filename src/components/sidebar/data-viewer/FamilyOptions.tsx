@@ -4,13 +4,15 @@ import { selectorStyles } from "@styles";
 import {
   FamilyTypeOption,
   NumericalDonationKey,
-  SelectedDataOption,
+  SelectedCategoryOption,
 } from "@types";
 import strings from "@l10n/strings";
 import { useContext } from "react";
 import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import DonationOptions from "./DonationOptions";
 import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
+import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
+import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
 
 type FamilyOptionsProps = {};
 
@@ -27,16 +29,12 @@ const useStyles = makeStyles((theme) => ({
 
 const FamilyOptions = () => {
   const classes = useStyles();
-  const {
-    selectedFamilyType,
-    selectedNumericalType,
-    setSelectedFamilyType,
-    setSelectedNumericalType,
-  } = useContext(SelectedFamilyTypeContext);
+  const { selectedFamilyType, setSelectedFamilyType } = useContext(
+    SelectedFamilyTypeContext
+  );
   const loading = useFamilyDataLoading();
-
-  const [, selectedOption] = useSelectedData();
-  const active = !loading && selectedOption === SelectedDataOption.FAMILY;
+  const selectedCategory = useSelectedCategory();
+  const active = !loading && selectedCategory === SelectedCategoryOption.FAMILY;
   return (
     <Collapse in={active}>
       <div className={selectorStyles.familyOptions}>

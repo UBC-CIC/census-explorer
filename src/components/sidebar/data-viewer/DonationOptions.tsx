@@ -2,6 +2,7 @@ import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvi
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { NumericalDonationKey } from "@types";
 import { useContext } from "react";
+import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 
 type DonationOptionsProps = {};
 
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DonationOptions = (props: DonationOptionsProps) => {
   const { selectedNumericalType, setSelectedNumericalType } = useContext(
-    SelectedFamilyTypeContext
+    SelectedNumericalContext
   );
 
   const classes = useStyles();

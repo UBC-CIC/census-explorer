@@ -1,34 +1,16 @@
-import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
-import SelectedIncomeTypeContext from "@context/appstate/SelectedIncomeTypeProvider";
-import useSelectedData from "@hooks/appstate/useSelectedData";
+import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
+import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
 import { MainCategoryInfoStrings, NumericalInfoStrings } from "@l10n/strings";
 import { sidebarStyles } from "@styles";
-import { SelectedDataOption, SelectedInfoOptions } from "@types";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 type InfoSectionProps = {};
 
 const InfoSection = (props: InfoSectionProps) => {
-  const [, selectedType] = useSelectedData();
-  const { selectedFamilyType, selectedNumericalType } = useContext(
-    SelectedFamilyTypeContext
-  );
-  const { selectedIncomeType } = useContext(SelectedIncomeTypeContext);
+  const selectedCategory = useSelectedCategory();
+  const { selectedNumericalType } = useContext(SelectedNumericalContext);
 
-  let selectedSubOption;
-  if (selectedType === SelectedDataOption.FAMILY) {
-    selectedSubOption = selectedFamilyType;
-  } else if (selectedType === SelectedDataOption.INCOME) {
-    selectedSubOption = selectedIncomeType;
-  } else {
-    // selectedSubOption = selectedNumericalType;
-    selectedSubOption = selectedIncomeType;
-    // TODO census type
-  }
-
-  const main = MainCategoryInfoStrings[
-    selectedType as SelectedDataOption
-  ] as any;
+  const main = MainCategoryInfoStrings[selectedCategory] as any;
   const sub = NumericalInfoStrings[selectedNumericalType];
   return (
     <div className={sidebarStyles.infoContainer}>

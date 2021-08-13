@@ -201,7 +201,9 @@ export enum IncomeTypeOption {
   ge250K = ">= $250K",
 }
 
-export enum CensusTypeOption {}
+export enum CensusTypeOption {
+  TODO = "TODO",
+}
 
 export type SingleNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type CapitalLetter =
@@ -233,7 +235,7 @@ export type CapitalLetter =
   | "Z";
 export type FSAType = `${CapitalLetter}${SingleNumber}${CapitalLetter}`;
 
-export enum SelectedDataOption {
+export enum SelectedCategoryOption {
   FAMILY = "FAMILY",
   INCOME = "INCOME",
   CENSUS = "CENSUS",
@@ -248,6 +250,6 @@ type FamilyInfoOptions = `FAMILY-${FamilyTypeOption}`;
 type IncomeInfoOptions = `INCOME-${IncomeTypeOption}`;
 type CensusInfoOptions = `CENSUS-${CensusTypeOption}`;
 
-export type SelectedInfoOptions = `${SelectedDataOption}-${
+export type SelectedInfoOptions = `${SelectedCategoryOption}-${
   | FamilyTypeOption
   | IncomeTypeOption}-${NumericalDonationKey}`;

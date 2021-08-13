@@ -1,17 +1,16 @@
 import Spinner from "@components/Spinner";
-import useHistogramData from "@hooks/appstate/useHistogramData";
-import useSelectedData from "@hooks/appstate/useSelectedData";
-import useSelectedScale, {
-  useScaleLoading,
-} from "@hooks/appstate/useSelectedScale";
+import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
+import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
 import useFSASets from "@hooks/province/useFSASets";
 import useCurrentScale from "@hooks/quantized/useCurrentScale";
+import useFilteredData from "@hooks/quantized/useFilteredData";
 import strings from "@l10n/strings";
 import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
+import { NumericalDonationKey } from "@types";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useContext, useEffect, useState } from "react";
 type HistogramProps = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -22,19 +21,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Histogram = (props: HistogramProps) => {
   const classes = useStyles();
-  const loading = useScaleLoading();
   const fsaSet = useFSASets();
   const scale = useCurrentScale();
-  const [, , numericalKey] = useSelectedScale();
-  const [selected, type] = useSelectedData();
-  const data = useHistogramData();
+  const { selectedNumericalType } = useContext(SelectedNumericalContext);
+  const data = useFilteredData();
   const [offset, setOffset] = useState(0);
-  const [deviations, setDeviations] = useState(1);
-  const theme = useTheme();
+  const { deviations, setDeviations } = useContext(StandardDeviationContext);
   //draw and calculate histogram
   useEffect(() => {
     if (!scale) return;
-    const scaleCopy = scale.copy();
     let min = d3.min(data) as any;
     let max = d3.max(data) as any;
     let dev = d3.deviation(data) as any;
@@ -147,15 +142,15 @@ const Histogram = (props: HistogramProps) => {
       .call(
         d3
           .axisBottom(x)
-          .tickFormat(getFormatFunction(numericalKey) as any)
+          .tickFormat(getFormatFunction(selectedNumericalType) as any)
           .tickSizeOuter(0)
       );
 
     // add the y Axis
     svg.append("g").style("font-size", "7px").call(d3.axisLeft(y));
-  }, [scale, deviations, numericalKey, data, offset]);
+  }, [scale, deviations, selectedNumericalType, data, offset]);
 
-  if (loading || !fsaSet) return <Spinner />;
+  if (!fsaSet) return <Spinner />;
   if (!data.length)
     return (
       <div
@@ -216,7 +211,7 @@ const Histogram = (props: HistogramProps) => {
           step={10}
           marks
           min={0}
-          max={99}
+          max={97}
         />
       </div>
       <Typography id="input-slider" gutterBottom>

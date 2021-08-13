@@ -1,4 +1,3 @@
-import SelectedDataContext from "@context/appstate/SelectedDataProvider";
 import useCensusData from "@hooks/census/useCensusData";
 import useFamilyData from "@hooks/family/useFamilyData";
 import useIncomeData from "@hooks/income/useIncomeData";
@@ -6,34 +5,24 @@ import {
   FSAToCensus,
   FSAToFamily,
   FSAToIncome,
-  SelectedDataOption,
+  SelectedCategoryOption,
 } from "@types";
-import { useContext } from "react";
+import useSelectedCategory from "./useSelectedCategory";
 
-type SelectedDataType = [
-  FSAToFamily | FSAToCensus | FSAToIncome,
-  SelectedDataOption
-];
-const useSelectedData = () => {
-  const context = useContext(SelectedDataContext);
+const useSelectedData = (): FSAToCensus | FSAToIncome | FSAToFamily => {
+  const category = useSelectedCategory();
   const familyData = useFamilyData();
   const censusData = useCensusData();
   const incomeData = useIncomeData();
 
-  if (!context)
-    throw new Error(
-      "useSelectedData must be called inside a SelectedDataProvider"
-    );
-
-  switch (context.selected) {
-    case SelectedDataOption.FAMILY:
-      return [familyData, context.selected] as SelectedDataType;
-    case SelectedDataOption.CENSUS:
-      return [censusData, context.selected] as SelectedDataType;
-    case SelectedDataOption.INCOME:
-      return [incomeData, context.selected] as SelectedDataType;
+  switch (category) {
+    case SelectedCategoryOption.CENSUS:
+      return censusData as FSAToCensus;
+    case SelectedCategoryOption.INCOME:
+      return incomeData as FSAToIncome;
+    case SelectedCategoryOption.FAMILY:
     default:
-      return [{}, context.selected] as SelectedDataType;
+      return familyData as FSAToFamily;
   }
 };
 
