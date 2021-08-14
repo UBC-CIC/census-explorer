@@ -21,6 +21,7 @@ import { StandardDeviationProvider } from "@context/appstate/StandardDeviationPr
 import { ReactNode } from "react";
 import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
 import SelectedTypeProvider from "@context/appstate/SelectedTypeProvider";
+import Map from "./leaflet/Map";
 
 // ------------------------
 // These Providers are used to pass data to the components
@@ -52,7 +53,7 @@ const App = () => {
 // ------------------------
 const AppCore = () => {
   const mapLoading = useProvincesLoading();
-  const Map = mapLoading ? DatamapLoading : DataMap;
+  // const Map = mapLoading ? DatamapLoading : DataMap;
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -62,8 +63,9 @@ const AppCore = () => {
               <SelectedTypeProvider>
                 <StandardDeviationProvider>
                   <CurrentScaleProvider>
+                    {/* <Map /> */}
                     <Map />
-                    <Sidebar />
+                    {/* <Sidebar /> */}
                   </CurrentScaleProvider>
                 </StandardDeviationProvider>
               </SelectedTypeProvider>

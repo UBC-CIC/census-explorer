@@ -13,7 +13,14 @@ code {
 }
 
 #mapid {
-  height: 180px;
+  height: 500px;
+  width: 500px;
+}
+
+.leaflet-container {
+  height: 500px;
+  width: 500px;
+  margin: 10px;
 }
 
 .rv-continuous-color-legend .rv-gradient {
