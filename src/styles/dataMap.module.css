@@ -6,9 +6,9 @@
 
 .icon {
   position: absolute;
-  bottom: 0;
+  bottom: -40px;
   right: 0;
-  color: white;
+  color: black;
   cursor: nwse-resize;
   transform: rotate(90deg);
 }

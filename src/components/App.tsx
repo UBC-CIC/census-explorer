@@ -65,7 +65,7 @@ const AppCore = () => {
                   <CurrentScaleProvider>
                     {/* <Map /> */}
                     <Map />
-                    {/* <Sidebar /> */}
+                    <Sidebar />
                   </CurrentScaleProvider>
                 </StandardDeviationProvider>
               </SelectedTypeProvider>

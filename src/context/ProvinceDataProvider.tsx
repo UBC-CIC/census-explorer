@@ -69,6 +69,8 @@ const fetchFSAData = async (provinceName: string) => {
   const features = (
     topojson.feature(provinceTopo, properties) as ExtendedFeatureCollection
   ).features;
+  provinceName === "bc" && console.log(features);
+
   populateFSASets(provinceName as keyof ProvinceOption, features);
   return features;
 };

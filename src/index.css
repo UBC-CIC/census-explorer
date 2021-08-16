@@ -18,8 +18,8 @@ code {
 }
 
 .leaflet-container {
-  height: 500px;
-  width: 500px;
+  height: calc(100vh - 100px);
+  width: calc(100vw - 300px);
   margin: 10px;
 }
 

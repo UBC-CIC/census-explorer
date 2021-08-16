@@ -4,6 +4,7 @@ import useProvincesLoading from "@hooks/province/useProvincesLoading";
 import { TopoJSONNames } from "@types";
 import { LatLngTuple } from "leaflet";
 import {
+  LayerGroup,
   MapContainer,
   Marker,
   Popup,
@@ -21,19 +22,22 @@ const Map = (props: MapProps) => {
   if (loading) {
     return <Spinner />;
   }
-  let BC = () => <GeoJSONLayer provinceName={TopoJSONNames.bc} />;
+
   return (
     <MapContainer center={VANCOUVER_LAT_LNG} zoom={13}>
+      <LayerGroup>
+        {Object.keys(TopoJSONNames).map((province) => (
+          <GeoJSONLayer
+            key={province}
+            provinceName={province as TopoJSONNames}
+          />
+        ))}
+      </LayerGroup>
+
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={VANCOUVER_LAT_LNG}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <BC />
+      ></TileLayer>
     </MapContainer>
   );
 };

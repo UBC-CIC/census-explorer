@@ -2,6 +2,7 @@
 export { default as appStyles } from "./app.module.css";
 export { default as colorbarStyles } from "./colorbar.module.css";
 export { default as dataMapStyles } from "./dataMap.module.css";
+export { default as leafletStyles } from "./leaflet.module.css";
 export { default as minimapStyles } from "./minimap.module.css";
 export { default as resizableStyles } from "./resizable.module.css";
 export { default as selectOptionsStyles } from "./selectOptions.module.css";
