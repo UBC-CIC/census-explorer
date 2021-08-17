@@ -3,14 +3,16 @@
   height: calc(100% - 133px);
   width: 60px;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 90px;
+  left: 12px;
+  z-index: 1000;
   /* border-radius: 5px; */
 }
 
 .axisContainer {
   position: absolute;
-  left: 0;
+  left: 0px;
+  background-color: white;
 }
 
 .axis {

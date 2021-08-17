@@ -25,6 +25,7 @@ const strings = new LocalizedStrings({
     toggleToCheckbox: "Select Provinces as List",
     deviation: "Standard Deviations",
     zoom: "Zoom",
+    opacity: "Opacity",
   },
 });
 

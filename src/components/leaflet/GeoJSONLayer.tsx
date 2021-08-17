@@ -1,49 +1,24 @@
-import MapFSA from "@components/MapFSA";
+import HoveredContext from "@context/appstate/HoveredProvider";
 import useSelectedProvinces from "@hooks/appstate/useSelectedProvinces";
 import useProvinceData from "@hooks/province/useProvinceData";
 import { useTheme } from "@material-ui/core";
-import { leafletStyles } from "@styles";
-import { FSAFeatureType, PathFunctionType, TopoJSONNames } from "@types";
-import projection from "@utils/projection";
-import { ExtendedFeature } from "d3";
-import { memo, useEffect, useState } from "react";
-import { SVGOverlay, useMap, GeoJSON } from "react-leaflet";
+import { FSAType, TopoJSONNames } from "@types";
+import { memo, useContext, useEffect, useMemo, useState } from "react";
+import { GeoJSON } from "react-leaflet";
+import FSA from "./FSA";
 
 type GeoJSONLayerProps = {
   provinceName: TopoJSONNames;
 };
 
-async function fetchVancouverJSON(zoom: number = 0): Promise<any> {
-  try {
-    const res = await fetch(`http://localhost:3001/api/vancouver.${zoom}`);
-    return await res.json();
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
 const GeoJSONLayer = ({ provinceName }: GeoJSONLayerProps) => {
-  const theme = useTheme();
-  const [geoJSON, setGeoJSON] = useState(null as any);
   const selected = useSelectedProvinces();
   const features = useProvinceData(provinceName);
-  useEffect(() => {
-    fetchVancouverJSON(9).then((fetchedJSON) => {
-      setGeoJSON(fetchedJSON);
-    });
-  }, [features]);
   return (
     <>
-      {features && selected[provinceName] && (
-        <GeoJSON
-          data={features}
-          style={{
-            weight: 0.5,
-            fillColor: "green",
-            color: theme.palette.primary.main,
-          }}
-        />
-      )}
+      {features &&
+        selected[provinceName] &&
+        features.map((feature: any) => <FSA feature={feature} />)}
     </>
   );
 };

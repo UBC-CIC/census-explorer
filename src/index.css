@@ -18,9 +18,9 @@ code {
 }
 
 .leaflet-container {
-  height: calc(100vh - 100px);
+  height: 100vh;
   width: calc(100vw - 300px);
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 .rv-continuous-color-legend .rv-gradient {

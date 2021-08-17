@@ -24,7 +24,7 @@ export interface GeometriesEntity {
   properties: Properties;
 }
 export interface Properties {
-  CFSAUID: string;
+  CFSAUID: FSAType;
   PRUID: string;
   PRNAME: string;
 }

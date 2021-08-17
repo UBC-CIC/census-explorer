@@ -12,6 +12,8 @@ import useSelectedCategory from "./useSelectedCategory";
 import useSelectedData from "./useSelectedData";
 import useSelectedType from "./useSelectedType";
 
+const INVALID_COLOR = "#A9A9A9";
+
 const useSelectedColor = (FSA: FSAType) => {
   const selectedCategory = useSelectedCategory();
   const colorScale = useCurrentColorScale();
@@ -19,26 +21,12 @@ const useSelectedColor = (FSA: FSAType) => {
   const type = useSelectedType();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
 
-  if (isFSAToCensus(data)) return "#c4c4c4";
+  if (isFSAToCensus(data)) return INVALID_COLOR;
   else
     return (
       (colorScale(data[FSA]![type]![selectedNumericalType]) as string) ||
-      "#c4c4c4"
+      INVALID_COLOR
     );
-  // switch (selectedCategory) {
-  //   case SelectedCategoryOption.INCOME:
-  //     return (
-  //       scale(incomeData[FSA]![selectedIncomeType]![selectedNumericalType] ||
-  //       "#c4c4c4"
-  //     );
-  //   case SelectedCategoryOption.FAMILY:
-  //   default:
-  //     return (
-  //       (scale(
-  //         familyData[FSA]![selectedFamilyType]![selectedNumericalType]
-  //       ) as string) || "#c4c4c4"
-  //     );
-  // }
 };
 
 export default useSelectedColor;

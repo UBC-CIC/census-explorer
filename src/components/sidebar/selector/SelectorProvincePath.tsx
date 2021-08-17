@@ -56,7 +56,7 @@ const SelectorProvincePath = ({
   fill,
 }: ProvincePathProps) => {
   const SELECTED_FILL = useTheme().palette.primary.main;
-  const features = useOutlineData(provinceName);
+  const features = useOutlineData(provinceName) as ExtendedFeature[];
 
   let featuresAndPath = useMemo(
     () =>

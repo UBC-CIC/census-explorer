@@ -1,4 +1,9 @@
-import { CanadaTopologyType, ProvinceOption, TopoJSONNames } from "@types";
+import {
+  CanadaTopologyType,
+  FSAFeatureType,
+  ProvinceOption,
+  TopoJSONNames,
+} from "@types";
 import {
   ExtendedFeature,
   ExtendedFeatureCollection,
@@ -23,7 +28,9 @@ const provinceNames: (keyof typeof TopoJSONNames)[] = [
   "yt",
 ];
 
-export type ProvinceDataOptions = { [province in keyof ProvinceOption]: any };
+export type ProvinceDataOptions = {
+  [province in keyof ProvinceOption]: FSAFeatureType[];
+};
 
 type DataContextType = {
   outlines: ProvinceDataOptions;
@@ -69,7 +76,6 @@ const fetchFSAData = async (provinceName: string) => {
   const features = (
     topojson.feature(provinceTopo, properties) as ExtendedFeatureCollection
   ).features;
-  provinceName === "bc" && console.log(features);
 
   populateFSASets(provinceName as keyof ProvinceOption, features);
   return features;

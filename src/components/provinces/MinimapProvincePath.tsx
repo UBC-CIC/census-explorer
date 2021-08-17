@@ -22,7 +22,7 @@ const InnerMinimapProvincePath = memo(
     strokeWidth,
     fill,
   }: InnerProvincePathProps) => {
-    const features = useOutlineData(provinceName);
+    const features = useOutlineData(provinceName) as ExtendedFeature[];
 
     let featuresAndPath = features.map((feature: ExtendedFeature) => [
       feature,

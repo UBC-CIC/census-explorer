@@ -67,7 +67,9 @@ const Histogram = (props: HistogramProps) => {
       .style("border-radius", "5px")
       .style("padding", "5px")
       .style("opacity", 0)
-      .style("position", "absolute");
+      .style("position", "absolute")
+      .style("transition", "opacity .2s")
+      .style("pointer-events", "none");
 
     const mouseover = (event: any, d: any) => {
       tooltip.style("opacity", 1);

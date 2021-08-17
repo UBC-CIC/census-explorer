@@ -22,6 +22,8 @@ import { ReactNode } from "react";
 import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
 import SelectedTypeProvider from "@context/appstate/SelectedTypeProvider";
 import Map from "./leaflet/Map";
+import { OpacityProvider } from "@context/appstate/OpacityProvider";
+import { HoveredProvider } from "@context/appstate/HoveredProvider";
 
 // ------------------------
 // These Providers are used to pass data to the components
@@ -63,8 +65,9 @@ const AppCore = () => {
               <SelectedTypeProvider>
                 <StandardDeviationProvider>
                   <CurrentScaleProvider>
-                    {/* <Map /> */}
-                    <Map />
+                    <OpacityProvider>
+                      <Map />
+                    </OpacityProvider>
                     <Sidebar />
                   </CurrentScaleProvider>
                 </StandardDeviationProvider>
@@ -91,6 +94,8 @@ const AppCore = () => {
  * Selected*TypeProvider passes the selected inner subset ("Couples without children", "< 20k", "...")
  * CurrentScaleProvider passes the current quantizeFunction according to selected provinces
  * StandardDeviationProvider changes rapidly, and is used to determine the current scale
+ * HoveredProvider changes when the mouse is hovered over an FSA
+ * OpacityProvider changes when the opacity slider is moved
  */
 
 /** Data structured:

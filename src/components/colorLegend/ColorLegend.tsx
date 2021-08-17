@@ -12,8 +12,8 @@ import * as d3 from "d3";
 import * as fc from "d3fc";
 import { useContext, useEffect } from "react";
 
-type ColorLegendProps = { height: number };
-const ColorLegend = ({ height }: ColorLegendProps) => {
+type ColorLegendProps = {};
+const ColorLegend = ({}: ColorLegendProps) => {
   const scale = useCurrentColorScale();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
   const data = useFilteredData();
@@ -93,7 +93,7 @@ const ColorLegend = ({ height }: ColorLegendProps) => {
       .select(".domain")
       .attr("visibility", "hidden");
     container.style("margin", "1em");
-  }, [scale, height, selectedNumericalType, deviations, data]);
+  }, [scale, selectedNumericalType, deviations, data]);
 
   return (
     <svg id={"colorbar"} className={colorbarStyles.colorbar}>
