@@ -1,11 +1,11 @@
+import HoveredContext from "@context/appstate/HoveredProvider";
 import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
-import useHistogramData from "@hooks/appstate/useHistogramData";
+import useHoveredData from "@hooks/appstate/useHoveredData";
 import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
-import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import useFilteredData from "@hooks/quantized/useFilteredData";
+import { useTheme } from "@material-ui/core";
 import { colorbarStyles } from "@styles";
-import { NumericalDonationKey } from "@types";
 import getFormatFunction from "@utils/getFormatFunction";
 import isScaleQuantize from "@utils/isScaleQuantize";
 import * as d3 from "d3";
@@ -14,14 +14,18 @@ import { useContext, useEffect } from "react";
 
 type ColorLegendProps = {};
 const ColorLegend = ({}: ColorLegendProps) => {
+  const { data: hoveredData } = useHoveredData();
   const scale = useCurrentColorScale();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
   const data = useFilteredData();
   const { deviations } = useContext(StandardDeviationContext);
+  const theme = useTheme();
 
+  // draw / calculate the color scale
   useEffect(() => {
     d3.select("#colors").selectAll("*").remove();
     if (!data.length) return;
+    // Calculate bounds of scale, number of ticks, height, etc.
     const width = 80;
     const colorBarHeight = (d3.select("#colorbar").node() as Element)
       ?.clientHeight;
@@ -61,6 +65,7 @@ const ColorLegend = ({}: ColorLegendProps) => {
 
     const yScale = d3.scaleLinear().domain(paddedDomain).range([height, 0]);
 
+    //Draw all the individual rectangles
     const svgBar = fc
       .autoBandwidth(fc.seriesSvgBar())
       .xScale(xScale)
@@ -69,7 +74,9 @@ const ColorLegend = ({}: ColorLegendProps) => {
       .baseValue((_: any, i: any) => (i > 0 ? expandedDomain[i - 1] : 0))
       .mainValue((d: any) => d)
       .decorate((selection: any) => {
-        selection.selectAll("path").style("fill", (d: any) => scale(d));
+        selection.selectAll("path").style("fill", (d: any) => {
+          return scale(d);
+        });
       });
 
     const axisLabel = fc
@@ -79,6 +86,7 @@ const ColorLegend = ({}: ColorLegendProps) => {
 
     const legendSvg = container
       .append("svg")
+      .attr("id", "legendSVG")
       .attr("height", height)
       .attr("width", width);
 
@@ -94,7 +102,19 @@ const ColorLegend = ({}: ColorLegendProps) => {
       .attr("visibility", "hidden");
     container.style("margin", "1em");
   }, [scale, selectedNumericalType, deviations, data]);
-
+  useEffect(() => {
+    if (!hoveredData) return;
+    d3.select("#legendSVG")
+      .select("g")
+      .selectChildren()
+      .select("path")
+      .style("fill", (d: any) => {
+        if (!hoveredData) return scale(d);
+        if ((Math.abs(d - hoveredData) / hoveredData) * 100 < 0.8)
+          return theme.palette.secondary.main;
+        else return scale(d);
+      });
+  }, [hoveredData, scale, theme]);
   return (
     <svg id={"colorbar"} className={colorbarStyles.colorbar}>
       <g x="0" y="0" id="colors"></g>

@@ -1,52 +1,71 @@
 import Spinner from "@components/Spinner";
+import HoveredContext from "@context/appstate/HoveredProvider";
 import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
+import useHoveredData from "@hooks/appstate/useHoveredData";
+import useSelectedColor from "@hooks/appstate/useSelectedColor";
 import useFSASets from "@hooks/province/useFSASets";
+import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
 import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import useFilteredData from "@hooks/quantized/useFilteredData";
 import strings from "@l10n/strings";
-import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
-import { NumericalDonationKey } from "@types";
+import {
+  colors,
+  makeStyles,
+  Slider,
+  Typography,
+  useTheme,
+} from "@material-ui/core";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { MouseEvent, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 type HistogramProps = {};
+
+// Allows for the selection of the last child in a d3 selection
+d3.selection.prototype.last = function () {
+  var last = this.size() - 1;
+  return d3.select(this[0][last]);
+};
 
 const useStyles = makeStyles((theme) => ({
   vertical: {
     height: "150px",
   },
 }));
+const margin = { top: 10, right: 30, bottom: 30, left: 20 },
+  width = 300 - margin.left - margin.right,
+  height = 150 - margin.top - margin.bottom;
 
 const Histogram = (props: HistogramProps) => {
+  const { data: hoveredData } = useHoveredData();
   const classes = useStyles();
   const fsaSet = useFSASets();
   const scale = useCurrentScale();
+  const colorScale = useCurrentColorScale();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
   const data = useFilteredData();
   const [offset, setOffset] = useState(0);
   const { deviations, setDeviations } = useContext(StandardDeviationContext);
+  const theme = useTheme();
   //draw and calculate histogram
   useEffect(() => {
     if (!scale) return;
     let min = d3.min(data) as any;
     let max = d3.max(data) as any;
     let dev = d3.deviation(data) as any;
+    const devMax = dev * deviations;
     const binWidth = (3.5 * dev) / Math.pow(data.length, 1 / 3);
     const numBins = Math.ceil((max - min) / binWidth);
 
     d3.select("#histogram").selectAll("*").remove();
 
     // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 30, bottom: 30, left: 20 },
-      width = 300 - margin.left - margin.right,
-      height = 150 - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3
       .scaleLinear()
-      .domain([min, dev * deviations] as any)
+      .domain([min, devMax] as any)
       .rangeRound([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
 
@@ -54,9 +73,9 @@ const Histogram = (props: HistogramProps) => {
     var histogram = d3
       .bin<number, number>()
       .value(function (d) {
-        return d;
+        return d > devMax ? devMax : d;
       })
-      .domain(x.domain() as any)
+      .domain(x.clamp(true).domain() as any)
       .thresholds(x.ticks(numBins) as any);
 
     // Generate tooltip container
@@ -130,7 +149,7 @@ const Histogram = (props: HistogramProps) => {
         return height - y(d.length);
       })
       .style("fill", (d) => {
-        return scale(d.x0!);
+        return colorScale(d.x0!);
       })
       .style("stoke-width", "1px")
       .style("stroke", "black")
@@ -146,11 +165,32 @@ const Histogram = (props: HistogramProps) => {
           .axisBottom(x)
           .tickFormat(getFormatFunction(selectedNumericalType) as any)
           .tickSizeOuter(0)
-      );
+      )
+      .selectAll(".tick:last-of-type text")
+      .text((d) => `${getFormatFunction(selectedNumericalType)(d as any)}+`);
 
     // add the y Axis
     svg.append("g").style("font-size", "7px").call(d3.axisLeft(y));
-  }, [scale, deviations, selectedNumericalType, data, offset]);
+  }, [scale, deviations, selectedNumericalType, data, offset, colorScale]);
+  //highlight the bar coorresponding to the hovered value
+  useEffect(() => {
+    if (!scale) return;
+    else {
+      let dev = d3.deviation(data) as any;
+      const devMax = dev * deviations;
+      d3.select("#histogram")
+        .select("svg")
+        .select("g")
+        .selectAll("rect")
+        .style("fill", (d: any) => {
+          if (!hoveredData) return colorScale(d.x0!);
+          const clampHover = hoveredData > devMax ? devMax : hoveredData;
+          if (clampHover <= d.x1! && clampHover > d.x0!) {
+            return theme.palette.secondary.main;
+          } else return colorScale(d.x0);
+        });
+    }
+  }, [hoveredData, scale]);
 
   if (!fsaSet) return <Spinner />;
   if (!data.length)
@@ -233,4 +273,4 @@ const Histogram = (props: HistogramProps) => {
   );
 };
 
-export default Histogram;
+export default memo(Histogram);

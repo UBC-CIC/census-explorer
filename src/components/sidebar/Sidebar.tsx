@@ -1,5 +1,3 @@
-import { HoveredProvider } from "@context/appstate/HoveredProvider";
-import { OpacityProvider } from "@context/appstate/OpacityProvider";
 import { sidebarStyles } from "@styles";
 import { SelectorShown } from "@types";
 import { useRef, useState } from "react";

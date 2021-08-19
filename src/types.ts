@@ -1,5 +1,4 @@
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
-import { EmptyStatement } from "typescript";
 
 export interface Topology {
   type: "Topology";

@@ -31,9 +31,8 @@ export const CurrentScaleProvider = (props: { children?: ReactNode }) => {
   const fsaSets = useFSASets();
   const provinces = useSelectedProvinces();
   const selectedType = useSelectedType();
-  const { deviations } = useContext(StandardDeviationContext);
-
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
+  const { deviations } = useContext(StandardDeviationContext);
 
   // Returns an empty scale if data is not available
   if (!fsaSets || !provinces || !selectedData) {

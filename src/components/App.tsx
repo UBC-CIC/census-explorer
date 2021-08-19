@@ -1,29 +1,23 @@
-import DataMap from "./DataMap";
-import { appStyles } from "@styles";
-import Sidebar from "./sidebar/Sidebar";
-import { ProvinceDataProvider } from "@context/ProvinceDataProvider";
-import SidebarLoading from "./sidebar/SidebarLoading";
-import DatamapLoading from "./DatamapLoading";
-import { FamilyDataProvider } from "@context/family/FamilyDataProvider";
-import { SelectedCategoryProvider } from "@context/appstate/SelectedDataProvider";
-import { CensusDataProvider } from "@context/census/CensusDataProvider";
-import { ThemeProvider } from "@material-ui/core";
 import theme from "@constants/theme";
-import { SelectedProvincesProvider } from "@context/appstate/SelectedProvincesContext";
-import { SelectedFamilyTypeProvider } from "@context/appstate/SelectedFamilyTypeProvider";
-import { QuantizedFamilyDataProvider } from "@context/family/QuantizedFamilyDataProvider";
-import { IncomeDataProvider } from "@context/income/IncomeDataProvider";
-import { QuantizedIncomeDataProvider } from "@context/income/QuantizedIncomeDataProvider";
-import { SelectedIncomeTypeProvider } from "@context/appstate/SelectedIncomeTypeProvider";
-import useProvincesLoading from "@hooks/province/useProvincesLoading";
 import { CurrentScaleProvider } from "@context/appstate/CurrentScaleProvider";
-import { StandardDeviationProvider } from "@context/appstate/StandardDeviationProvider";
-import { ReactNode } from "react";
-import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
-import SelectedTypeProvider from "@context/appstate/SelectedTypeProvider";
-import Map from "./leaflet/Map";
-import { OpacityProvider } from "@context/appstate/OpacityProvider";
+import { FSASelectionProvider } from "@context/appstate/FSASelectionProvider";
 import { HoveredProvider } from "@context/appstate/HoveredProvider";
+import { OpacityProvider } from "@context/appstate/OpacityProvider";
+import { SelectedCategoryProvider } from "@context/appstate/SelectedDataProvider";
+import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
+import { SelectedProvincesProvider } from "@context/appstate/SelectedProvincesContext";
+import SelectedTypeProvider from "@context/appstate/SelectedTypeProvider";
+import { StandardDeviationProvider } from "@context/appstate/StandardDeviationProvider";
+import { CensusDataProvider } from "@context/census/CensusDataProvider";
+import { FamilyDataProvider } from "@context/family/FamilyDataProvider";
+import { IncomeDataProvider } from "@context/income/IncomeDataProvider";
+import { ProvinceDataProvider } from "@context/ProvinceDataProvider";
+import useProvincesLoading from "@hooks/province/useProvincesLoading";
+import { ThemeProvider } from "@material-ui/core";
+import { appStyles } from "@styles";
+import { ReactNode } from "react";
+import Map from "./leaflet/Map";
+import Sidebar from "./sidebar/Sidebar";
 
 // ------------------------
 // These Providers are used to pass data to the components
@@ -65,10 +59,14 @@ const AppCore = () => {
               <SelectedTypeProvider>
                 <StandardDeviationProvider>
                   <CurrentScaleProvider>
-                    <OpacityProvider>
-                      <Map />
-                    </OpacityProvider>
-                    <Sidebar />
+                    <FSASelectionProvider>
+                      <HoveredProvider>
+                        <OpacityProvider>
+                          <Map />
+                        </OpacityProvider>
+                        <Sidebar />
+                      </HoveredProvider>
+                    </FSASelectionProvider>
                   </CurrentScaleProvider>
                 </StandardDeviationProvider>
               </SelectedTypeProvider>

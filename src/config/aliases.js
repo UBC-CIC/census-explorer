@@ -8,6 +8,7 @@ const aliases = (prefix = `src`) => ({
   "@data": `${prefix}/data`,
   "@utils": `${prefix}/utils`,
   "@constants": `${prefix}/constants`,
+  "@reducers": `${prefix}/reducers`,
   "@l10n": `${prefix}/l10n`,
 });
 
