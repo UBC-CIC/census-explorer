@@ -24,7 +24,7 @@ const useBoundsSet = (province?: TopoJSONNames) => {
         selectedNumericalType
       ] as number;
       if (!bounds) return;
-      else if (bounds[0] <= value && bounds[1] > value)
+      else if (bounds[0] <= value && bounds[1] >= value)
         boundsSet.add(fsa as FSAType);
     });
     return boundsSet;

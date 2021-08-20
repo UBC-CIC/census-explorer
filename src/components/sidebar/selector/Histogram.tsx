@@ -156,6 +156,7 @@ const Histogram = (props: HistogramProps) => {
       .enter()
       .append("rect")
       .attr("class", "bar")
+      .style("cursor", "pointer")
       .attr("x", 1)
       .attr("transform", function (d) {
         return `translate(${x(d.x0!)},${y(d.length)})`;

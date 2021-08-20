@@ -29,6 +29,7 @@ const strings = new LocalizedStrings({
     selection: "Selection",
     reset: "Reset",
     isolate: "Isolate",
+    selectAll: "Select All",
   },
 });
 

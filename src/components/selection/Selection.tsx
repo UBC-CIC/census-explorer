@@ -14,11 +14,14 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import FSASelectionContext from "@context/appstate/FSASelectionProvider";
 import L from "leaflet";
 import IsolatedFSAContext from "@context/appstate/IsolatedFSAProvider";
+import SelectionInfo from "./SelectionInfo";
 type SelectionProps = {};
 
 const Selection = (props: SelectionProps) => {
   const [visible, setVisible] = useState(false);
   const { selection, setSelection } = useContext(FSASelectionContext);
+  console.log(selection);
+
   const { isolated, setIsolated } = useContext(IsolatedFSAContext);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -50,7 +53,7 @@ const Selection = (props: SelectionProps) => {
       </div>
       <div className={selectionStyles.selectionContainer}>
         {Array.from(selection).map((fsa) => (
-          <div>{!isolated.has(fsa) && fsa}</div>
+          <SelectionInfo fsa={fsa} key={fsa} />
         ))}
       </div>
       <Button

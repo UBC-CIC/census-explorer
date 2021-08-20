@@ -1,7 +1,11 @@
-type SelectionInfoProps = {};
+import { FSAType } from "@types";
 
-const SelectionInfo = (props: SelectionInfoProps) => {
-  return <div></div>;
+type SelectionInfoProps = {
+  fsa: FSAType;
+};
+
+const SelectionInfo = ({ fsa }: SelectionInfoProps) => {
+  return <div>{fsa}</div>;
 };
 
 export default SelectionInfo;

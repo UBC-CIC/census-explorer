@@ -80,7 +80,11 @@ export const CurrentScaleProvider = (props: { children?: ReactNode }) => {
     dev = 0;
   }
 
-  let finalMax = dev * deviations;
+  let finalMax = max;
+
+  if (dev) {
+    finalMax = dev * deviations;
+  }
 
   if (min > dev) {
     finalMax = max;

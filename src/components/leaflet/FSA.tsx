@@ -20,11 +20,11 @@ const getColorFromState = (
   inBounds: boolean,
   theme: Theme
 ) => {
-  if (selected) {
-    return "red";
-  }
   if (inBounds) {
     return theme.palette.secondary.main;
+  }
+  if (selected) {
+    return "red";
   }
   if (hovered) {
     return darken(baseColor, 0.2);
