@@ -1,25 +1,22 @@
-import Spinner from "@components/Spinner";
-import HoveredContext from "@context/appstate/HoveredProvider";
+import FSASelectionContext from "@context/appstate/FSASelectionProvider";
+import HoveredBoundsContext from "@context/appstate/HoveredBoundsProvider";
 import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
+import useBoundsSet from "@hooks/appstate/useBoundsSet";
 import useHoveredData from "@hooks/appstate/useHoveredData";
-import useSelectedColor from "@hooks/appstate/useSelectedColor";
+import useSelectedType from "@hooks/appstate/useSelectedType";
 import useFSASets from "@hooks/province/useFSASets";
 import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
 import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import useFilteredData from "@hooks/quantized/useFilteredData";
+import useFilteredDomain from "@hooks/quantized/useFilteredDomain";
 import strings from "@l10n/strings";
-import {
-  colors,
-  makeStyles,
-  Slider,
-  Typography,
-  useTheme,
-} from "@material-ui/core";
+import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
+import { FSAType } from "@types";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useState } from "react";
 type HistogramProps = {};
 
 // Allows for the selection of the last child in a d3 selection
@@ -38,34 +35,39 @@ const margin = { top: 10, right: 30, bottom: 30, left: 20 },
   height = 150 - margin.top - margin.bottom;
 
 const Histogram = (props: HistogramProps) => {
+  const selectedType = useSelectedType();
   const { data: hoveredData } = useHoveredData();
   const classes = useStyles();
   const fsaSet = useFSASets();
   const scale = useCurrentScale();
+  const { min, max, domain, dev } = useFilteredDomain();
   const colorScale = useCurrentColorScale();
+  const { setSelection } = useContext(FSASelectionContext);
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
   const data = useFilteredData();
   const [offset, setOffset] = useState(0);
   const { deviations, setDeviations } = useContext(StandardDeviationContext);
+  const { bounds, setBounds } = useContext(HoveredBoundsContext);
+  const boundSet = useBoundsSet();
   const theme = useTheme();
+
+  const handleClick = () => {
+    setSelection((old) => {
+      let newSelection = new Set(old);
+      boundSet.forEach((item) => newSelection.add(item));
+      return newSelection;
+    });
+  };
   //draw and calculate histogram
   useEffect(() => {
     if (!scale) return;
-    let min = d3.min(data) as any;
-    let max = d3.max(data) as any;
-    let dev = d3.deviation(data) as any;
-    const devMax = dev * deviations;
-    const binWidth = (3.5 * dev) / Math.pow(data.length, 1 / 3);
-    const numBins = Math.ceil((max - min) / binWidth);
 
     d3.select("#histogram").selectAll("*").remove();
-
-    // set the dimensions and margins of the graph
 
     // set the ranges
     var x = d3
       .scaleLinear()
-      .domain([min, devMax] as any)
+      .domain([min, max] as any)
       .rangeRound([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
 
@@ -73,10 +75,10 @@ const Histogram = (props: HistogramProps) => {
     var histogram = d3
       .bin<number, number>()
       .value(function (d) {
-        return d > devMax ? devMax : d;
+        return d > max ? max : d;
       })
-      .domain(x.clamp(true).domain() as any)
-      .thresholds(x.ticks(numBins) as any);
+      .domain(x.domain() as any)
+      .thresholds(12 as any);
 
     // Generate tooltip container
     var tooltip = d3
@@ -90,12 +92,28 @@ const Histogram = (props: HistogramProps) => {
       .style("transition", "opacity .2s")
       .style("pointer-events", "none");
 
-    const mouseover = (event: any, d: any) => {
+    const mouseover = (event: any, d: d3.Bin<number, number>) => {
+      const arr = d.flat();
+      arr.push(d.x1!);
+      const m = d3.max(arr);
+      event.target.style.fill = theme.palette.secondary.main;
+
+      // only update bounds if the bounds values are different
+      if (!bounds || bounds[0] !== d.x0! || bounds[1] !== m!) {
+        setBounds([d.x0!, m!]);
+      }
+
       tooltip.style("opacity", 1);
     };
 
     const mouseleave = (event: any, d: any) => {
+      setBounds(undefined);
       tooltip.style("opacity", 0);
+    };
+
+    const click = (event: any, d: any) => {
+      if (!bounds) return;
+      handleClick();
     };
 
     const mousemove = (event: any, d: any) => {
@@ -154,6 +172,7 @@ const Histogram = (props: HistogramProps) => {
       .style("stoke-width", "1px")
       .style("stroke", "black")
       .on("mousemove", mousemove)
+      .on("click", click)
       .on("mouseover", mouseover);
     // add the x Axis
     svg
@@ -171,28 +190,43 @@ const Histogram = (props: HistogramProps) => {
 
     // add the y Axis
     svg.append("g").style("font-size", "7px").call(d3.axisLeft(y));
-  }, [scale, deviations, selectedNumericalType, data, offset, colorScale]);
+  }, [
+    scale,
+    deviations,
+    selectedNumericalType,
+    setBounds,
+    data,
+    boundSet,
+    theme,
+    offset,
+    colorScale,
+    bounds,
+    selectedType,
+    dev,
+    max,
+    handleClick,
+    min,
+  ]);
+
   //highlight the bar coorresponding to the hovered value
   useEffect(() => {
     if (!scale) return;
     else {
-      let dev = d3.deviation(data) as any;
-      const devMax = dev * deviations;
       d3.select("#histogram")
         .select("svg")
         .select("g")
         .selectAll("rect")
         .style("fill", (d: any) => {
           if (!hoveredData) return colorScale(d.x0!);
-          const clampHover = hoveredData > devMax ? devMax : hoveredData;
-          if (clampHover <= d.x1! && clampHover > d.x0!) {
+          const clampHover = hoveredData > max ? max : hoveredData;
+          if (clampHover <= d.x1! && clampHover >= d.x0!) {
             return theme.palette.secondary.main;
           } else return colorScale(d.x0);
         });
     }
-  }, [hoveredData, scale]);
+  }, [hoveredData, scale, colorScale, data, deviations, theme, max]);
 
-  if (!fsaSet) return <Spinner />;
+  if (!fsaSet) return null;
   if (!data.length)
     return (
       <div

@@ -1,5 +1,6 @@
 .App {
-  overflow: visible;
+  overflow: hidden;
   flex: 1;
+  height: 100vh;
   display: flex;
 }

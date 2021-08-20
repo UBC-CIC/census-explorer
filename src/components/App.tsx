@@ -1,7 +1,9 @@
 import theme from "@constants/theme";
 import { CurrentScaleProvider } from "@context/appstate/CurrentScaleProvider";
 import { FSASelectionProvider } from "@context/appstate/FSASelectionProvider";
+import { HoveredBoundsProvider } from "@context/appstate/HoveredBoundsProvider";
 import { HoveredProvider } from "@context/appstate/HoveredProvider";
+import { IsolatedFSAProvider } from "@context/appstate/IsolatedFSAProvider";
 import { OpacityProvider } from "@context/appstate/OpacityProvider";
 import { SelectedCategoryProvider } from "@context/appstate/SelectedDataProvider";
 import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
@@ -58,16 +60,20 @@ const AppCore = () => {
             <SelectedNumericalProvider>
               <SelectedTypeProvider>
                 <StandardDeviationProvider>
-                  <CurrentScaleProvider>
-                    <FSASelectionProvider>
-                      <HoveredProvider>
-                        <OpacityProvider>
-                          <Map />
-                        </OpacityProvider>
-                        <Sidebar />
-                      </HoveredProvider>
-                    </FSASelectionProvider>
-                  </CurrentScaleProvider>
+                  <IsolatedFSAProvider>
+                    <CurrentScaleProvider>
+                      <FSASelectionProvider>
+                        <HoveredProvider>
+                          <HoveredBoundsProvider>
+                            <OpacityProvider>
+                              <Map />
+                            </OpacityProvider>
+                            <Sidebar />
+                          </HoveredBoundsProvider>
+                        </HoveredProvider>
+                      </FSASelectionProvider>
+                    </CurrentScaleProvider>
+                  </IsolatedFSAProvider>
                 </StandardDeviationProvider>
               </SelectedTypeProvider>
             </SelectedNumericalProvider>
@@ -94,6 +100,7 @@ const AppCore = () => {
  * StandardDeviationProvider changes rapidly, and is used to determine the current scale
  * HoveredProvider changes when the mouse is hovered over an FSA
  * OpacityProvider changes when the opacity slider is moved
+ * HoveredBoundsProvider changes when the mouse is hovered over a histogram bar
  */
 
 /** Data structured:

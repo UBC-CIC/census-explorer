@@ -26,6 +26,9 @@ const strings = new LocalizedStrings({
     deviation: "Standard Deviations",
     zoom: "Zoom",
     opacity: "Opacity",
+    selection: "Selection",
+    reset: "Reset",
+    isolate: "Isolate",
   },
 });
 

@@ -24,7 +24,14 @@ const DataSelector = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", flexBasis: 350 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flexBasis: 350,
+        marginBottom: "20px",
+      }}
+    >
       <ButtonGroup orientation="vertical">
         <Button
           variant={
