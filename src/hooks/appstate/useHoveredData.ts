@@ -10,7 +10,7 @@ const useHoveredData = () => {
   const selectedType = useSelectedType();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
 
-  if (!hovered) return { data: null, hoevered: undefined };
+  if (!hovered) return { data: null, fsa: undefined };
   return {
     data: (data as any)[hovered][selectedType][selectedNumericalType] as number,
     fsa: hovered,

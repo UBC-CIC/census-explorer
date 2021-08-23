@@ -31,3 +31,21 @@
   margin-top: 10px;
   overflow: auto;
 }
+
+.fsaButtonContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
+}
+
+.fsaButton {
+  width: 100%;
+  display: flex;
+  flex: 1;
+}
+
+.iconButton {
+  width: 20px;
+  height: 20px;
+}
