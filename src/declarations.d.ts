@@ -1,1 +1,1 @@
-declare module "react-d3-legends";
+declare module "leaflet-area-select";

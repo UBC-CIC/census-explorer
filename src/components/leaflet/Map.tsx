@@ -2,15 +2,13 @@ import ColorLegend from "@components/colorLegend/ColorLegend";
 import OpacitySlider from "@components/OpacitySlider";
 import Selection from "@components/selection/Selection";
 import Spinner from "@components/Spinner";
-import FSASelectionContext from "@context/appstate/FSASelectionProvider";
-import HoveredContext from "@context/appstate/HoveredProvider";
 import useProvincesLoading from "@hooks/province/useProvincesLoading";
-import { FSAType, TopoJSONNames } from "@types";
+import { TopoJSONNames } from "@types";
 import { LatLngTuple } from "leaflet";
-import { useContext, useEffect, useState } from "react";
 import { LayerGroup, MapContainer, TileLayer } from "react-leaflet";
+import "leaflet-area-select";
+import AreaSelect from "./AreaSelect";
 import GeoJSONLayer from "./GeoJSONLayer";
-import L from "leaflet";
 
 type MapProps = {};
 
@@ -41,6 +39,7 @@ const Map = (props: MapProps) => {
         <ColorLegend />
         <OpacitySlider />
         <Selection />
+        <AreaSelect />
       </MapContainer>
     </>
   );

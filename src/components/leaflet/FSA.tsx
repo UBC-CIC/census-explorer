@@ -2,8 +2,8 @@ import OpacityContext from "@context/appstate/OpacityProvider";
 import useSelectedColor from "@hooks/appstate/useSelectedColor";
 import { darken, Theme, useTheme } from "@material-ui/core";
 import { FSAFeatureType, FSAType } from "@types";
-import React, { memo, useContext, useState } from "react";
-import { GeoJSON as GeoJsonComponent } from "react-leaflet";
+import React, { memo, useContext, useEffect, useState } from "react";
+import { GeoJSON as GeoJsonComponent, useMap } from "react-leaflet";
 
 type FSAProps = {
   feature: FSAFeatureType;

@@ -10,6 +10,8 @@ import useSelectedType from "@hooks/appstate/useSelectedType";
 import useProvinceData from "@hooks/province/useProvinceData";
 import { FSAType, TopoJSONNames } from "@types";
 import React, { memo, useContext } from "react";
+import { useMap } from "react-leaflet";
+import { CustomMap } from "./AreaSelect";
 import FSA from "./FSA";
 
 type GeoJSONLayerProps = {
@@ -22,7 +24,6 @@ const GeoJSONLayer = ({ provinceName }: GeoJSONLayerProps) => {
   const { isolated } = useContext(IsolatedFSAContext);
   const { setHovered } = useContext(HoveredContext);
   const boundsSet = useBoundsSet(provinceName);
-
   const features = useProvinceData(provinceName);
   return (
     <>

@@ -12,11 +12,10 @@ import useFilteredData from "@hooks/quantized/useFilteredData";
 import useFilteredDomain from "@hooks/quantized/useFilteredDomain";
 import strings from "@l10n/strings";
 import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
-import { FSAType } from "@types";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
-import { memo, useCallback, useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 type HistogramProps = {};
 
 // Allows for the selection of the last child in a d3 selection

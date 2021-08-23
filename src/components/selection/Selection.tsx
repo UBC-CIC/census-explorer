@@ -15,10 +15,13 @@ import FSASelectionContext from "@context/appstate/FSASelectionProvider";
 import L from "leaflet";
 import IsolatedFSAContext from "@context/appstate/IsolatedFSAProvider";
 import SelectionInfo from "./SelectionInfo";
+import { useMap } from "react-leaflet";
 type SelectionProps = {};
 
 const Selection = (props: SelectionProps) => {
   const [visible, setVisible] = useState(false);
+  const map = useMap();
+  (map as any)?.selectArea?.enable();
   const { selection, setSelection } = useContext(FSASelectionContext);
   console.log(selection);
 
