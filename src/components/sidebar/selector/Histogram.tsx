@@ -50,15 +50,15 @@ const Histogram = (props: HistogramProps) => {
   const boundSet = useBoundsSet();
   const theme = useTheme();
 
-  const handleClick = () => {
-    setSelection((old) => {
-      let newSelection = new Set(old);
-      boundSet.forEach((item) => newSelection.add(item));
-      return newSelection;
-    });
-  };
   //draw and calculate histogram
   useEffect(() => {
+    const handleClick = () => {
+      setSelection((old) => {
+        let newSelection = new Set(old);
+        boundSet.forEach((item) => newSelection.add(item));
+        return newSelection;
+      });
+    };
     if (!scale) return;
 
     d3.select("#histogram").selectAll("*").remove();
@@ -202,9 +202,9 @@ const Histogram = (props: HistogramProps) => {
     colorScale,
     bounds,
     selectedType,
+    setSelection,
     dev,
     max,
-    handleClick,
     min,
   ]);
 

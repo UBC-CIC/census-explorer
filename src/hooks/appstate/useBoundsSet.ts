@@ -1,4 +1,5 @@
 import HoveredBoundsContext from "@context/appstate/HoveredBoundsProvider";
+import IsolatedFSAContext from "@context/appstate/IsolatedFSAProvider";
 import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 import useFSASets from "@hooks/province/useFSASets";
 import { FSAType, ProvinceOption, TopoJSONNames } from "@types";
@@ -13,6 +14,7 @@ const useBoundsSet = (province?: TopoJSONNames) => {
   const fsaSets = useFSASets();
   const selectedProvinces = useSelectedProvinces();
   const data = useSelectedData();
+  const { isolated } = useContext(IsolatedFSAContext);
   const { bounds } = useContext(HoveredBoundsContext);
   const selectedType = useSelectedType();
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
@@ -24,8 +26,10 @@ const useBoundsSet = (province?: TopoJSONNames) => {
         selectedNumericalType
       ] as number;
       if (!bounds) return;
-      else if (bounds[0] <= value && bounds[1] >= value)
-        boundsSet.add(fsa as FSAType);
+      else if (bounds[0] <= value && bounds[1] >= value) {
+        if (isolated.size === 0 || isolated.has(fsa as FSAType))
+          boundsSet.add(fsa as FSAType);
+      }
     });
     return boundsSet;
   } else {
@@ -43,7 +47,8 @@ const useBoundsSet = (province?: TopoJSONNames) => {
       ] as number;
 
       if (bounds[0] <= value && bounds[1] >= value) {
-        boundsSet.add(fsa as FSAType);
+        if (isolated.size === 0 || isolated.has(fsa as FSAType))
+          boundsSet.add(fsa as FSAType);
       }
     });
     return boundsSet;

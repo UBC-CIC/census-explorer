@@ -2,8 +2,8 @@ import OpacityContext from "@context/appstate/OpacityProvider";
 import useSelectedColor from "@hooks/appstate/useSelectedColor";
 import { darken, Theme, useTheme } from "@material-ui/core";
 import { FSAFeatureType, FSAType } from "@types";
-import React, { memo, useContext, useEffect, useState } from "react";
-import { GeoJSON as GeoJsonComponent, useMap } from "react-leaflet";
+import React, { memo, useContext } from "react";
+import { GeoJSON as GeoJsonComponent } from "react-leaflet";
 
 type FSAProps = {
   feature: FSAFeatureType;
@@ -11,6 +11,7 @@ type FSAProps = {
   toggleSelected: React.Dispatch<React.SetStateAction<Set<FSAType>>>;
   selected: boolean;
   inBounds: boolean;
+  hovered: boolean;
 };
 
 const getColorFromState = (
@@ -20,7 +21,7 @@ const getColorFromState = (
   inBounds: boolean,
   theme: Theme
 ) => {
-  if (inBounds) {
+  if (inBounds || hovered) {
     return theme.palette.secondary.main;
   }
   if (selected) {
@@ -37,11 +38,11 @@ const FSA = ({
   setHovered: setHoveredOuter,
   toggleSelected,
   selected,
+  hovered,
   inBounds,
 }: FSAProps) => {
   const fsa = feature.properties.CFSAUID as FSAType;
   const color = useSelectedColor(fsa);
-  const [hovered, setHovered] = useState(false);
   const { opacity } = useContext(OpacityContext);
   const theme = useTheme();
   const handleClick = () => {
@@ -53,11 +54,9 @@ const FSA = ({
     });
   };
   const handleMouseOver = () => {
-    setHovered(true);
     setHoveredOuter(fsa);
   };
   const handleMouseOut = () => {
-    setHovered(false);
     setHoveredOuter(undefined);
   };
 

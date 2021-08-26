@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-censusexplorer-dev-162813-authRole",
+      "UnauthRoleArn": "arn:aws:iam::796371632714:role/amplify-censusexplorer-dev-162813-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::796371632714:role/amplify-censusexplorer-dev-162813-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-censusexplorer-dev-162813-deployment",
+      "UnauthRoleName": "amplify-censusexplorer-dev-162813-unauthRole",
+      "StackName": "amplify-censusexplorer-dev-162813",
+      "StackId": "arn:aws:cloudformation:ca-central-1:796371632714:stack/amplify-censusexplorer-dev-162813/1f793f60-05fc-11ec-aaf4-068df6d6119a",
+      "AmplifyAppId": "d3fgah2c1p85ss"
+    }
+  }
+}

@@ -1,21 +1,13 @@
-import OpacityContext from "@context/appstate/OpacityProvider";
-import strings from "@l10n/strings";
-import {
-  Button,
-  Collapse,
-  IconButton,
-  Slider,
-  Typography,
-} from "@material-ui/core";
-import { opacitySliderStyles, selectionStyles } from "@styles";
-import { useContext, useEffect, useRef, useState } from "react";
-import _, { over } from "lodash";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import FSASelectionContext from "@context/appstate/FSASelectionProvider";
-import L from "leaflet";
 import IsolatedFSAContext from "@context/appstate/IsolatedFSAProvider";
-import SelectionInfo from "./SelectionInfo";
+import strings from "@l10n/strings";
+import { Button, Collapse, IconButton } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { selectionStyles } from "@styles";
+import L from "leaflet";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useMap } from "react-leaflet";
+import SelectionInfo from "./SelectionInfo";
 type SelectionProps = {};
 
 const Selection = (props: SelectionProps) => {
@@ -32,7 +24,9 @@ const Selection = (props: SelectionProps) => {
       L.DomEvent.disableScrollPropagation(overlayRef.current);
     }
   }, [overlayRef]);
-
+  const handleClear = () => {
+    setSelection(new Set());
+  };
   const handleIsolate = () => {
     setIsolated(new Set(selection));
     setSelection(new Set());
@@ -59,15 +53,24 @@ const Selection = (props: SelectionProps) => {
           <SelectionInfo fsa={fsa} key={fsa} />
         ))}
       </div>
-      <Button
-        color="primary"
-        onClick={handleIsolate}
-        // disabled={selection.size === 1}
-        variant="contained"
-      >
-        {selection.size > 0 ? strings.isolate : strings.reset}{" "}
-        {strings.selection}
-      </Button>
+      <div className={selectionStyles.mainButtonContainer}>
+        <Button
+          color="primary"
+          onClick={handleIsolate}
+          variant="contained"
+          className={selectionStyles.mainButton}
+        >
+          {selection.size > 0 ? strings.isolate : strings.reset}{" "}
+        </Button>
+        <Button
+          color="primary"
+          onClick={handleClear}
+          variant="contained"
+          className={selectionStyles.mainButton}
+        >
+          Clear Selection
+        </Button>
+      </div>
     </Collapse>
   );
 };

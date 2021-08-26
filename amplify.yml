@@ -1,0 +1,37 @@
+version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Prebuild"
+    build:
+      commands:
+        - "# Execute Amplify CLI with the helper script"
+        - REACT_APP_TOPOJSON_URL=d135brruixvhfr.cloudfront.net
+        - amplifyPush --simple
+    postBuild:
+      commands:
+        - yum install -y jq
+        - export AWS_REGION=$(aws configure get region)
+        - export ACCOUNTID=$(aws sts get-caller-identity --query Account --output text)
+        - export PROJECT_NAME=$(cat ./amplify/.config/project-config.json | jq -r '.projectName')
+        - export ENV_NAME=$(cat ./amplify/.config/local-env-info.json | jq -r '.envName')
+        - export AMPLIFY_APP_ID=$(cat ./amplify/team-provider-info.json | jq -r --arg v "$ENV_NAME" '.[$v].awscloudformation.AmplifyAppId')
+        - export BRANCH_NAME=$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.productionBranch.branchName')
+        - export DOMAIN=$BRANCH_NAME.$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.defaultDomain')
+        - echo $(ls)
+# frontend:
+#   phases:
+#     preBuild:
+#       commands:
+#         - yarn install
+#     build:
+#       commands:
+#         - yarn run build
+#   artifacts:
+#     baseDirectory: build
+#     files:
+#       - "**/*"
+#   cache:
+#     paths:
+#       - node_modules/**/*

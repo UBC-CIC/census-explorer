@@ -70,7 +70,9 @@ const populateFSASets = (
   });
 };
 const fetchFSAData = async (provinceName: string) => {
-  const res = await fetch(`/api/${provinceName}`);
+  const res = await fetch(
+    `${process.env.REACT_APP_TOPOJSON_URL}/full/${provinceName}.json`
+  );
   const provinceTopo = (await res.json()) as unknown as CanadaTopologyType;
   const properties = provinceTopo.objects[provinceName];
   const features = (
@@ -84,7 +86,9 @@ const fetchFSAData = async (provinceName: string) => {
 // TODO cache fetched files in browser / service worker
 const fetchOutlineData = async (provinceName: string) => {
   const nameWithOutline = `${provinceName}-outline`;
-  const res = await fetch(`/api/${nameWithOutline}`);
+  const res = await fetch(
+    `${process.env.REACT_APP_TOPOJSON_URL}/outlines/${nameWithOutline}.json`
+  );
   const provinceTopo = (await res.json()) as unknown as CanadaTopologyType;
   const properties = provinceTopo.objects[nameWithOutline];
 
