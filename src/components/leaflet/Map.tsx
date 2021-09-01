@@ -9,6 +9,7 @@ import { LayerGroup, MapContainer, TileLayer } from "react-leaflet";
 import "leaflet-area-select";
 import AreaSelect from "./AreaSelect";
 import GeoJSONLayer from "./GeoJSONLayer";
+import Search from "@components/search/Search";
 
 type MapProps = {};
 

@@ -6,6 +6,7 @@ export { default as leafletStyles } from "./leaflet.module.css";
 export { default as minimapStyles } from "./minimap.module.css";
 export { default as opacitySliderStyles } from "./opacitySlider.module.css";
 export { default as resizableStyles } from "./resizable.module.css";
+export { default as searchStyles } from "./search.module.css";
 export { default as selectionStyles } from "./selection.module.css";
 export { default as selectOptionsStyles } from "./selectOptions.module.css";
 export { default as selectorStyles } from "./selector.module.css";

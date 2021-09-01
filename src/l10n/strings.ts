@@ -30,6 +30,7 @@ const strings = new LocalizedStrings({
     reset: "Reset",
     isolate: "Isolate",
     selectAll: "Select All",
+    search: "Search",
   },
 });
 

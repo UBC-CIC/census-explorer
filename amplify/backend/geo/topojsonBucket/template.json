@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "CloudFormation Stack for TopoJSON files and CloudFront",
+  "Description": "CloudFormation Stack for the TopoJSON files and CloudFront",
   "Metadata": {},
   "Parameters": {
     "env": {

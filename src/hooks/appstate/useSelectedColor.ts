@@ -16,9 +16,10 @@ const useSelectedColor = (FSA: FSAType | undefined) => {
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
   if (FSA === undefined) return INVALID_COLOR;
   if (isFSAToCensus(data)) return INVALID_COLOR;
+  if (!data) return INVALID_COLOR;
   else
     return (
-      (colorScale(data[FSA]![type]![selectedNumericalType]) as string) ||
+      (colorScale(data[FSA][type][selectedNumericalType]) as string) ||
       INVALID_COLOR
     );
 };

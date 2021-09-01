@@ -1,3 +1,4 @@
+import Search from "@components/search/Search";
 import { sidebarStyles } from "@styles";
 import { SelectorShown } from "@types";
 import { useRef, useState } from "react";
@@ -16,6 +17,7 @@ const Sidebar = (props: SidebarProps) => {
     <div className={sidebarStyles.sidebar} ref={sidebarRef}>
       <Histogram />
       <SelectorSelector shown={shown} setShown={setShown} />
+      {/* <Search /> */}
       <InfoSection />
       <DataSelector />
     </div>

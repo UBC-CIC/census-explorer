@@ -73,6 +73,7 @@ const fetchFSAData = async (provinceName: string) => {
   const res = await fetch(
     `${process.env.REACT_APP_TOPOJSON_URL}/full/${provinceName}.json`
   );
+
   const provinceTopo = (await res.json()) as unknown as CanadaTopologyType;
   const properties = provinceTopo.objects[provinceName];
   const features = (
@@ -120,6 +121,7 @@ export const ProvinceDataProvider = (props: { children?: ReactNode }) => {
       );
 
       const fetchedProvinces = await provincePromise;
+
       const fetchedOutlines = await outlinePromise;
 
       try {
