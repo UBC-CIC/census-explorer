@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "api": {
+      "censusexplorer": [
+        "Query"
+      ]
+    },
+    "storage": {
+      "FamilyData:@model(appsync)": [
+        "read"
+      ],
+      "IncomeData:@model(appsync)": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

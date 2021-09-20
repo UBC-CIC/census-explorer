@@ -3,5 +3,36 @@
     "topojsonBucket": {
       "providerPlugin": "awscloudformation"
     }
+  },
+  "api": {
+    "censusexplorer": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AWS_IAM"
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  },
+  "function": {
+    "similarSearch": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "censusexplorer",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ]
+        }
+      ]
+    }
   }
 }

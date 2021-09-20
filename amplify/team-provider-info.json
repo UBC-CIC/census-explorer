@@ -10,6 +10,14 @@
       "StackName": "amplify-censusexplorer-dev-162813",
       "StackId": "arn:aws:cloudformation:ca-central-1:796371632714:stack/amplify-censusexplorer-dev-162813/1f793f60-05fc-11ec-aaf4-068df6d6119a",
       "AmplifyAppId": "d3fgah2c1p85ss"
+    },
+    "categories": {
+      "function": {
+        "similarSearch": {
+          "deploymentBucketName": "amplify-censusexplorer-dev-162813-deployment",
+          "s3Key": "amplify-builds/similarSearch-517a537732613278686c-build.zip"
+        }
+      }
     }
   }
 }
