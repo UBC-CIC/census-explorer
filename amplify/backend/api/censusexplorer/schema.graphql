@@ -1,11 +1,8 @@
-enum FamilyTypeOption {
+enum DonationTypeOption {
   COUPLE_WITH_CHILDREN
   LONE_PARENT_FAMILIES
   COUPLE_WITHOUT_CHILDREN
   PERSONS_NOT_IN_CENSUS_FAMILIES
-}
-
-enum IncomeTypeOption {
   l20K
   l40K
   l60K
@@ -17,15 +14,15 @@ enum IncomeTypeOption {
   ge250K
 }
 
-type FamilyData
+type DonationData
   @model
   @key(
-    name: "familyDataByType"
+    name: "donationDataByType"
     fields: ["FSA", "Type"]
-    queryField: "familyDataByType"
+    queryField: "donationDataByType"
   ) {
   FSA: String!
-  Type: FamilyTypeOption!
+  Type: DonationTypeOption!
   Year: Float
   IncomeGroup: String
   NumFam: Float
@@ -33,30 +30,6 @@ type FamilyData
   NumDons: Float
   MedianDon: Float
   DonRate: Float
-  # Place: Int
-  # Name_EN: String
-  # Name_FR: String
-}
-
-type IncomeData
-  @model
-  @key(
-    name: "incomeDataByType"
-    fields: ["FSA", "Type"]
-    queryField: "incomeDataByType"
-  ) {
-  FSA: String!
-  Type: IncomeTypeOption!
-  Year: Float
-  IncomeGroup: String
-  NumFam: Float
-  TotDons: Float
-  NumDons: Float
-  MedianDon: Float
-  DonRate: Float
-  # Place: Int
-  # Name_EN: String
-  # Name_FR: String
 }
 
 type Query {

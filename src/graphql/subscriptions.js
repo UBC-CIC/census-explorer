@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateFamilyData = /* GraphQL */ `
-  subscription OnCreateFamilyData {
-    onCreateFamilyData {
+export const onCreateDonationData = /* GraphQL */ `
+  subscription OnCreateDonationData {
+    onCreateDonationData {
       id
       FSA
       Type
@@ -19,9 +19,9 @@ export const onCreateFamilyData = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateFamilyData = /* GraphQL */ `
-  subscription OnUpdateFamilyData {
-    onUpdateFamilyData {
+export const onUpdateDonationData = /* GraphQL */ `
+  subscription OnUpdateDonationData {
+    onUpdateDonationData {
       id
       FSA
       Type
@@ -37,63 +37,9 @@ export const onUpdateFamilyData = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteFamilyData = /* GraphQL */ `
-  subscription OnDeleteFamilyData {
-    onDeleteFamilyData {
-      id
-      FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateIncomeData = /* GraphQL */ `
-  subscription OnCreateIncomeData {
-    onCreateIncomeData {
-      id
-      FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateIncomeData = /* GraphQL */ `
-  subscription OnUpdateIncomeData {
-    onUpdateIncomeData {
-      id
-      FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteIncomeData = /* GraphQL */ `
-  subscription OnDeleteIncomeData {
-    onDeleteIncomeData {
+export const onDeleteDonationData = /* GraphQL */ `
+  subscription OnDeleteDonationData {
+    onDeleteDonationData {
       id
       FSA
       Type

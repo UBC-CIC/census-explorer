@@ -84,12 +84,12 @@
             "API_CENSUSEXPLORER_GRAPHQLAPIENDPOINTOUTPUT": {
               "Ref": "apicensusexplorerGraphQLAPIEndpointOutput"
             },
-            "API_CENSUSEXPLORER_FAMILYDATATABLE_NAME": {
+            "API_CENSUSEXPLORER_DONATIONDATATABLE_NAME": {
               "Fn::ImportValue": {
-                "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:FamilyDataTable:Name"
+                "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:DonationDataTable:Name"
               }
             },
-            "API_CENSUSEXPLORER_FAMILYDATATABLE_ARN": {
+            "API_CENSUSEXPLORER_DONATIONDATATABLE_ARN": {
               "Fn::Join": [
                 "",
                 [
@@ -104,33 +104,7 @@
                   ":table/",
                   {
                     "Fn::ImportValue": {
-                      "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:FamilyDataTable:Name"
-                    }
-                  }
-                ]
-              ]
-            },
-            "API_CENSUSEXPLORER_INCOMEDATATABLE_NAME": {
-              "Fn::ImportValue": {
-                "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:IncomeDataTable:Name"
-              }
-            },
-            "API_CENSUSEXPLORER_INCOMEDATATABLE_ARN": {
-              "Fn::Join": [
-                "",
-                [
-                  "arn:aws:dynamodb:",
-                  {
-                    "Ref": "AWS::Region"
-                  },
-                  ":",
-                  {
-                    "Ref": "AWS::AccountId"
-                  },
-                  ":table/",
-                  {
-                    "Fn::ImportValue": {
-                      "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:IncomeDataTable:Name"
+                      "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:DonationDataTable:Name"
                     }
                   }
                 ]
@@ -300,7 +274,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:FamilyDataTable:Name"
+                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:DonationDataTable:Name"
                         }
                       }
                     ]
@@ -321,63 +295,7 @@
                       ":table/",
                       {
                         "Fn::ImportValue": {
-                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:FamilyDataTable:Name"
-                        }
-                      },
-                      "/index/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Scan",
-                "dynamodb:Query"
-              ],
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:dynamodb:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":table/",
-                      {
-                        "Fn::ImportValue": {
-                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:IncomeDataTable:Name"
-                        }
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:dynamodb:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":table/",
-                      {
-                        "Fn::ImportValue": {
-                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:IncomeDataTable:Name"
+                          "Fn::Sub": "${apicensusexplorerGraphQLAPIIdOutput}:GetAtt:DonationDataTable:Name"
                         }
                       },
                       "/index/*"

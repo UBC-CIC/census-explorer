@@ -15,7 +15,7 @@
       "function": {
         "similarSearch": {
           "deploymentBucketName": "amplify-censusexplorer-dev-162813-deployment",
-          "s3Key": "amplify-builds/similarSearch-517a537732613278686c-build.zip"
+          "s3Key": "amplify-builds/similarSearch-757752364f66425a4a4c-build.zip"
         }
       }
     }

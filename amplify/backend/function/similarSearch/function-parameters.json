@@ -6,10 +6,7 @@
       ]
     },
     "storage": {
-      "FamilyData:@model(appsync)": [
-        "read"
-      ],
-      "IncomeData:@model(appsync)": [
+      "DonationData:@model(appsync)": [
         "read"
       ]
     }
