@@ -1,64 +1,130 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createDonationData = /* GraphQL */ `
-  mutation CreateDonationData(
-    $input: CreateDonationDataInput!
-    $condition: ModelDonationDataConditionInput
+export const createDonationDataEntry = /* GraphQL */ `
+  mutation CreateDonationDataEntry(
+    $input: CreateDonationDataEntryInput!
+    $condition: ModelDonationDataEntryConditionInput
   ) {
-    createDonationData(input: $input, condition: $condition) {
+    createDonationDataEntry(input: $input, condition: $condition) {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
       createdAt
       updatedAt
     }
   }
 `;
-export const updateDonationData = /* GraphQL */ `
-  mutation UpdateDonationData(
-    $input: UpdateDonationDataInput!
-    $condition: ModelDonationDataConditionInput
+export const updateDonationDataEntry = /* GraphQL */ `
+  mutation UpdateDonationDataEntry(
+    $input: UpdateDonationDataEntryInput!
+    $condition: ModelDonationDataEntryConditionInput
   ) {
-    updateDonationData(input: $input, condition: $condition) {
+    updateDonationDataEntry(input: $input, condition: $condition) {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteDonationData = /* GraphQL */ `
-  mutation DeleteDonationData(
-    $input: DeleteDonationDataInput!
-    $condition: ModelDonationDataConditionInput
+export const deleteDonationDataEntry = /* GraphQL */ `
+  mutation DeleteDonationDataEntry(
+    $input: DeleteDonationDataEntryInput!
+    $condition: ModelDonationDataEntryConditionInput
   ) {
-    deleteDonationData(input: $input, condition: $condition) {
+    deleteDonationDataEntry(input: $input, condition: $condition) {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCensusDataEntry = /* GraphQL */ `
+  mutation CreateCensusDataEntry(
+    $input: CreateCensusDataEntryInput!
+    $condition: ModelCensusDataEntryConditionInput
+  ) {
+    createCensusDataEntry(input: $input, condition: $condition) {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCensusDataEntry = /* GraphQL */ `
+  mutation UpdateCensusDataEntry(
+    $input: UpdateCensusDataEntryInput!
+    $condition: ModelCensusDataEntryConditionInput
+  ) {
+    updateCensusDataEntry(input: $input, condition: $condition) {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCensusDataEntry = /* GraphQL */ `
+  mutation DeleteCensusDataEntry(
+    $input: DeleteCensusDataEntryInput!
+    $condition: ModelCensusDataEntryConditionInput
+  ) {
+    deleteCensusDataEntry(input: $input, condition: $condition) {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
       createdAt
       updatedAt
     }

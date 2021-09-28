@@ -8,42 +8,48 @@ export const similarSearch = /* GraphQL */ `
     }
   }
 `;
-export const getDonationData = /* GraphQL */ `
-  query GetDonationData($id: ID!) {
-    getDonationData(id: $id) {
+export const getDonationDataEntry = /* GraphQL */ `
+  query GetDonationDataEntry($id: ID!) {
+    getDonationDataEntry(id: $id) {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
       createdAt
       updatedAt
     }
   }
 `;
-export const listDonationData = /* GraphQL */ `
-  query ListDonationData(
-    $filter: ModelDonationDataFilterInput
+export const listDonationDataEntries = /* GraphQL */ `
+  query ListDonationDataEntries(
+    $filter: ModelDonationDataEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listDonationData(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listDonationDataEntries(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         FSA
-        Type
-        Year
-        IncomeGroup
-        NumFam
-        TotDons
-        NumDons
-        MedianDon
-        DonRate
+        TYPE
+        YEAR
+        INCOME_GROUP
+        NUM_FAM
+        TOT_DONS
+        NUM_DONS
+        MEDIAN_DON
+        DON_RATE
+        PROVINCE
         createdAt
         updatedAt
       }
@@ -51,18 +57,65 @@ export const listDonationData = /* GraphQL */ `
     }
   }
 `;
-export const donationDataByType = /* GraphQL */ `
-  query DonationDataByType(
-    $FSA: String
-    $Type: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelDonationDataFilterInput
+export const getCensusDataEntry = /* GraphQL */ `
+  query GetCensusDataEntry($id: ID!) {
+    getCensusDataEntry(id: $id) {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCensusDataEntries = /* GraphQL */ `
+  query ListCensusDataEntries(
+    $filter: ModelCensusDataEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    donationDataByType(
+    listCensusDataEntries(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        CID
+        TOTAL_COUNT
+        MALE_COUNT
+        FEMALE_COUNT
+        PROVINCE
+        CATEGORY
+        HEADER
+        TOTAL_PERCENT
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const donationDataByTypeFSA = /* GraphQL */ `
+  query DonationDataByTypeFSA(
+    $TYPE: DonationTypeOption
+    $FSA: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelDonationDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    donationDataByTypeFSA(
+      TYPE: $TYPE
       FSA: $FSA
-      Type: $Type
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -71,14 +124,121 @@ export const donationDataByType = /* GraphQL */ `
       items {
         id
         FSA
-        Type
-        Year
-        IncomeGroup
-        NumFam
-        TotDons
-        NumDons
-        MedianDon
-        DonRate
+        TYPE
+        YEAR
+        INCOME_GROUP
+        NUM_FAM
+        TOT_DONS
+        NUM_DONS
+        MEDIAN_DON
+        DON_RATE
+        PROVINCE
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const donationDataByTypeProvince = /* GraphQL */ `
+  query DonationDataByTypeProvince(
+    $PROVINCE: ProvinceOption
+    $TYPE: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelDonationDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    donationDataByTypeProvince(
+      PROVINCE: $PROVINCE
+      TYPE: $TYPE
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        TYPE
+        YEAR
+        INCOME_GROUP
+        NUM_FAM
+        TOT_DONS
+        NUM_DONS
+        MEDIAN_DON
+        DON_RATE
+        PROVINCE
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const censusDataByCategoryFSA = /* GraphQL */ `
+  query CensusDataByCategoryFSA(
+    $CATEGORY: String
+    $FSA: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCensusDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    censusDataByCategoryFSA(
+      CATEGORY: $CATEGORY
+      FSA: $FSA
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        CID
+        TOTAL_COUNT
+        MALE_COUNT
+        FEMALE_COUNT
+        PROVINCE
+        CATEGORY
+        HEADER
+        TOTAL_PERCENT
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const censusDataByProvinceCategoryHeader = /* GraphQL */ `
+  query CensusDataByProvinceCategoryHeader(
+    $PROVINCE: CensusProvinceOption
+    $cATEGORYHEADER: ModelCensusDataEntryCensusDataByProvinceCategoryHeaderCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCensusDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    censusDataByProvinceCategoryHeader(
+      PROVINCE: $PROVINCE
+      cATEGORYHEADER: $cATEGORYHEADER
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        CID
+        TOTAL_COUNT
+        MALE_COUNT
+        FEMALE_COUNT
+        PROVINCE
+        CATEGORY
+        HEADER
+        TOTAL_PERCENT
         createdAt
         updatedAt
       }

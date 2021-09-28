@@ -4,7 +4,7 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$parent_path"
 
 # TODO: change this to dynamic bucket name
-BUCKET=amplify-censusexplorer-dev-162813-geotop-s3bucket-26qyek0oft6x
+BUCKET=amplify-censusexplorer-develop-184535-ge-s3bucket-5bfps50dlyi4
 cd "./data"
 
 FULL_PATH="full/*"

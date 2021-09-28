@@ -15,7 +15,28 @@
       "function": {
         "similarSearch": {
           "deploymentBucketName": "amplify-censusexplorer-dev-162813-deployment",
-          "s3Key": "amplify-builds/similarSearch-757752364f66425a4a4c-build.zip"
+          "s3Key": "amplify-builds/similarSearch-48503543494e326d5a74-build.zip"
+        }
+      }
+    }
+  },
+  "develop": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-censusexplorer-develop-184535-authRole",
+      "UnauthRoleArn": "arn:aws:iam::796371632714:role/amplify-censusexplorer-develop-184535-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::796371632714:role/amplify-censusexplorer-develop-184535-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-censusexplorer-develop-184535-deployment",
+      "UnauthRoleName": "amplify-censusexplorer-develop-184535-unauthRole",
+      "StackName": "amplify-censusexplorer-develop-184535",
+      "StackId": "arn:aws:cloudformation:ca-central-1:796371632714:stack/amplify-censusexplorer-develop-184535/f2ec43a0-1c0f-11ec-abd9-02a188a2a9a8",
+      "AmplifyAppId": "d3fgah2c1p85ss"
+    },
+    "categories": {
+      "function": {
+        "similarSearch": {
+          "deploymentBucketName": "amplify-censusexplorer-develop-184535-deployment",
+          "s3Key": "amplify-builds/similarSearch-4e6969504350784b6a70-build.zip"
         }
       }
     }

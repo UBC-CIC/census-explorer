@@ -16,13 +16,30 @@
         "Comment": "Bucket for storing the TopoJSON files"
       },
       "Properties": {
-        "AccessControl": "Private"
+        "AccessControl": "Private",
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "HEAD"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "ExposedHeaders": []
+            }
+          ]
+        }
       },
       "Type": "AWS::S3::Bucket"
     },
     "S3BucketPolicy": {
       "Metadata": {
-        "Comment": "Bucket policy to allow cloudfront to access the data"
+        "Comment": "Bucket policies to allow cloudfront to access the data"
       },
       "Properties": {
         "Bucket": {

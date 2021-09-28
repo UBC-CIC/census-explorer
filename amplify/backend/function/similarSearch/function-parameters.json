@@ -1,15 +1,10 @@
 {
+  "lambdaLayers": [],
   "permissions": {
     "api": {
       "censusexplorer": [
         "Query"
       ]
-    },
-    "storage": {
-      "DonationData:@model(appsync)": [
-        "read"
-      ]
     }
-  },
-  "lambdaLayers": []
+  }
 }

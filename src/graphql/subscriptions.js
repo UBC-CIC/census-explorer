@@ -1,55 +1,112 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateDonationData = /* GraphQL */ `
-  subscription OnCreateDonationData {
-    onCreateDonationData {
+export const onCreateDonationDataEntry = /* GraphQL */ `
+  subscription OnCreateDonationDataEntry {
+    onCreateDonationDataEntry {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateDonationData = /* GraphQL */ `
-  subscription OnUpdateDonationData {
-    onUpdateDonationData {
+export const onUpdateDonationDataEntry = /* GraphQL */ `
+  subscription OnUpdateDonationDataEntry {
+    onUpdateDonationDataEntry {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteDonationData = /* GraphQL */ `
-  subscription OnDeleteDonationData {
-    onDeleteDonationData {
+export const onDeleteDonationDataEntry = /* GraphQL */ `
+  subscription OnDeleteDonationDataEntry {
+    onDeleteDonationDataEntry {
       id
       FSA
-      Type
-      Year
-      IncomeGroup
-      NumFam
-      TotDons
-      NumDons
-      MedianDon
-      DonRate
+      TYPE
+      YEAR
+      INCOME_GROUP
+      NUM_FAM
+      TOT_DONS
+      NUM_DONS
+      MEDIAN_DON
+      DON_RATE
+      PROVINCE
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCensusDataEntry = /* GraphQL */ `
+  subscription OnCreateCensusDataEntry {
+    onCreateCensusDataEntry {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCensusDataEntry = /* GraphQL */ `
+  subscription OnUpdateCensusDataEntry {
+    onUpdateCensusDataEntry {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCensusDataEntry = /* GraphQL */ `
+  subscription OnDeleteCensusDataEntry {
+    onDeleteCensusDataEntry {
+      id
+      FSA
+      CID
+      TOTAL_COUNT
+      MALE_COUNT
+      FEMALE_COUNT
+      PROVINCE
+      CATEGORY
+      HEADER
+      TOTAL_PERCENT
       createdAt
       updatedAt
     }
