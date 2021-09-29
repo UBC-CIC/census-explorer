@@ -49,6 +49,7 @@ enum CensusProvinceOption {
 
 type DonationDataEntry
   @model
+  @aws_api_key
   @key(
     name: "donationDataByTypeFSA"
     fields: ["TYPE", "FSA"]
@@ -76,15 +77,16 @@ type DonationDataEntry
 
 type CensusDataEntry
   @model
+  @aws_api_key
   @key(
     name: "censusDataByCategoryFSA"
-    fields: ["CATEGORY", "FSA"]
+    fields: ["CID", "FSA"]
     queryField: "censusDataByCategoryFSA"
   )
   @key(
-    name: "censusDataByProvinceCategoryHeader"
-    fields: ["PROVINCE", "CATEGORY", "HEADER"]
-    queryField: "censusDataByProvinceCategoryHeader"
+    name: "censusDataByProvinceCID"
+    fields: ["PROVINCE", "CID"]
+    queryField: "censusDataByProvinceCID"
   ) {
   FSA: String!
   CID: Float
@@ -107,8 +109,17 @@ input similarSearchInput {
   FSAs: [String!]!
   CID: Int
   TYPE: DonationTypeOption
+  RATE_DISTANCE: Float
+  FLAT_DISTANCE: Float
 }
 
 type similarSearchOutput {
-  FSAs: [String!]!
+  FSAs: SimilarResponseFSAs
+  statusCode: Int
+  numResults: Int
+}
+
+type SimilarResponseFSAs {
+  donation: [String!]!
+  census: [String!]!
 }

@@ -1,18 +1,12 @@
-import useSelectedData from "@hooks/appstate/useSelectedData";
+import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
+import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
+import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
+import strings from "@l10n/strings";
 import { Button, ButtonGroup, Collapse, makeStyles } from "@material-ui/core";
 import { selectorStyles } from "@styles";
-import {
-  FamilyTypeOption,
-  NumericalDonationKey,
-  SelectedCategoryOption,
-} from "@types";
-import strings from "@l10n/strings";
+import { FamilyTypeOption, SelectedCategoryOption } from "@types";
 import { useContext } from "react";
-import SelectedFamilyTypeContext from "@context/appstate/SelectedFamilyTypeProvider";
 import DonationOptions from "./DonationOptions";
-import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
-import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
-import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
 
 type FamilyOptionsProps = {};
 

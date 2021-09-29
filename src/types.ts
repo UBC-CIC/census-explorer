@@ -1,3 +1,4 @@
+import { CensusProvinceOption } from "API";
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
 
 export interface Topology {
@@ -252,3 +253,22 @@ type CensusInfoOptions = `CENSUS-${CensusTypeOption}`;
 export type SelectedInfoOptions = `${SelectedCategoryOption}-${
   | FamilyTypeOption
   | IncomeTypeOption}-${NumericalDonationKey}`;
+
+export type CIDandCategory = {
+  CID: number;
+  category: string;
+  // compoundKey: string;
+};
+
+export type CacheInput = {
+  [x in string]:
+    | ({
+        __typename: "CensusDataEntry";
+        CID?: number | null | undefined;
+        TOTAL_COUNT?: number | null | undefined;
+        TOTAL_PERCENT?: number | null | undefined;
+        FSA: string;
+      } | null)[]
+    | null
+    | undefined;
+}[];

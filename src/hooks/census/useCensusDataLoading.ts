@@ -7,7 +7,7 @@ const useCensusDataLoading = () => {
     throw new Error(
       "useCensusDataLoading must be called inside a CensusDataProvider"
     );
-  return context.loading;
+  return context.data.loading;
 };
 
 export default useCensusDataLoading;

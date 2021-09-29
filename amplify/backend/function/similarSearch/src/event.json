@@ -1,5 +1,11 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "arguments": {
+    "FSAs": [
+      "V7N"
+    ],
+    "CID": 20,
+    "RATE_DISTANCE": 0.0009,
+    "FLAT_DISTANCE": 50,
+    "TYPE": "COUPLE_WITH_CHILDREN"
+  }
 }

@@ -3,7 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "@components/App";
 import reportWebVitals from "./reportWebVitals";
+import { Amplify } from "aws-amplify";
+import config from "./aws-exports";
+console.log("Configuring Amplify");
 
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
 ReactDOM.render(
   <React.StrictMode>
     <App />

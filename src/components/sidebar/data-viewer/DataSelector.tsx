@@ -7,12 +7,20 @@ import strings from "@l10n/strings";
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { SelectedCategoryOption } from "@types";
 import { useContext } from "react";
+import CensusOptions from "./CensusOptions";
+import DonationOptions from "./DonationOptions";
 import FamilyOptions from "./FamilyOptions";
 import IncomeOptions from "./IncomeOptions";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   familyButton: {},
-});
+  censusButton: {
+    borderBottomWidth: 1,
+    borderBottomColor: `${theme.palette.primary.main} !important`,
+    // borderBottomRightRadius: 4,
+    // borderBottomLeftRadius: 4,
+  },
+}));
 const DataSelector = () => {
   const classes = useStyles();
   const censusLoading = useCensusDataLoading();
@@ -68,6 +76,7 @@ const DataSelector = () => {
               ? "contained"
               : "outlined"
           }
+          className={classes.censusButton}
           disabled={censusLoading}
           endIcon={censusLoading ? <Spinner /> : null}
           color="primary"
@@ -75,6 +84,7 @@ const DataSelector = () => {
         >
           {strings.censusData}
         </Button>
+        <CensusOptions />
       </ButtonGroup>
     </div>
   );

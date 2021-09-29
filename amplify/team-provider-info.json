@@ -36,7 +36,7 @@
       "function": {
         "similarSearch": {
           "deploymentBucketName": "amplify-censusexplorer-develop-184535-deployment",
-          "s3Key": "amplify-builds/similarSearch-4e6969504350784b6a70-build.zip"
+          "s3Key": "amplify-builds/similarSearch-6756593675487a443572-build.zip"
         }
       }
     }

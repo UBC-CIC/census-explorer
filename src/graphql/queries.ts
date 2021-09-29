@@ -1,10 +1,16 @@
+/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
 export const similarSearch = /* GraphQL */ `
   query SimilarSearch($user: similarSearchInput) {
     similarSearch(user: $user) {
-      FSAs
+      FSAs {
+        donation
+        census
+      }
+      statusCode
+      numResults
     }
   }
 `;
@@ -178,7 +184,7 @@ export const donationDataByTypeProvince = /* GraphQL */ `
 `;
 export const censusDataByCategoryFSA = /* GraphQL */ `
   query CensusDataByCategoryFSA(
-    $CATEGORY: String
+    $CID: Float
     $FSA: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCensusDataEntryFilterInput
@@ -186,7 +192,7 @@ export const censusDataByCategoryFSA = /* GraphQL */ `
     $nextToken: String
   ) {
     censusDataByCategoryFSA(
-      CATEGORY: $CATEGORY
+      CID: $CID
       FSA: $FSA
       sortDirection: $sortDirection
       filter: $filter
@@ -211,18 +217,18 @@ export const censusDataByCategoryFSA = /* GraphQL */ `
     }
   }
 `;
-export const censusDataByProvinceCategoryHeader = /* GraphQL */ `
-  query CensusDataByProvinceCategoryHeader(
+export const censusDataByProvinceCID = /* GraphQL */ `
+  query CensusDataByProvinceCID(
     $PROVINCE: CensusProvinceOption
-    $cATEGORYHEADER: ModelCensusDataEntryCensusDataByProvinceCategoryHeaderCompositeKeyConditionInput
+    $CID: ModelFloatKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelCensusDataEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    censusDataByProvinceCategoryHeader(
+    censusDataByProvinceCID(
       PROVINCE: $PROVINCE
-      cATEGORYHEADER: $cATEGORYHEADER
+      CID: $CID
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit

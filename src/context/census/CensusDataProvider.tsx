@@ -1,21 +1,32 @@
-import { FSAToCensus, FSAToFamily, FSAType } from "@types";
+import {
+  CacheInput,
+  CIDandCategory,
+  FSAToCensus,
+  FSAToFamily,
+  FSAType,
+} from "@types";
+import { CensusProvinceOption } from "API";
 import React, { ReactNode, useEffect, useState } from "react";
+import getHeadersAndCategories from "./queries/getAllHeadersAndCategories";
 
 type DataContextType = {
   loading: boolean;
-  data: FSAToCensus;
+  cachedCensusData: FSAToCensus;
+  headers: Map<string, CIDandCategory[]>;
 };
 
-const CensusDataContext = React.createContext({} as DataContextType);
+type CensusDataContextType = {
+  data: DataContextType;
+  cacheCensusData: (data: CacheInput) => void;
+};
 
-// TODO cache fetched files in browser / service worker
-const fetchCensusData = async () => {
-  console.log("Fetching Census Data");
+const CensusDataContext = React.createContext({} as CensusDataContextType);
 
-  const res = await fetch("/api/census-data");
-  const data = await res.json();
+const fetchCensusHeaders = async () => {
+  console.log("Fetching Census Header");
+  let headers = await getHeadersAndCategories();
 
-  return data as FSAToCensus;
+  return headers;
 };
 
 export const CensusDataProvider = (props: { children?: ReactNode }) => {
@@ -23,16 +34,33 @@ export const CensusDataProvider = (props: { children?: ReactNode }) => {
   const [data, setData] = useState({
     loading: true,
   } as DataContextType);
+  const [FSAToCensusData, setFSAToCensusData] = useState({} as FSAToCensus);
+
+  // O(n^3)
+  const cacheCensusData = (provincesWithData: CacheInput) => {
+    provincesWithData.forEach((province) => {
+      const provinceName = Object.keys(province)[0];
+      Object.values(province).forEach((censusData) => {
+        censusData?.forEach((census) => {
+          console.log(censusData);
+          const keyedByFSA = {
+            [census!.FSA]: census,
+          };
+          console.log(keyedByFSA);
+        });
+      });
+    });
+  };
 
   useEffect(() => {
     if (data.loading)
-      fetchCensusData().then((data) => {
-        setData(() => ({ data, loading: false }));
+      fetchCensusHeaders().then((headers) => {
+        setData((old) => ({ ...old, headers, loading: false }));
       });
   }, []);
 
   return (
-    <CensusDataContext.Provider value={{ ...data }}>
+    <CensusDataContext.Provider value={{ data, cacheCensusData }}>
       {children}
     </CensusDataContext.Provider>
   );

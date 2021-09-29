@@ -5,6 +5,14 @@
       "censusexplorer": [
         "Query"
       ]
+    },
+    "storage": {
+      "DonationDataEntry:@model(appsync)": [
+        "read"
+      ],
+      "CensusDataEntry:@model(appsync)": [
+        "read"
+      ]
     }
   }
 }

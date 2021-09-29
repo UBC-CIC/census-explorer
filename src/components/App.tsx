@@ -1,3 +1,4 @@
+import Amplify from "aws-amplify";
 import theme from "@constants/theme";
 import { CurrentScaleProvider } from "@context/appstate/CurrentScaleProvider";
 import { FSASelectionProvider } from "@context/appstate/FSASelectionProvider";
@@ -20,7 +21,7 @@ import { appStyles } from "@styles";
 import { ReactNode } from "react";
 import Map from "./leaflet/Map";
 import Sidebar from "./sidebar/Sidebar";
-
+import AmplifyConfig from "../aws-exports.js";
 // ------------------------
 // These Providers are used to pass data to the components
 // Data is fetched, then passed to all components. These components should never update.
