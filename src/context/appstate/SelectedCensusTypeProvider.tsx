@@ -12,8 +12,8 @@ const SelectedCensusTypeContext = React.createContext({} as DataContextType);
 export const SelectedCensusTypeProvider = (props: { children?: ReactNode }) => {
   const { children } = props;
   const headers = useCensusHeaders();
-  console.log("headers");
-  console.log(headers);
+  // console.log("headers");
+  // console.log(headers);
 
   const [selectedCensusType, setSelectedCensusType] =
     useState<CensusTypeOption>(CensusTypeOption.TODO);

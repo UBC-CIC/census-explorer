@@ -5,7 +5,7 @@ const useCensusHeaders = () => {
   const context = useContext(CensusDataContext);
   if (!context)
     throw new Error("useCensusData must be called inside a CensusDataProvider");
-  return context.data.headers;
+  return context.headers;
 };
 
 export default useCensusHeaders;

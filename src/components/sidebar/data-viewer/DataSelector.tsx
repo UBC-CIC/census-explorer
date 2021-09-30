@@ -1,6 +1,7 @@
 import Spinner from "@components/Spinner";
-import SelectedCategoryContext from "@context/appstate/SelectedDataProvider";
+import SelectedCategoryContext from "@context/appstate/SelectedCategoryProvider";
 import useCensusDataLoading from "@hooks/census/useCensusDataLoading";
+import useCensusHeaders from "@hooks/census/useCensusHeaders";
 import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
 import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import strings from "@l10n/strings";
@@ -26,6 +27,7 @@ const DataSelector = () => {
   const censusLoading = useCensusDataLoading();
   const incomeLoading = useIncomeDataLoading();
   const familyLoading = useFamilyDataLoading();
+  const headers = useCensusHeaders();
   const { selected, setSelected } = useContext(SelectedCategoryContext);
   const handleSelectOption = (option: SelectedCategoryOption) => {
     setSelected(option);
@@ -77,7 +79,7 @@ const DataSelector = () => {
               : "outlined"
           }
           className={classes.censusButton}
-          disabled={censusLoading}
+          disabled={!headers.size}
           endIcon={censusLoading ? <Spinner /> : null}
           color="primary"
           onClick={() => handleSelectOption(SelectedCategoryOption.CENSUS)}

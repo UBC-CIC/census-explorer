@@ -12,7 +12,6 @@ const getCensusData = async (province: CensusProvinceOption, CID: Number) => {
       CID: { eq: CID },
     },
   })) as GraphQLResult<getCensusDataByProvinceCIDQuery>;
-  console.log("res", res);
   if (!res.data) throw new Error("Failed to get census Data");
   return res.data!.censusDataByProvinceCID!.items;
 };

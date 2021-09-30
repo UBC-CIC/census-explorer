@@ -1,5 +1,5 @@
 import { SelectedCategoryOption } from "@types";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 type SelectedCategoryContextType = {
   selected: SelectedCategoryOption;

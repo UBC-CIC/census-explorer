@@ -8,7 +8,6 @@ type DataContextType = {
 
 const FamilyDataContext = React.createContext({} as DataContextType);
 
-// TODO cache fetched files in browser / service worker
 const fetchFSAData = async () => {
   const res = await fetch("/api/family-data");
   const data = await res.json();

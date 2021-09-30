@@ -152,26 +152,17 @@ export type FSAToIncome = {
 };
 
 export type FSAToCensus = {
-  [FSA in FSAType]?: ProfileIDToCensus;
+  [FSA in FSAType]?: { [x: number]: CensusDataEntry };
 };
 
 export type MemberIdProfileOfFSAS = number;
 
 export type CensusDataEntry = {
-  CENSUS_YEAR: number;
-  GEO_CODE_POR: string;
-  GEO_LEVEL: number;
-  GEO_NAME: string;
-  GNR: number;
-  GNR_LF: number;
-  DATA_QUALITY_FLAG: number;
-  ALT_GEO_CODE: string;
-  dim_profile_of_fsas: string;
-  member_id_profile_of_fsas: number;
-  notes_profile_of_fsas: number;
-  dim_sex3_member_id1_total: number;
-  dim_sex3_member_id2_male: number | null;
-  dim_sex3_member_id3_female: number | null;
+  __typename: "CensusDataEntry";
+  CID: number;
+  TOTAL_COUNT?: number | null | undefined;
+  TOTAL_PERCENT?: number | null | undefined;
+  FSA: string;
 };
 
 export type ProfileIDToCensus = {
@@ -261,14 +252,5 @@ export type CIDandCategory = {
 };
 
 export type CacheInput = {
-  [x in string]:
-    | ({
-        __typename: "CensusDataEntry";
-        CID?: number | null | undefined;
-        TOTAL_COUNT?: number | null | undefined;
-        TOTAL_PERCENT?: number | null | undefined;
-        FSA: string;
-      } | null)[]
-    | null
-    | undefined;
+  [x in string]: (CensusDataEntry | null)[] | null | undefined;
 }[];

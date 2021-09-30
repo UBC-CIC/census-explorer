@@ -8,7 +8,6 @@ type CensusCategoriesProps = {};
 
 const CensusCategories = (props: CensusCategoriesProps) => {
   const headers = useCensusHeaders();
-  const loading = useCensusDataLoading();
   const [selectedHeader, setSelectedHeader] = useState<string>("");
   const renderHeaders = () => {
     const menuItems = [];
@@ -23,7 +22,7 @@ const CensusCategories = (props: CensusCategoriesProps) => {
   };
 
   useEffect(() => {
-    if (loading) {
+    if (!headers.size) {
       return;
     } else {
       for (const [key] of headers) {
@@ -32,9 +31,7 @@ const CensusCategories = (props: CensusCategoriesProps) => {
         return;
       }
     }
-  }, [headers, loading]);
-
-  if (loading) return <div />;
+  }, [headers]);
 
   return (
     <div

@@ -12,12 +12,12 @@ import useSelectedCategory from "./useSelectedCategory";
 const useSelectedData = (): FSAToCensus | FSAToIncome | FSAToFamily => {
   const category = useSelectedCategory();
   const familyData = useFamilyData();
-  // const censusData = useCensusData();
+  const censusData = useCensusData();
   const incomeData = useIncomeData();
 
   switch (category) {
     case SelectedCategoryOption.CENSUS:
-      return [] as FSAToCensus;
+      return censusData as FSAToCensus;
     case SelectedCategoryOption.INCOME:
       return incomeData as FSAToIncome;
     case SelectedCategoryOption.FAMILY:

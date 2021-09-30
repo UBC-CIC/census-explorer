@@ -1,4 +1,3 @@
-import Amplify from "aws-amplify";
 import theme from "@constants/theme";
 import { CurrentScaleProvider } from "@context/appstate/CurrentScaleProvider";
 import { FSASelectionProvider } from "@context/appstate/FSASelectionProvider";
@@ -6,7 +5,7 @@ import { HoveredBoundsProvider } from "@context/appstate/HoveredBoundsProvider";
 import { HoveredProvider } from "@context/appstate/HoveredProvider";
 import { IsolatedFSAProvider } from "@context/appstate/IsolatedFSAProvider";
 import { OpacityProvider } from "@context/appstate/OpacityProvider";
-import { SelectedCategoryProvider } from "@context/appstate/SelectedDataProvider";
+import { SelectedCategoryProvider } from "@context/appstate/SelectedCategoryProvider";
 import { SelectedNumericalProvider } from "@context/appstate/SelectedNumericalProvider";
 import { SelectedProvincesProvider } from "@context/appstate/SelectedProvincesContext";
 import SelectedTypeProvider from "@context/appstate/SelectedTypeProvider";
@@ -21,7 +20,6 @@ import { appStyles } from "@styles";
 import { ReactNode } from "react";
 import Map from "./leaflet/Map";
 import Sidebar from "./sidebar/Sidebar";
-import AmplifyConfig from "../aws-exports.js";
 // ------------------------
 // These Providers are used to pass data to the components
 // Data is fetched, then passed to all components. These components should never update.
@@ -30,7 +28,9 @@ const DataProviders = ({ children }: { children: ReactNode }) => (
   <ProvinceDataProvider>
     <FamilyDataProvider>
       <IncomeDataProvider>
-        <CensusDataProvider>{children}</CensusDataProvider>
+        <SelectedProvincesProvider>
+          <CensusDataProvider>{children}</CensusDataProvider>
+        </SelectedProvincesProvider>
       </IncomeDataProvider>
     </FamilyDataProvider>
   </ProvinceDataProvider>
@@ -56,30 +56,28 @@ const AppCore = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <SelectedProvincesProvider>
-          <SelectedCategoryProvider>
-            <SelectedNumericalProvider>
-              <SelectedTypeProvider>
-                <StandardDeviationProvider>
-                  <IsolatedFSAProvider>
-                    <CurrentScaleProvider>
-                      <FSASelectionProvider>
-                        <HoveredProvider>
-                          <HoveredBoundsProvider>
-                            <OpacityProvider>
-                              <Map />
-                            </OpacityProvider>
-                            <Sidebar />
-                          </HoveredBoundsProvider>
-                        </HoveredProvider>
-                      </FSASelectionProvider>
-                    </CurrentScaleProvider>
-                  </IsolatedFSAProvider>
-                </StandardDeviationProvider>
-              </SelectedTypeProvider>
-            </SelectedNumericalProvider>
-          </SelectedCategoryProvider>
-        </SelectedProvincesProvider>
+        <SelectedCategoryProvider>
+          <SelectedNumericalProvider>
+            <SelectedTypeProvider>
+              <StandardDeviationProvider>
+                <IsolatedFSAProvider>
+                  <CurrentScaleProvider>
+                    <FSASelectionProvider>
+                      <HoveredProvider>
+                        <HoveredBoundsProvider>
+                          <OpacityProvider>
+                            <Map />
+                          </OpacityProvider>
+                          <Sidebar />
+                        </HoveredBoundsProvider>
+                      </HoveredProvider>
+                    </FSASelectionProvider>
+                  </CurrentScaleProvider>
+                </IsolatedFSAProvider>
+              </StandardDeviationProvider>
+            </SelectedTypeProvider>
+          </SelectedNumericalProvider>
+        </SelectedCategoryProvider>
       </ThemeProvider>
     </>
   );

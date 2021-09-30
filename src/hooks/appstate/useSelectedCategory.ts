@@ -1,4 +1,4 @@
-import SelectedCategoryContext from "@context/appstate/SelectedDataProvider";
+import SelectedCategoryContext from "@context/appstate/SelectedCategoryProvider";
 import { useContext } from "react";
 
 const useSelectedCategory = () => {

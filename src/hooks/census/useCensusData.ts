@@ -5,7 +5,7 @@ const useCensusData = () => {
   const context = useContext(CensusDataContext);
   if (!context)
     throw new Error("useCensusData must be called inside a CensusDataProvider");
-  return context;
+  return context.FSAToCensusData;
 };
 
 export default useCensusData;
