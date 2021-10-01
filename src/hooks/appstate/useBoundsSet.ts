@@ -37,6 +37,7 @@ const useBoundsSet = (province?: TopoJSONNames) => {
   if (province) {
     let fsas = fsaSets[province];
     Array.from(fsas).forEach((fsa) => {
+      if (!(data as any)[fsa] || !(data as any)[fsa][selectedType]) return;
       let value = (data as any)[fsa][selectedType][trueNumericalType] as number;
       if (!bounds) return;
       else if (bounds[0] <= value && bounds[1] >= value) {

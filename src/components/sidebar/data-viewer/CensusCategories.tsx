@@ -36,20 +36,27 @@ const CensusCategories = (props: CensusCategoriesProps) => {
   return (
     <div
       style={{
-        flexDirection: "row",
+        flexDirection: "column",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      Choose A Category:
-      <Select
-        variant="filled"
-        onChange={(e) => handleChangeCategory(e.target.value as string)}
-        value={selectedHeader}
+      <div
+        style={{
+          flexDirection: "row",
+          alignItems: "space-between",
+        }}
       >
-        {renderHeaders()}
-      </Select>
+        Category:{" "}
+        <Select
+          variant="filled"
+          onChange={(e) => handleChangeCategory(e.target.value as string)}
+          value={selectedHeader}
+        >
+          {renderHeaders()}
+        </Select>
+      </div>
       <CensusSubCategories selectedHeader={selectedHeader} />
     </div>
   );

@@ -276,7 +276,11 @@ const Histogram = (props: HistogramProps) => {
           alignItems: "center",
         }}
       >
-        <svg viewBox="0 0 310 150" id={"histogram"} />
+        <svg
+          viewBox="0 0 310 150"
+          id={"histogram"}
+          onMouseLeave={() => setBounds(undefined)}
+        />
         <g className="tooltip-area">
           <text className="tooltip-area__text"></text>
         </g>

@@ -57,6 +57,7 @@ const handleCategoryIsCensus = (
       if (!province) return null;
       if (!provinces[province]) return null;
       if (isolated.size > 0 && !isolated.has(key)) return null;
+      if (!value[CID]) return null;
       return value[CID]["TOTAL_COUNT"];
     })
     // remove nulls
