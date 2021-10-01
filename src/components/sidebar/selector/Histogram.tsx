@@ -4,6 +4,7 @@ import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvide
 import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
 import useBoundsSet from "@hooks/appstate/useBoundsSet";
 import useHoveredData from "@hooks/appstate/useHoveredData";
+import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
 import useSelectedType from "@hooks/appstate/useSelectedType";
 import useFSASets from "@hooks/province/useFSASets";
 import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
@@ -49,6 +50,7 @@ const Histogram = (props: HistogramProps) => {
   const { bounds, setBounds } = useContext(HoveredBoundsContext);
   const boundSet = useBoundsSet();
   const theme = useTheme();
+  const category = useSelectedCategory();
 
   //draw and calculate histogram
   useEffect(() => {
@@ -182,11 +184,14 @@ const Histogram = (props: HistogramProps) => {
       .call(
         d3
           .axisBottom(x)
-          .tickFormat(getFormatFunction(selectedNumericalType) as any)
+          .tickFormat(getFormatFunction(selectedNumericalType, category) as any)
           .tickSizeOuter(0)
       )
       .selectAll(".tick:last-of-type text")
-      .text((d) => `${getFormatFunction(selectedNumericalType)(d as any)}+`);
+      .text(
+        (d) =>
+          `${getFormatFunction(selectedNumericalType, category)(d as any)}+`
+      );
 
     // add the y Axis
     svg.append("g").style("font-size", "7px").call(d3.axisLeft(y));
@@ -234,7 +239,7 @@ const Histogram = (props: HistogramProps) => {
           minHeight: "210px",
         }}
       >
-        Select at least 1 province
+        No Data to Display
       </div>
     );
   const handleDeviationSliderChange = (

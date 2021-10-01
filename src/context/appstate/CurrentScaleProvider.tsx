@@ -8,7 +8,9 @@ import useSelectedProvinces from "@hooks/appstate/useSelectedProvinces";
 import useSelectedType from "@hooks/appstate/useSelectedType";
 import useFSASets from "@hooks/province/useFSASets";
 import {
+  CensusTypeOption,
   FamilyTypeOption,
+  FSAToCensus,
   FSAToFamily,
   FSAToIncome,
   FSAType,
@@ -40,16 +42,71 @@ const emptyColorScale = d3.scaleLinear<number, number, string>();
 
 const CurrentScaleContext = React.createContext({} as CurrentScaleContextType);
 
-const handleCategoryIsCensus = () => {
-  // return {
-  //   colorScale,
-  //   scale,
-  //   data: filtered,
-  //   min,
-  //   max: finalMax,
-  //   domain,
-  //   dev,
-  // };
+const handleCategoryIsCensus = (
+  selectedData: FSAToCensus,
+  fsaSets: { [province in keyof ProvinceOption]: Set<string> },
+  provinces: ProvinceOptions,
+  isolated: Set<FSAType>,
+  CID: number,
+  // selectedNumericalType: NumericalDonationKey,
+  deviations: number
+) => {
+  const filtered = Object.entries(selectedData)
+    .map(([key, value]: [any, any]) => {
+      const province = getProvinceFromFSA(key, fsaSets);
+      if (!province) return null;
+      if (!provinces[province]) return null;
+      if (isolated.size > 0 && !isolated.has(key)) return null;
+      return value[CID]["TOTAL_COUNT"];
+    })
+    // remove nulls
+    .filter(Boolean);
+
+  let min = d3.min(filtered);
+  let max = d3.max(filtered);
+  let dev = d3.deviation(filtered) as number;
+
+  if (filtered.length === 1) {
+    min = 0;
+    dev = 0;
+  }
+
+  let finalMax = max;
+
+  if (dev) {
+    finalMax = dev * deviations;
+  }
+
+  if (min > dev) {
+    finalMax = max;
+  }
+
+  //Check for percentages
+  // if (selectedNumericalType === NumericalDonationKey.DonRate) {
+  //   finalMax = max;
+  // }
+
+  const domain = [min, finalMax] as [number, number];
+
+  const scale = d3
+    .scaleQuantize()
+    .domain(domain as any)
+    .range(d3.schemeOranges[9] as any);
+
+  const colorScale = d3
+    .scaleLinear()
+    .domain([min, finalMax])
+    .range(domain as any)
+    .interpolate(() => d3.interpolateOranges as any);
+  return {
+    colorScale,
+    scale,
+    data: filtered,
+    min,
+    max: finalMax,
+    domain,
+    dev,
+  };
 };
 
 const handleCategoryIsDonation = (
@@ -156,8 +213,16 @@ export const CurrentScaleProvider = (props: { children?: ReactNode }) => {
   // TODO refactor this
   switch (category) {
     case SelectedCategoryOption.CENSUS:
-      throw new Error("Unimplemented");
-      // scaleData = handleCategoryIsCensus();
+      // throw new Error("Unimplemented");
+      scaleData = handleCategoryIsCensus(
+        selectedData as FSAToCensus,
+        fsaSets,
+        provinces,
+        isolated,
+        selectedType as number,
+        // selectedNumericalType,
+        deviations
+      );
       // scaleData = handleCategoryIsDonation(selectedData as FSAToIncome | FSAToFamily, fsaSets, provinces, isolated, selectedType as IncomeTypeOption | FamilyTypeOption, selectedNumericalType, deviations);
       break;
     case SelectedCategoryOption.INCOME:
@@ -187,55 +252,6 @@ export const CurrentScaleProvider = (props: { children?: ReactNode }) => {
   }
 
   let { scale, data, min, max, domain, dev, colorScale } = scaleData;
-
-  // // Filter out the non-selected fsas
-  // const filtered = Object.entries(selectedData)
-  //   .map(([key, value]: [any, any]) => {
-  //     const province = getProvinceFromFSA(key, fsaSets);
-  //     if (!province) return null;
-  //     if (!provinces[province]) return null;
-  //     if (isolated.size > 0 && !isolated.has(key)) return null;
-  //     return value[selectedType][selectedNumericalType];
-  //   })
-  //   // remove nulls
-  //   .filter(Boolean);
-
-  // let min = d3.min(filtered);
-  // let max = d3.max(filtered);
-  // let dev = d3.deviation(filtered) as number;
-
-  // if (filtered.length === 1) {
-  //   min = 0;
-  //   dev = 0;
-  // }
-
-  // let finalMax = max;
-
-  // if (dev) {
-  //   finalMax = dev * deviations;
-  // }
-
-  // if (min > dev) {
-  //   finalMax = max;
-  // }
-
-  // //Check for percentages
-  // if (selectedNumericalType === NumericalDonationKey.DonRate) {
-  //   finalMax = max;
-  // }
-
-  // const domain = [min, finalMax] as [number, number];
-
-  // const scale = d3
-  //   .scaleQuantize()
-  //   .domain(domain as any)
-  //   .range(d3.schemeOranges[9] as any);
-
-  // const colorScale = d3
-  //   .scaleLinear()
-  //   .domain([min, finalMax])
-  //   .range(domain as any)
-  //   .interpolate(() => d3.interpolateOranges as any);
 
   return (
     <CurrentScaleContext.Provider

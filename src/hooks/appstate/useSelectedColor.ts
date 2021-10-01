@@ -65,7 +65,7 @@ const useSelectedColor = (FSA: FSAType | undefined) => {
   const category = useSelectedCategory();
   const { selectedCID } = useContext(CensusDataContext);
   const { selectedNumericalType } = useContext(SelectedNumericalContext);
-  if (!FSA) return INVALID_COLOR;
+  if (!FSA || !data) return INVALID_COLOR;
   switch (category) {
     case SelectedCategoryOption.CENSUS:
       return handleCategoryIsCensus(selectedCID, data, FSA, colorScale);

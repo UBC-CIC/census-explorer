@@ -2,6 +2,7 @@ import HoveredContext from "@context/appstate/HoveredProvider";
 import SelectedNumericalContext from "@context/appstate/SelectedNumericalProvider";
 import StandardDeviationContext from "@context/appstate/StandardDeviationProvider";
 import useHoveredData from "@hooks/appstate/useHoveredData";
+import useSelectedCategory from "@hooks/appstate/useSelectedCategory";
 import useCurrentColorScale from "@hooks/quantized/useCurrentColorScale";
 import useFilteredData from "@hooks/quantized/useFilteredData";
 import useFilteredDomain from "@hooks/quantized/useFilteredDomain";
@@ -24,6 +25,7 @@ const ColorLegend = ({}: ColorLegendProps) => {
   const data = useFilteredData();
   const { deviations } = useContext(StandardDeviationContext);
   const theme = useTheme();
+  const category = useSelectedCategory();
 
   // draw / calculate the color scale
   useEffect(() => {
@@ -83,7 +85,7 @@ const ColorLegend = ({}: ColorLegendProps) => {
 
     const axisLabel = fc
       .axisRight(yScale)
-      .tickFormat(getFormatFunction(selectedNumericalType) as any)
+      .tickFormat(getFormatFunction(selectedNumericalType, category) as any)
       .tickSizeOuter(0);
 
     const legendSvg = container
@@ -125,7 +127,7 @@ const ColorLegend = ({}: ColorLegendProps) => {
       height - INDICATOR_HEIGHT
     );
 
-    const format = getFormatFunction(selectedNumericalType);
+    const format = getFormatFunction(selectedNumericalType, category);
     d3.select("#colorbar-hover-indicator")
       .select("text")
       .style("font-size", "10px")

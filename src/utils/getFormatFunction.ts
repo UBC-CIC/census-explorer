@@ -1,6 +1,12 @@
-import { NumericalDonationKey } from "@types";
+import { NumericalDonationKey, SelectedCategoryOption } from "@types";
 import * as d3 from "d3";
-const getFormatFunction = (numericalKey: NumericalDonationKey) => {
+const getFormatFunction = (
+  numericalKey: NumericalDonationKey,
+  category: SelectedCategoryOption
+) => {
+  if (category === SelectedCategoryOption.CENSUS) {
+    return d3.format("~s");
+  }
   switch (numericalKey) {
     case NumericalDonationKey.MedianDon:
     case NumericalDonationKey.TotDons:
