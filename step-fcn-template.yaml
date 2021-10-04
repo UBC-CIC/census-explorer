@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Template
+
+Resources:
+  # lambdas used in data processing step function
+  # TODO: replace roles and figure out layer def
+  CleanAndCombineDonations:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/clean_and_combine_census
+      Description: ''
+      MemorySize: 512
+      Timeout: 5
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+  
+  AddProvinceDonation:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/add_province_donation
+      Description: ''
+      MemorySize: 256
+      Timeout: 5
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  DonationsToDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/donations_to_DB
+      Description: ''
+      MemorySize: 256
+      Timeout: 180
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  CleanCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/clean_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 90
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  MapHeadersAndPopulations:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/map_headers_and_populations
+      Description: ''
+      MemorySize: 512
+      Timeout: 90
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  AddProvinceCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/add_province_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 90
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  JoinPopulationsAndCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/join_populations_and_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 600
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  CalculatePercent:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/calculate_percent
+      Description: ''
+      MemorySize: 512
+      Timeout: 300
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  CensusToDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/census_to_DB
+      Description: ''
+      MemorySize: 1024
+      Timeout: 900
+      Role: # REPLACE
+      Layers:
+        - # REPLACE
+
+  CleanUpS3:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./functions/clean_up_s3
+      Description: ''
+      MemorySize: 128
+      Timeout: 10
+      Role: # REPLACE
+
+  # data processing step fcn
+  DataProcessingStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: ./state-machine.asl.json
+      DefinitionSubstitution: 
+        CleanAndCombineDonationsArn: !GetAtt CleanAndCombineDonations.Arn
+        AddProvinceDonationArn: !GetAtt AddProvinceDonation.Arn
+        DonationsToDBArn: !GetAtt DonationsToDB.Arn
+        CleanCensusArn: !GetAtt CleanCensus.Arn
+        MapHeadersPopulationsArn: !GetAtt MapHeadersAndPopulations.Arn
+        AddProvinceCensusArn: !GetAtt AddProvinceCensus.Arn
+        JoinPopulationsCensusArn: !GetAtt JoinPopulationsAndCensus.Arn
+        CalculatePercentArn: !GetAtt CalculatePercent.Arn
+        CensusToDBArn: !GetAtt CensusToDB.Arn
+        CleanUpS3Arn: !GetAtt CleanUpS3.Arn
+      Role: #REPLACE (diff from lambda roles)
+

@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Template
+
+Resources:
+  # data bucket
+  CensusDataBucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+
+  # store bucket name in parameter store
+  CensusDataBucketParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: DataS3BucketName
+      Type: String
+      Value: !Ref DataS3Bucket
