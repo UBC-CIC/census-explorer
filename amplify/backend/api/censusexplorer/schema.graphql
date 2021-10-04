@@ -99,8 +99,8 @@ type CensusDataEntry
 }
 
 type Query {
-  similarSearch(user: similarSearchInput): similarSearchOutput
-    @function(name: "similarSearch-${env}")
+  similarSearch(input: similarSearchInput): similarSearchOutput
+    @function(input: "similarSearch-${env}")
 }
 
 # Requires at least 1 of CID or TYPE. If both are provided, performs a search using both.

@@ -126,6 +126,7 @@ const handleCategoryIsDonation = (
       if (!province) return null;
       if (!provinces[province]) return null;
       if (isolated.size > 0 && !isolated.has(key)) return null;
+      if (!value || !value[selectedType]) return null;
       return value[selectedType][selectedNumericalType];
     })
     // remove nulls

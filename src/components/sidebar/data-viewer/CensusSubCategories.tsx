@@ -1,7 +1,7 @@
 import CensusDataContext from "@context/census/CensusDataProvider";
 import useCensusHeaders from "@hooks/census/useCensusHeaders";
 import { MenuItem, Select } from "@material-ui/core";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 type CensusSubCategoriesProps = {
   selectedHeader: string;

@@ -50,6 +50,7 @@ const getAllIncomeData = async () => {
       };
     });
   });
+  console.log("INCOMEDATA", incomeData);
 
   return incomeData;
 };

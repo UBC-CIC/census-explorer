@@ -1,4 +1,5 @@
 import useFSASets from "@hooks/province/useFSASets";
+import { Button } from "@material-ui/core";
 import { FSAType } from "@types";
 import getProvinceFromFSA from "@utils/getProvinceFromFSA";
 
@@ -9,12 +10,27 @@ type FSADetailsProps = {
 const FSADetails = ({ fsa }: FSADetailsProps) => {
   const fsaSets = useFSASets();
   const province = getProvinceFromFSA(fsa, fsaSets);
+
+  const performSimilarSearch = () => {
+    ///
+  };
+
   return (
-    <ul>
-      <li>Province: {province.toUpperCase()}</li>
-      <li>Dwellings: 5000</li>
-      <li>Households: 4900</li>
-    </ul>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        margin: ".25rem 0",
+      }}
+    >
+      <p>
+        Province: <strong>{province.toUpperCase()}</strong>
+      </p>
+      <Button color="primary" variant="outlined">
+        Find Similar
+      </Button>
+    </div>
   );
 };
 

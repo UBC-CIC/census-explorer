@@ -181,15 +181,15 @@ export type FSAToIncomeEntry = {
 };
 
 export enum IncomeTypeOption {
-  l20K = "<$20K",
-  l40K = "$20K < $40K",
-  l60K = "$40K < $60K",
-  l80K = "$60K < $80K",
-  l100K = "$80K < $100K",
-  l150K = "$100K < $150K",
-  l200K = "$150K < $200K",
-  l250K = " $200K < $250K",
-  ge250K = ">= $250K",
+  l20K = "l20K",
+  l40K = "l40K",
+  l60K = "l60K",
+  l80K = "l80K",
+  l100K = "l100K",
+  l150K = "l150K",
+  l200K = "l200K",
+  l250K = "l250K",
+  ge250K = "ge250K",
 }
 
 export enum CensusTypeOption {

@@ -62,12 +62,12 @@ const MainCategoryInfoStrings = new LocalizedStrings<any>({
 
 const NumericalInfoStrings = new LocalizedStrings<any>({
   en: {
-    TotDons: "Donation Totals: Total Dollars Donated per FSA",
-    NumFam: "Number of Families: Number of families per FSA",
-    NumDons: "Number of Donations: Total Number of Donations per FSA",
-    MedianDon:
+    TOT_DONS: "Donation Totals: Total Dollars Donated per FSA",
+    NUM_FAM: "Number of Families: Number of families per FSA",
+    NUM_DONS: "Number of Donations: Total Number of Donations per FSA",
+    MEDIAN_DON:
       "Median Donation: Average Dollars per Donation per Family per FSA",
-    DonRate: "Donation Rate: % of Families that Donated per FSA",
+    DON_RATE: "Donation Rate: % of Families that Donated per FSA",
   },
 });
 
