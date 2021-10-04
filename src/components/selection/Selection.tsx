@@ -15,7 +15,6 @@ const Selection = (props: SelectionProps) => {
   const map = useMap();
   (map as any)?.selectArea?.enable();
   const { selection, setSelection } = useContext(FSASelectionContext);
-  console.log(selection);
 
   const { isolated, setIsolated } = useContext(IsolatedFSAContext);
   const overlayRef = useRef<HTMLDivElement | null>(null);

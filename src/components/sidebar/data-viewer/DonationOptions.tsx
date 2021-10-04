@@ -46,55 +46,57 @@ const DonationOptions = (props: DonationOptionsProps) => {
     >
       <Button
         variant={
-          selectedNumericalType === NumericalDonationKey.TotDons
+          selectedNumericalType === NumericalDonationKey.TOT_DONS
             ? "contained"
             : "text"
         }
-        onClick={() => setSelectedNumericalType(NumericalDonationKey.TotDons)}
+        onClick={() => setSelectedNumericalType(NumericalDonationKey.TOT_DONS)}
         className={classes.numericalOption}
       >
         Donation Totals ($)
       </Button>
       <Button
         variant={
-          selectedNumericalType === NumericalDonationKey.NumDons
+          selectedNumericalType === NumericalDonationKey.NUM_DONS
             ? "contained"
             : "text"
         }
-        onClick={() => setSelectedNumericalType(NumericalDonationKey.NumDons)}
+        onClick={() => setSelectedNumericalType(NumericalDonationKey.NUM_DONS)}
         className={classes.numericalOption}
       >
         Number of Donations
       </Button>
       <Button
         variant={
-          selectedNumericalType === NumericalDonationKey.DonRate
+          selectedNumericalType === NumericalDonationKey.DON_RATE
             ? "contained"
             : "text"
         }
-        onClick={() => setSelectedNumericalType(NumericalDonationKey.DonRate)}
+        onClick={() => setSelectedNumericalType(NumericalDonationKey.DON_RATE)}
         className={classes.numericalOption}
       >
         Donation Rate
       </Button>
       <Button
         variant={
-          selectedNumericalType === NumericalDonationKey.MedianDon
+          selectedNumericalType === NumericalDonationKey.MEDIAN_DON
             ? "contained"
             : "text"
         }
-        onClick={() => setSelectedNumericalType(NumericalDonationKey.MedianDon)}
+        onClick={() =>
+          setSelectedNumericalType(NumericalDonationKey.MEDIAN_DON)
+        }
         className={classes.numericalOption}
       >
         Median Donation
       </Button>
       <Button
         variant={
-          selectedNumericalType === NumericalDonationKey.NumFam
+          selectedNumericalType === NumericalDonationKey.NUM_FAM
             ? "contained"
             : "text"
         }
-        onClick={() => setSelectedNumericalType(NumericalDonationKey.NumFam)}
+        onClick={() => setSelectedNumericalType(NumericalDonationKey.NUM_FAM)}
         className={classes.numericalOption}
       >
         Number of Families

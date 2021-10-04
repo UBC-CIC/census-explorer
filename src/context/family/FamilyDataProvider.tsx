@@ -1,5 +1,6 @@
 import { FSAToFamily } from "@types";
 import React, { ReactNode, useEffect, useState } from "react";
+import getAllFamilyData from "./queries/getAllFamilyData";
 
 type DataContextType = {
   loading: boolean;
@@ -9,8 +10,7 @@ type DataContextType = {
 const FamilyDataContext = React.createContext({} as DataContextType);
 
 const fetchFSAData = async () => {
-  const res = await fetch("/api/family-data");
-  const data = await res.json();
+  const data = await getAllFamilyData();
   return data as FSAToFamily;
 };
 

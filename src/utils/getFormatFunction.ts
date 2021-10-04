@@ -8,13 +8,13 @@ const getFormatFunction = (
     return d3.format("~s");
   }
   switch (numericalKey) {
-    case NumericalDonationKey.MedianDon:
-    case NumericalDonationKey.TotDons:
+    case NumericalDonationKey.MEDIAN_DON:
+    case NumericalDonationKey.TOT_DONS:
       return d3.format("$~s");
-    case NumericalDonationKey.NumDons:
-    case NumericalDonationKey.NumFam:
+    case NumericalDonationKey.NUM_DONS:
+    case NumericalDonationKey.NUM_FAM:
       return d3.format("~s");
-    case NumericalDonationKey.DonRate:
+    case NumericalDonationKey.DON_RATE:
       return d3.format("~p");
     default:
       return d3.format("~s");

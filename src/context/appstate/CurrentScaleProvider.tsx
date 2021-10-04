@@ -151,7 +151,7 @@ const handleCategoryIsDonation = (
   }
 
   //Check for percentages
-  if (selectedNumericalType === NumericalDonationKey.DonRate) {
+  if (selectedNumericalType === NumericalDonationKey.DON_RATE) {
     finalMax = max;
   }
 

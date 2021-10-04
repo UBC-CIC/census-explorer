@@ -15,7 +15,6 @@ const CensusSubCategories = ({ selectedHeader }: CensusSubCategoriesProps) => {
     useContext(CensusDataContext);
 
   useEffect(() => {
-    console.log("selectedHeader", selectedHeader);
     const newSelected = headers.get(selectedHeader);
     if (newSelected) {
       // This is excluded from dependency list because otherwise this causes the subcategory to be reset

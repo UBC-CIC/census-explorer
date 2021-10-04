@@ -1,9 +1,17 @@
-type FSADetailsProps = {};
+import useFSASets from "@hooks/province/useFSASets";
+import { FSAType } from "@types";
+import getProvinceFromFSA from "@utils/getProvinceFromFSA";
 
-const FSADetails = (props: FSADetailsProps) => {
+type FSADetailsProps = {
+  fsa: FSAType;
+};
+
+const FSADetails = ({ fsa }: FSADetailsProps) => {
+  const fsaSets = useFSASets();
+  const province = getProvinceFromFSA(fsa, fsaSets);
   return (
     <ul>
-      <li>Population: 10000</li>
+      <li>Province: {province.toUpperCase()}</li>
       <li>Dwellings: 5000</li>
       <li>Households: 4900</li>
     </ul>

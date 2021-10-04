@@ -15,7 +15,7 @@ const SelectedNumericalContext = React.createContext(
 export const SelectedNumericalProvider = (props: { children?: ReactNode }) => {
   const { children } = props;
   const [selectedNumericalType, setSelectedNumericalType] =
-    useState<NumericalDonationKey>(NumericalDonationKey.TotDons);
+    useState<NumericalDonationKey>(NumericalDonationKey.TOT_DONS);
   return (
     <SelectedNumericalContext.Provider
       value={{

@@ -26,3 +26,31 @@ export const getCensusDataByProvinceCID = /* GraphQL */ `
     }
   }
 `;
+
+export const getAllFamilyDataQ = /* GraphQL */ `
+  query getAllFamilyDataQ(
+    $TYPE: DonationTypeOption
+    $FSA: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelDonationDataEntryFilterInput
+  ) {
+    donationDataByTypeFSA(
+      TYPE: $TYPE
+      FSA: $FSA
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: 10000
+    ) {
+      items {
+        FSA
+        TYPE
+        NUM_FAM
+        TOT_DONS
+        NUM_DONS
+        MEDIAN_DON
+        DON_RATE
+        PROVINCE
+      }
+    }
+  }
+`;

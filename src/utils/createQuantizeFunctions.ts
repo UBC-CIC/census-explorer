@@ -16,7 +16,7 @@ export const createFamilyQuantizeFunction = (
     .filter(Boolean);
   const quantizedData = d3
     .scaleQuantize()
-    .domain(d3.extent(numerical) as [number, number])
+    .domain(d3.extent(numerical as any) as unknown as [number, number])
     .range(d3.schemeOranges[9] as any);
 
   return quantizedData;
@@ -31,7 +31,7 @@ export const createIncomeQuantizeFunction = (
     .filter(Boolean);
   const quantizedData = d3
     .scaleQuantize()
-    .domain(d3.extent(numerical) as [number, number])
+    .domain(d3.extent(numerical as any) as unknown as [number, number])
     .range(d3.schemeOranges[9] as any);
 
   return quantizedData;

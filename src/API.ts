@@ -51,20 +51,6 @@ export type ModelFloatKeyConditionInput = {
   between?: Array< number | null > | null,
 };
 
-export type CreateDonationDataEntryInput = {
-  id?: string | null,
-  FSA: string,
-  TYPE: DonationTypeOption,
-  YEAR?: number | null,
-  INCOME_GROUP?: string | null,
-  NUM_FAM?: number | null,
-  TOT_DONS?: number | null,
-  NUM_DONS?: number | null,
-  MEDIAN_DON?: number | null,
-  DON_RATE?: number | null,
-  PROVINCE?: ProvinceOption | null,
-};
-
 export enum DonationTypeOption {
   COUPLE_WITH_CHILDREN = "COUPLE_WITH_CHILDREN",
   LONE_PARENT_FAMILIES = "LONE_PARENT_FAMILIES",
@@ -82,24 +68,23 @@ export enum DonationTypeOption {
 }
 
 
-export enum ProvinceOption {
-  AB = "AB",
-  BC = "BC",
-  MB = "MB",
-  NB = "NB",
-  NL = "NL",
-  NS = "NS",
-  NT = "NT",
-  NU = "NU",
-  ON = "ON",
-  PE = "PE",
-  QC = "QC",
-  SK = "SK",
-  YT = "YT",
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
 }
 
 
-export type ModelDonationDataEntryConditionInput = {
+export type ModelDonationDataEntryFilterInput = {
   FSA?: ModelStringInput | null,
   TYPE?: ModelDonationTypeOptionInput | null,
   YEAR?: ModelFloatInput | null,
@@ -110,9 +95,9 @@ export type ModelDonationDataEntryConditionInput = {
   MEDIAN_DON?: ModelFloatInput | null,
   DON_RATE?: ModelFloatInput | null,
   PROVINCE?: ModelProvinceOptionInput | null,
-  and?: Array< ModelDonationDataEntryConditionInput | null > | null,
-  or?: Array< ModelDonationDataEntryConditionInput | null > | null,
-  not?: ModelDonationDataEntryConditionInput | null,
+  and?: Array< ModelDonationDataEntryFilterInput | null > | null,
+  or?: Array< ModelDonationDataEntryFilterInput | null > | null,
+  not?: ModelDonationDataEntryFilterInput | null,
 };
 
 export type ModelStringInput = {
@@ -177,6 +162,29 @@ export type ModelProvinceOptionInput = {
   ne?: ProvinceOption | null,
 };
 
+export enum ProvinceOption {
+  AB = "AB",
+  BC = "BC",
+  MB = "MB",
+  NB = "NB",
+  NL = "NL",
+  NS = "NS",
+  NT = "NT",
+  NU = "NU",
+  ON = "ON",
+  PE = "PE",
+  QC = "QC",
+  SK = "SK",
+  YT = "YT",
+}
+
+
+export type ModelDonationDataEntryConnection = {
+  __typename: "ModelDonationDataEntryConnection",
+  items?:  Array<DonationDataEntry | null > | null,
+  nextToken?: string | null,
+};
+
 export type DonationDataEntry = {
   __typename: "DonationDataEntry",
   id: string,
@@ -192,6 +200,36 @@ export type DonationDataEntry = {
   PROVINCE?: ProvinceOption | null,
   createdAt: string,
   updatedAt: string,
+};
+
+export type CreateDonationDataEntryInput = {
+  id?: string | null,
+  FSA: string,
+  TYPE: DonationTypeOption,
+  YEAR?: number | null,
+  INCOME_GROUP?: string | null,
+  NUM_FAM?: number | null,
+  TOT_DONS?: number | null,
+  NUM_DONS?: number | null,
+  MEDIAN_DON?: number | null,
+  DON_RATE?: number | null,
+  PROVINCE?: ProvinceOption | null,
+};
+
+export type ModelDonationDataEntryConditionInput = {
+  FSA?: ModelStringInput | null,
+  TYPE?: ModelDonationTypeOptionInput | null,
+  YEAR?: ModelFloatInput | null,
+  INCOME_GROUP?: ModelStringInput | null,
+  NUM_FAM?: ModelFloatInput | null,
+  TOT_DONS?: ModelFloatInput | null,
+  NUM_DONS?: ModelFloatInput | null,
+  MEDIAN_DON?: ModelFloatInput | null,
+  DON_RATE?: ModelFloatInput | null,
+  PROVINCE?: ModelProvinceOptionInput | null,
+  and?: Array< ModelDonationDataEntryConditionInput | null > | null,
+  or?: Array< ModelDonationDataEntryConditionInput | null > | null,
+  not?: ModelDonationDataEntryConditionInput | null,
 };
 
 export type UpdateDonationDataEntryInput = {
@@ -281,28 +319,6 @@ export type SimilarResponseFSAs = {
   census: Array< string >,
 };
 
-export type ModelDonationDataEntryFilterInput = {
-  FSA?: ModelStringInput | null,
-  TYPE?: ModelDonationTypeOptionInput | null,
-  YEAR?: ModelFloatInput | null,
-  INCOME_GROUP?: ModelStringInput | null,
-  NUM_FAM?: ModelFloatInput | null,
-  TOT_DONS?: ModelFloatInput | null,
-  NUM_DONS?: ModelFloatInput | null,
-  MEDIAN_DON?: ModelFloatInput | null,
-  DON_RATE?: ModelFloatInput | null,
-  PROVINCE?: ModelProvinceOptionInput | null,
-  and?: Array< ModelDonationDataEntryFilterInput | null > | null,
-  or?: Array< ModelDonationDataEntryFilterInput | null > | null,
-  not?: ModelDonationDataEntryFilterInput | null,
-};
-
-export type ModelDonationDataEntryConnection = {
-  __typename: "ModelDonationDataEntryConnection",
-  items?:  Array<DonationDataEntry | null > | null,
-  nextToken?: string | null,
-};
-
 export type ModelCensusDataEntryFilterInput = {
   FSA?: ModelStringInput | null,
   CID?: ModelFloatInput | null,
@@ -317,22 +333,6 @@ export type ModelCensusDataEntryFilterInput = {
   or?: Array< ModelCensusDataEntryFilterInput | null > | null,
   not?: ModelCensusDataEntryFilterInput | null,
 };
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type getAllHeadersCategoriesQuery = {
   censusDataByProvinceCID?:  {
@@ -361,6 +361,32 @@ export type getCensusDataByProvinceCIDQuery = {
       TOTAL_COUNT?: number | null,
       TOTAL_PERCENT?: number | null,
       FSA: string,
+    } | null > | null,
+  } | null,
+};
+
+export type getAllFamilyDataQQueryVariables = {
+  TYPE?: DonationTypeOption | null,
+  FSA?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelDonationDataEntryFilterInput | null,
+};
+
+export type getAllFamilyDataQQuery = {
+  donationDataByTypeFSA?:  {
+    __typename: "ModelDonationDataEntryConnection",
+    items?:  Array< {
+      __typename: "DonationDataEntry",
+      FSA: string,
+      TYPE: DonationTypeOption,
+      YEAR?: number | null,
+      INCOME_GROUP?: string | null,
+      NUM_FAM?: number | null,
+      TOT_DONS?: number | null,
+      NUM_DONS?: number | null,
+      MEDIAN_DON?: number | null,
+      DON_RATE?: number | null,
+      PROVINCE?: ProvinceOption | null,
     } | null > | null,
   } | null,
 };

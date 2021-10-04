@@ -1,4 +1,4 @@
-import { CensusProvinceOption } from "API";
+import { CensusProvinceOption, DonationDataEntry } from "API";
 import { ExtendedFeature, GeoGeometryObjects } from "d3";
 
 export interface Topology {
@@ -108,15 +108,15 @@ export type FSAToFamily = {
 };
 
 export type FSAToFamilyEntry = {
-  [FamilyType in FamilyTypeOption]: FamilyDataEntry;
+  [FamilyType in FamilyTypeOption]: DonationDataEntry;
 };
 
 export enum NumericalDonationKey {
-  NumFam = "NumFam",
-  TotDons = "TotDons",
-  NumDons = "NumDons",
-  MedianDon = "MedianDon",
-  DonRate = "DonRate",
+  NUM_FAM = "NUM_FAM",
+  TOT_DONS = "TOT_DONS",
+  NUM_DONS = "NUM_DONS",
+  MEDIAN_DON = "MEDIAN_DON",
+  DON_RATE = "DON_RATE",
 }
 
 export type FamilyDataEntry = {
@@ -137,11 +137,11 @@ export type IncomeDataEntry = {
   Year: number;
   FSA: string;
   IncomeGroup: string;
-  NumFam: number;
-  TotDons: number;
-  NumDons: number;
-  MedianDon: number;
-  DonRate: number;
+  NUM_FAM: number;
+  TOT_DONS: number;
+  NUM_DONS: number;
+  MEDIAN_DON: number;
+  DON_RATE: number;
   Place: number | null;
   Name_EN: string | null;
   Name_FR: string | null;
@@ -170,14 +170,14 @@ export type ProfileIDToCensus = {
 };
 
 export enum FamilyTypeOption {
-  COUPLE_WITH_CHILDREN = "Couple with children",
-  LONE_PARENT_FAMILIES = "Lone-parent families",
-  COUPLE_WITHOUT_CHILDREN = "Couple without children",
-  PERSONS_NOT_IN_CENSUS_FAMILIES = "Persons not in census families",
+  COUPLE_WITH_CHILDREN = "COUPLE_WITH_CHILDREN",
+  LONE_PARENT_FAMILIES = "LONE_PARENT_FAMILIES",
+  COUPLE_WITHOUT_CHILDREN = "COUPLE_WITHOUT_CHILDREN",
+  PERSONS_NOT_IN_CENSUS_FAMILIES = "PERSONS_NOT_IN_CENSUS_FAMILIES",
 }
 
 export type FSAToIncomeEntry = {
-  [incomeGroup in IncomeTypeOption]: IncomeDataEntry;
+  [incomeGroup in IncomeTypeOption]: DonationDataEntry;
 };
 
 export enum IncomeTypeOption {

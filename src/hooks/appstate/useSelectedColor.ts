@@ -30,7 +30,7 @@ const handleCategoryIsFamily = (
   if (!data[FSA]) return INVALID_COLOR;
   if (!data[FSA]![type]) return INVALID_COLOR;
   if (!data[FSA]![type][selectedNumericalType]) return INVALID_COLOR;
-  return colorScale(data[FSA]![type][selectedNumericalType]) as string;
+  return colorScale(data[FSA]![type][selectedNumericalType]!) as string;
 };
 
 const handleCategoryIsIncome = (
@@ -43,7 +43,7 @@ const handleCategoryIsIncome = (
   if (!data[FSA]) return INVALID_COLOR;
   if (!data[FSA]![type]) return INVALID_COLOR;
   if (!data[FSA]![type][selectedNumericalType]) return INVALID_COLOR;
-  return colorScale(data[FSA]![type][selectedNumericalType]) as string;
+  return colorScale(data[FSA]![type][selectedNumericalType]!) as string;
 };
 
 const handleCategoryIsCensus = (

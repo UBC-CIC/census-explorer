@@ -9,7 +9,6 @@ const getHeadersAndCategories = async () => {
     query: getAllHeadersCategories,
     authMode: "API_KEY",
   })) as GraphQLResult<getAllHeadersCategoriesQuery>;
-  console.log(res.data);
   if (!res.data) throw new Error("Failed to get census data");
   const headers = new Map<string, CIDandCategory[]>();
   res.data.censusDataByProvinceCID?.items?.forEach((item) => {
@@ -22,7 +21,6 @@ const getHeadersAndCategories = async () => {
     headers.get(item.HEADER)?.push({ CID: item.CID!, category: item.CATEGORY });
   });
 
-  console.log(headers);
   return headers;
 };
 

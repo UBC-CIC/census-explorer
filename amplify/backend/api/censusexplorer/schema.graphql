@@ -63,7 +63,6 @@ type DonationDataEntry
   FSA: String!
   TYPE: DonationTypeOption!
   YEAR: Float
-  INCOME_GROUP: String
   NUM_FAM: Float
   TOT_DONS: Float
   NUM_DONS: Float

@@ -1,5 +1,6 @@
 import { FSAToIncome } from "@types";
 import React, { ReactNode, useEffect, useState } from "react";
+import getAllIncomeData from "./queries/getAllIncomeData";
 
 type DataContextType = {
   loading: boolean;
@@ -9,8 +10,7 @@ type DataContextType = {
 const IncomeDataContext = React.createContext({} as DataContextType);
 
 const fetchFSAData = async () => {
-  const res = await fetch("/api/income-data");
-  const data = await res.json();
+  const data = await getAllIncomeData();
   return data as FSAToIncome;
 };
 

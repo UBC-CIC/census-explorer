@@ -55,7 +55,7 @@ const SelectionInfo = ({ fsa }: SelectionInfoProps) => {
         </Button>
       </div>
       <Collapse in={open}>
-        <FSADetails />
+        <FSADetails fsa={fsa} />
       </Collapse>
     </div>
   );

@@ -42,7 +42,6 @@ export const CensusDataProvider = (props: { children?: ReactNode }) => {
       setLoading(() => false);
     }
     setSelectedCID(selection);
-    console.log("cache", FSAToCensusData);
   };
 
   const cacheCensusData = async (selection: number) => {
