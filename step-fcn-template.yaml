@@ -2,21 +2,84 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Template
 
+Parameters:
+  DataBucketName:
+    Type: String
+    Default: imagine-canada-data # TODO: get rid of this later?
+    Description: S3 bucket containing the data and files
+
 Resources:
+  # IAM role for state machine
+  DataProcessingStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DataProcessingStateMachineInvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource:
+                  - Fn::Sub: arn:*:lambda:*:${AWS::AccountId}:function:*
+
+  # IAM role for lambdas
+  DataProcessingLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DataProcessingAccessBucket
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:*
+                Resource:
+                  - "arn:aws:s3:::${DataBucketName}/*"
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource:
+                  - "arn:aws:dynamodb:*:*:table/*" # TODO: make this specific using param store
+
+  # layer used by the data processing roles
+  AWSDataWranglerLayer:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      Content: ./layers/
+        # S3Bucket: "${DataBucketName}" # not workingggg
+        # S3Key: lambda-layers/AWSDataWranglerLayer.zip # TODO: unless we create this, don't hard code!!!
+
   # lambdas used in data processing step function
-  # TODO: replace roles and figure out layer def
   CleanAndCombineDonations:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: lambda_function.lambda_handler
       Runtime: python3.8
-      CodeUri: ./functions/clean_and_combine_census
+      CodeUri: ./functions/clean_and_combine_donations
       Description: ''
       MemorySize: 512
       Timeout: 5
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
   
   AddProvinceDonation:
     Type: 'AWS::Serverless::Function'
@@ -27,9 +90,9 @@ Resources:
       Description: ''
       MemorySize: 256
       Timeout: 5
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   DonationsToDB:
     Type: 'AWS::Serverless::Function'
@@ -40,9 +103,9 @@ Resources:
       Description: ''
       MemorySize: 256
       Timeout: 180
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   CleanCensus:
     Type: 'AWS::Serverless::Function'
@@ -53,9 +116,9 @@ Resources:
       Description: ''
       MemorySize: 1024
       Timeout: 90
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   MapHeadersAndPopulations:
     Type: 'AWS::Serverless::Function'
@@ -66,9 +129,9 @@ Resources:
       Description: ''
       MemorySize: 512
       Timeout: 90
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   AddProvinceCensus:
     Type: 'AWS::Serverless::Function'
@@ -79,9 +142,9 @@ Resources:
       Description: ''
       MemorySize: 1024
       Timeout: 90
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   JoinPopulationsAndCensus:
     Type: 'AWS::Serverless::Function'
@@ -92,9 +155,9 @@ Resources:
       Description: ''
       MemorySize: 1024
       Timeout: 600
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   CalculatePercent:
     Type: 'AWS::Serverless::Function'
@@ -105,9 +168,9 @@ Resources:
       Description: ''
       MemorySize: 512
       Timeout: 300
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   CensusToDB:
     Type: 'AWS::Serverless::Function'
@@ -118,9 +181,9 @@ Resources:
       Description: ''
       MemorySize: 1024
       Timeout: 900
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - # REPLACE
+        - !Ref AWSDataWranglerLayer
 
   CleanUpS3:
     Type: 'AWS::Serverless::Function'
@@ -131,14 +194,14 @@ Resources:
       Description: ''
       MemorySize: 128
       Timeout: 10
-      Role: # REPLACE
+      Role: !GetAtt DataProcessingLambdaRole.Arn
 
   # data processing step fcn
   DataProcessingStateMachine:
     Type: AWS::Serverless::StateMachine
     Properties:
       DefinitionUri: ./state-machine.asl.json
-      DefinitionSubstitution: 
+      DefinitionSubstitutions: 
         CleanAndCombineDonationsArn: !GetAtt CleanAndCombineDonations.Arn
         AddProvinceDonationArn: !GetAtt AddProvinceDonation.Arn
         DonationsToDBArn: !GetAtt DonationsToDB.Arn
@@ -149,5 +212,4 @@ Resources:
         CalculatePercentArn: !GetAtt CalculatePercent.Arn
         CensusToDBArn: !GetAtt CensusToDB.Arn
         CleanUpS3Arn: !GetAtt CleanUpS3.Arn
-      Role: #REPLACE (diff from lambda roles)
-
+      Role: !GetAtt DataProcessingStateMachineRole.Arn
