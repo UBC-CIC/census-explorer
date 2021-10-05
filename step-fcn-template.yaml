@@ -61,18 +61,20 @@ Resources:
 
   # layer used by the data processing roles
   AWSDataWranglerLayer:
-    Type: AWS::Lambda::LayerVersion
+    Type: AWS::Serverless::LayerVersion
     Properties:
-      Content: ./layers/
-        # S3Bucket: "${DataBucketName}" # not workingggg
-        # S3Key: lambda-layers/AWSDataWranglerLayer.zip # TODO: unless we create this, don't hard code!!!
+      CompatibleRuntimes: 
+        - "python3.9"
+      ContentUri: ./layers/
+    Metadata:
+      BuildMethod: python3.9
 
   # lambdas used in data processing step function
   CleanAndCombineDonations:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: clean_and_combine_donations.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/clean_and_combine_donations
       Description: ''
       MemorySize: 512
@@ -84,8 +86,8 @@ Resources:
   AddProvinceDonation:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: add_province_donation.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/add_province_donation
       Description: ''
       MemorySize: 256
@@ -97,8 +99,8 @@ Resources:
   DonationsToDB:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: donations_to_DB.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/donations_to_DB
       Description: ''
       MemorySize: 256
@@ -110,8 +112,8 @@ Resources:
   CleanCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: clean_census.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/clean_census
       Description: ''
       MemorySize: 1024
@@ -123,8 +125,8 @@ Resources:
   MapHeadersAndPopulations:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: map_headers_and_populations.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/map_headers_and_populations
       Description: ''
       MemorySize: 512
@@ -136,8 +138,8 @@ Resources:
   AddProvinceCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: add_province_census.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/add_province_census
       Description: ''
       MemorySize: 1024
@@ -149,8 +151,8 @@ Resources:
   JoinPopulationsAndCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: join_populations_and_census.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/join_populations_and_census
       Description: ''
       MemorySize: 1024
@@ -162,8 +164,8 @@ Resources:
   CalculatePercent:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: calculate_percent.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/calculate_percent
       Description: ''
       MemorySize: 512
@@ -175,8 +177,8 @@ Resources:
   CensusToDB:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: census_to_DB.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/census_to_DB
       Description: ''
       MemorySize: 1024
@@ -188,8 +190,8 @@ Resources:
   CleanUpS3:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.8
+      Handler: clean_up_s3.lambda_handler
+      Runtime: python3.9
       CodeUri: ./functions/clean_up_s3
       Description: ''
       MemorySize: 128
