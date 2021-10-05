@@ -162,9 +162,11 @@ const nearestNeighbor = async (
  * @returns
  */
 exports.handler = async (event) => {
+  console.log(event);
   let similarDonFSAs = [];
   let similarCensusFSAs = [];
-  const { FSAs, CID, TYPE, RATE_DISTANCE, FLAT_DISTANCE } = event.arguments;
+  const { FSAs, CID, TYPE, RATE_DISTANCE, FLAT_DISTANCE } =
+    event.arguments.input;
   //TODO add support for multiple FSAs, maybe average the data to make a new mainFSA
   const mainFSA = FSAs[0];
   const province = await getProvinceFromTypeFSA(TYPE, mainFSA);

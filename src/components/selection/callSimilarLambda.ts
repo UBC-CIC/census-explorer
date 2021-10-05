@@ -2,20 +2,22 @@ import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { FSAToFamily, FSAType } from "@types";
 import {
   DonationDataByTypeFSAQuery,
-  DonationTypeOption,
   similarSearchInput,
+  SimilarSearchQuery,
 } from "../../API";
 import { API } from "aws-amplify";
-import { getAllFamilyDataQ } from "../../graphql/custom";
-import { similarSearch } from "graphql/queries";
+import { similarSearch } from "../../graphql/queries";
 
 const callSimilarLambda = async (input: similarSearchInput) => {
-  const res = API.graphql({
+  const res = (await API.graphql({
     query: similarSearch,
     variables: {
       input,
     },
-  }) as Promise<GraphQLResult<DonationDataByTypeFSAQuery>>;
+  })) as GraphQLResult<SimilarSearchQuery>;
+  if (!res.data) console.log("there was an error getting similar fsas");
+
+  return res.data?.similarSearch?.FSAs;
 };
 
 export default callSimilarLambda;

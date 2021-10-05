@@ -12,7 +12,6 @@ export const createDonationDataEntry = /* GraphQL */ `
       FSA
       TYPE
       YEAR
-      INCOME_GROUP
       NUM_FAM
       TOT_DONS
       NUM_DONS
@@ -34,7 +33,6 @@ export const updateDonationDataEntry = /* GraphQL */ `
       FSA
       TYPE
       YEAR
-      INCOME_GROUP
       NUM_FAM
       TOT_DONS
       NUM_DONS
@@ -56,7 +54,6 @@ export const deleteDonationDataEntry = /* GraphQL */ `
       FSA
       TYPE
       YEAR
-      INCOME_GROUP
       NUM_FAM
       TOT_DONS
       NUM_DONS

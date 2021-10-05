@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const similarSearch = /* GraphQL */ `
-  query SimilarSearch($user: similarSearchInput) {
-    similarSearch(user: $user) {
+  query SimilarSearch($input: similarSearchInput) {
+    similarSearch(input: $input) {
       FSAs {
         donation
         census
@@ -21,7 +21,6 @@ export const getDonationDataEntry = /* GraphQL */ `
       FSA
       TYPE
       YEAR
-      INCOME_GROUP
       NUM_FAM
       TOT_DONS
       NUM_DONS
@@ -49,7 +48,6 @@ export const listDonationDataEntries = /* GraphQL */ `
         FSA
         TYPE
         YEAR
-        INCOME_GROUP
         NUM_FAM
         TOT_DONS
         NUM_DONS
@@ -132,7 +130,6 @@ export const donationDataByTypeFSA = /* GraphQL */ `
         FSA
         TYPE
         YEAR
-        INCOME_GROUP
         NUM_FAM
         TOT_DONS
         NUM_DONS
@@ -168,7 +165,6 @@ export const donationDataByTypeProvince = /* GraphQL */ `
         FSA
         TYPE
         YEAR
-        INCOME_GROUP
         NUM_FAM
         TOT_DONS
         NUM_DONS
