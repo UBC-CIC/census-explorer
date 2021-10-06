@@ -18,7 +18,12 @@ const useHoveredData = () => {
   const loading = useCensusDataLoading();
   if (!hovered) return { data: null, fsa: undefined };
   if (category === SelectedCategoryOption.CENSUS) {
-    if (loading || !data[hovered]) return { data: null, fsa: undefined };
+    if (
+      loading ||
+      !data[hovered] ||
+      !(data as FSAToCensus)[hovered]![selectedCID]
+    )
+      return { data: null, fsa: undefined };
     return {
       data: (data as FSAToCensus)[hovered]![selectedCID][
         "TOTAL_COUNT"
