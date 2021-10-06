@@ -44,154 +44,157 @@ Resources:
                 - lambda.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: DataProcessingAccessBucket
+        - PolicyName: AmazonS3FullAccess
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
                   - s3:*
+                  - "s3-object-lambda:*"
                 Resource:
-                  - "arn:aws:s3:::${DataBucketName}/*"
+                  - Fn::Sub: arn:aws:s3:::${DataBucketName}/*
+        - PolicyName: AmazonDynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
               - Effect: Allow
                 Action:
                   - dynamodb:*
                 Resource:
-                  - "arn:aws:dynamodb:*:*:table/*" # TODO: make this specific using param store
-
+                  - arn:aws:dynamodb:*:*:table/*
+                  
   # layer used by the data processing roles
-  AWSDataWranglerLayer:
+  PandaNumpyLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
       CompatibleRuntimes: 
-        - "python3.9"
-      ContentUri: ./layers/
-    Metadata:
-      BuildMethod: python3.9
+        - "python3.7"
+      ContentUri: ./layers/lambda_layer.zip
 
   # lambdas used in data processing step function
   CleanAndCombineDonations:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: clean_and_combine_donations.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/clean_and_combine_donations
       Description: ''
       MemorySize: 512
       Timeout: 5
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
   
   AddProvinceDonation:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: add_province_donation.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/add_province_donation
       Description: ''
       MemorySize: 256
       Timeout: 5
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   DonationsToDB:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: donations_to_DB.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/donations_to_DB
       Description: ''
       MemorySize: 256
       Timeout: 180
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   CleanCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: clean_census.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/clean_census
       Description: ''
       MemorySize: 1024
       Timeout: 90
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   MapHeadersAndPopulations:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: map_headers_and_populations.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/map_headers_and_populations
       Description: ''
       MemorySize: 512
       Timeout: 90
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   AddProvinceCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: add_province_census.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/add_province_census
       Description: ''
       MemorySize: 1024
       Timeout: 90
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   JoinPopulationsAndCensus:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: join_populations_and_census.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/join_populations_and_census
       Description: ''
       MemorySize: 1024
       Timeout: 600
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   CalculatePercent:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: calculate_percent.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/calculate_percent
       Description: ''
       MemorySize: 512
       Timeout: 300
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   CensusToDB:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: census_to_DB.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/census_to_DB
       Description: ''
       MemorySize: 1024
       Timeout: 900
       Role: !GetAtt DataProcessingLambdaRole.Arn
       Layers:
-        - !Ref AWSDataWranglerLayer
+        - !Ref PandaNumpyLayer
 
   CleanUpS3:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: clean_up_s3.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       CodeUri: ./functions/clean_up_s3
       Description: ''
       MemorySize: 128
