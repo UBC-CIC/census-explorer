@@ -7,6 +7,7 @@ backend:
     build:
       commands:
         - "# Execute Amplify CLI with the helper script"
+        # TODO Fetch this from SSM/CFN
         - REACT_APP_TOPOJSON_URL=https://d135brruixvhfr.cloudfront.net
         - amplifyPush --simple
     postBuild:
