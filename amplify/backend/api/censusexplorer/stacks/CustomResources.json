@@ -37,7 +37,7 @@
             "Fn::Sub": "${AppSyncApiId}:GetAtt:CensusDataEntryTable:Name"
           }
         },
-        "Description": "Census Data Table Name"
+        "Description": "Census Data DynamoDB Table Name"
       }
     },
     "DonationDataEntryTableParameter": {
@@ -50,7 +50,7 @@
             "Fn::Sub": "${AppSyncApiId}:GetAtt:DonationDataEntryTable:Name"
           }
         },
-        "Description": "Donation Data Table Name"
+        "Description": "Donation Data DynamoDB Table Name"
       }
     }
   },
