@@ -27,9 +27,31 @@
     }
   },
   "Resources": {
-    "EmptyResource": {
-      "Type": "Custom::EmptyResource",
-      "Condition": "AlwaysFalse"
+    "CensusTableNameParameter": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/censusexplorer/censusDB",
+        "Type": "String",
+        "Value": {
+          "Fn::ImportValue": {
+            "Fn::Sub": "${AppSyncApiId}:GetAtt:CensusDataEntryTable:Name"
+          }
+        },
+        "Description": "GraphQL Api ID for Amplify App"
+      }
+    },
+    "CensusDataEntryTableParameter": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/censusexplorer/donationDB",
+        "Type": "String",
+        "Value": {
+          "Fn::ImportValue": {
+            "Fn::Sub": "${AppSyncApiId}:GetAtt:DonationDataEntryTable:Name"
+          }
+        },
+        "Description": "GraphQL Api ID for Amplify App"
+      }
     }
   },
   "Conditions": {
@@ -46,7 +68,10 @@
       ]
     },
     "AlwaysFalse": {
-      "Fn::Equals": ["true", "false"]
+      "Fn::Equals": [
+        "true",
+        "false"
+      ]
     }
   },
   "Outputs": {

@@ -1,5 +1,5 @@
 {
-  "geo": {
+  "topo": {
     "topojsonBucket": {
       "providerPlugin": "awscloudformation"
     }

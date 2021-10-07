@@ -47,6 +47,7 @@ enum CensusProvinceOption {
   YT
 }
 
+# If this tableName changes, the SSM Parameter Resource must change too.
 type DonationDataEntry
   @model
   @aws_api_key
@@ -74,6 +75,7 @@ type DonationDataEntry
 #  Make a CensusData model with this shape
 # {"FSA":"Canada","GNR":4.0,"GNR_LF":5.1,"DATA_QUALITY_FLAG":20000,"CID":1,"TOTAL_COUNT":35151728.0,"MALE_COUNT":null,"FEMALE_COUNT":null,"PROVINCE":"CAN","CATEGORY":"Population, 2016","HEADER":"Population and dwellings","TOTAL_PERCENT":100.0}
 
+# If this tableName changes, the SSM Parameter Resource must change too.
 type CensusDataEntry
   @model
   @aws_api_key
