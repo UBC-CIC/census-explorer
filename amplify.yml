@@ -21,18 +21,18 @@ backend:
         - export BRANCH_NAME=$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.productionBranch.branchName')
         - export DOMAIN=$BRANCH_NAME.$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.defaultDomain')
         - echo $(ls)
-# frontend:
-#   phases:
-#     preBuild:
-#       commands:
-#         - yarn install
-#     build:
-#       commands:
-#         - yarn run build
-#   artifacts:
-#     baseDirectory: build
-#     files:
-#       - "**/*"
-#   cache:
-#     paths:
-#       - node_modules/**/*
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+    build:
+      commands:
+        - yarn run build
+  artifacts:
+    baseDirectory: build
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
