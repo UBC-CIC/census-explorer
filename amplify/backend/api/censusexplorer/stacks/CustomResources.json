@@ -26,7 +26,12 @@
       "Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
     }
   },
-  "Resources": {},
+  "Resources": {
+    "EmptyResource": {
+      "Type": "Custom::EmptyResource",
+      "Condition": "AlwaysFalse"
+    }
+  },
   "Conditions": {
     "HasEnvironmentParameter": {
       "Fn::Not": [
