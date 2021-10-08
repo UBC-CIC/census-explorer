@@ -31,22 +31,59 @@
       "Type": "Custom::EmptyResource",
       "Condition": "AlwaysFalse"
     },
+    "SSMTableParameterRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ssm.amazonaws.com"
+              },
+              "Action": "ssm:PutParameter"
+            }
+          ]
+        },
+        "Description": "Role for Creating SSM Parameters",
+        "RoleName": "CensusExplorerCreateSSMParameterRole"
+      }
+    },
     "CensusTableNameParameter": {
       "Type": "AWS::SSM::Parameter",
+      "DependsOn": [
+        "SSMTableParameterRole"
+      ],
       "Properties": {
         "Name": "/censusexplorer/censusDB",
         "Type": "String",
         "Value": "test",
-        "Description": "Census Data DynamoDB Table Name"
+        "Description": "Census Data DynamoDB Table Name",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "SSMTableParameterRole",
+            "Arn"
+          ]
+        }
       }
     },
     "DonationDataEntryTableParameter": {
       "Type": "AWS::SSM::Parameter",
+      "DependsOn": [
+        "SSMTableParameterRole"
+      ],
       "Properties": {
         "Name": "/censusexplorer/donationDB",
         "Type": "String",
         "Value": "test",
-        "Description": "Donation Data DynamoDB Table Name"
+        "Description": "Donation Data DynamoDB Table Name",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "SSMTableParameterRole",
+            "Arn"
+          ]
+        }
       }
     }
   },
