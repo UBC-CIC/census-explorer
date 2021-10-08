@@ -36,11 +36,7 @@
       "Properties": {
         "Name": "/censusexplorer/censusDB",
         "Type": "String",
-        "Value": {
-          "Fn::ImportValue": {
-            "Fn::Sub": "${AppSyncApiId}:GetAtt:CensusDataEntryTable:Name"
-          }
-        },
+        "Value": "test",
         "Description": "Census Data DynamoDB Table Name"
       }
     },
@@ -49,11 +45,7 @@
       "Properties": {
         "Name": "/censusexplorer/donationDB",
         "Type": "String",
-        "Value": {
-          "Fn::ImportValue": {
-            "Fn::Sub": "${AppSyncApiId}:GetAtt:DonationDataEntryTable:Name"
-          }
-        },
+        "Value": "test",
         "Description": "Donation Data DynamoDB Table Name"
       }
     }
