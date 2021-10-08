@@ -42,12 +42,38 @@
               "Principal": {
                 "Service": "ssm.amazonaws.com"
               },
-              "Action": "ssm:PutParameter"
+              "Action": "sts:AssumeRole"
             }
           ]
         },
         "Description": "Role for Creating SSM Parameters",
         "RoleName": "CensusExplorerCreateSSMParameterRole"
+      }
+    },
+    "SSMTableParameterPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "DependsOn": [
+        "SSMTableParameterRole"
+      ],
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ssm:PutParameter"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "PolicyName": "CensusExplorerCreateSSMParameterPolicy",
+        "Roles": [
+          {
+            "Ref": "SSMTableParameterRole"
+          }
+        ]
       }
     },
     "CensusTableNameParameter": {
