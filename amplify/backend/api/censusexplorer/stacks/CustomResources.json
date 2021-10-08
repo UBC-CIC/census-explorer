@@ -31,51 +31,6 @@
       "Type": "Custom::EmptyResource",
       "Condition": "AlwaysFalse"
     },
-    "SSMTableParameterRole": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "ssm.amazonaws.com"
-              },
-              "Action": "sts:AssumeRole"
-            }
-          ]
-        },
-        "Description": "Role for Creating SSM Parameters",
-        "RoleName": "CensusExplorerCreateSSMParameterRole"
-      }
-    },
-    "SSMTableParameterPolicy": {
-      "Type": "AWS::IAM::Policy",
-      "DependsOn": [
-        "SSMTableParameterRole"
-      ],
-      "Properties": {
-        "PolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Action": [
-                "ssm:PutParameter"
-              ],
-              "Resource": "*"
-            }
-          ]
-        },
-        "PolicyName": "CensusExplorerCreateSSMParameterPolicy",
-        "Roles": [
-          {
-            "Ref": "SSMTableParameterRole"
-          }
-        ]
-      }
-    },
     "CensusTableNameParameter": {
       "Type": "AWS::SSM::Parameter",
       "DependsOn": [
@@ -85,13 +40,7 @@
         "Name": "/censusexplorer/censusDB",
         "Type": "String",
         "Value": "test",
-        "Description": "Census Data DynamoDB Table Name",
-        "ServiceRoleArn": {
-          "Fn::GetAtt": [
-            "SSMTableParameterRole",
-            "Arn"
-          ]
-        }
+        "Description": "Census Data DynamoDB Table Name"
       }
     },
     "DonationDataEntryTableParameter": {
@@ -103,13 +52,7 @@
         "Name": "/censusexplorer/donationDB",
         "Type": "String",
         "Value": "test",
-        "Description": "Donation Data DynamoDB Table Name",
-        "ServiceRoleArn": {
-          "Fn::GetAtt": [
-            "SSMTableParameterRole",
-            "Arn"
-          ]
-        }
+        "Description": "Donation Data DynamoDB Table Name"
       }
     }
   },
