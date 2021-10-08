@@ -33,25 +33,27 @@
     },
     "CensusTableNameParameter": {
       "Type": "AWS::SSM::Parameter",
-      "DependsOn": [
-        "SSMTableParameterRole"
-      ],
       "Properties": {
         "Name": "/censusexplorer/censusDB",
         "Type": "String",
-        "Value": "test",
+        "Value": {
+          "Fn::ImportValue": {
+            "Fn::Sub": "${AppSyncApiId}:GetAtt:CensusDataEntryTable:Name"
+          }
+        },
         "Description": "Census Data DynamoDB Table Name"
       }
     },
     "DonationDataEntryTableParameter": {
       "Type": "AWS::SSM::Parameter",
-      "DependsOn": [
-        "SSMTableParameterRole"
-      ],
       "Properties": {
         "Name": "/censusexplorer/donationDB",
         "Type": "String",
-        "Value": "test",
+        "Value": {
+          "Fn::ImportValue": {
+            "Fn::Sub": "${AppSyncApiId}:GetAtt:DonationDataEntryTable:Name"
+          }
+        },
         "Description": "Donation Data DynamoDB Table Name"
       }
     }
