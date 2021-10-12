@@ -57,6 +57,11 @@ type DonationDataEntry
     queryField: "donationDataByTypeFSA"
   )
   @key(
+    name: "donationDataByFSA"
+    fields: ["FSA"]
+    queryField: "donationDataByFSA"
+  )
+  @key(
     name: "donationDataByTypeProvince"
     fields: ["PROVINCE", "TYPE"]
     queryField: "donationDataByTypeProvince"
@@ -84,6 +89,7 @@ type CensusDataEntry
     fields: ["CID", "FSA"]
     queryField: "censusDataByCategoryFSA"
   )
+  @key(name: "censusDataByFSA", fields: ["FSA"], queryField: "censusDataByFSA")
   @key(
     name: "censusDataByProvinceCID"
     fields: ["PROVINCE", "CID"]

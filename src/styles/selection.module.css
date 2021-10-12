@@ -53,11 +53,15 @@
 }
 .mainButtonContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 
 .mainButton {
   margin: 10px;
   font-size: 10px;
+}
+
+.downloadButton {
+  font-size: 8px;
 }

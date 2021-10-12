@@ -384,6 +384,43 @@ export type getAllFamilyDataQQuery = {
   } | null,
 };
 
+export type GetAllFSADataQueryVariables = {
+  FSA?: string | null,
+};
+
+export type GetAllFSADataQuery = {
+  censusDataByFSA?:  {
+    __typename: "ModelCensusDataEntryConnection",
+    items?:  Array< {
+      __typename: "CensusDataEntry",
+      CID?: number | null,
+      CATEGORY: string,
+      FEMALE_COUNT?: number | null,
+      FSA: string,
+      HEADER: string,
+      MALE_COUNT?: number | null,
+      PROVINCE: CensusProvinceOption,
+      TOTAL_COUNT?: number | null,
+      TOTAL_PERCENT?: number | null,
+    } | null > | null,
+  } | null,
+  donationDataByFSA?:  {
+    __typename: "ModelDonationDataEntryConnection",
+    items?:  Array< {
+      __typename: "DonationDataEntry",
+      MEDIAN_DON?: number | null,
+      FSA: string,
+      DON_RATE?: number | null,
+      NUM_DONS?: number | null,
+      NUM_FAM?: number | null,
+      PROVINCE?: ProvinceOption | null,
+      TOT_DONS?: number | null,
+      TYPE: DonationTypeOption,
+      YEAR?: number | null,
+    } | null > | null,
+  } | null,
+};
+
 export type CreateDonationDataEntryMutationVariables = {
   input: CreateDonationDataEntryInput,
   condition?: ModelDonationDataEntryConditionInput | null,
@@ -670,6 +707,36 @@ export type DonationDataByTypeFSAQuery = {
   } | null,
 };
 
+export type DonationDataByFSAQueryVariables = {
+  FSA?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelDonationDataEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type DonationDataByFSAQuery = {
+  donationDataByFSA?:  {
+    __typename: "ModelDonationDataEntryConnection",
+    items?:  Array< {
+      __typename: "DonationDataEntry",
+      id: string,
+      FSA: string,
+      TYPE: DonationTypeOption,
+      YEAR?: number | null,
+      NUM_FAM?: number | null,
+      TOT_DONS?: number | null,
+      NUM_DONS?: number | null,
+      MEDIAN_DON?: number | null,
+      DON_RATE?: number | null,
+      PROVINCE?: ProvinceOption | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type DonationDataByTypeProvinceQueryVariables = {
   PROVINCE?: ProvinceOption | null,
   TYPE?: ModelStringKeyConditionInput | null,
@@ -712,6 +779,36 @@ export type CensusDataByCategoryFSAQueryVariables = {
 
 export type CensusDataByCategoryFSAQuery = {
   censusDataByCategoryFSA?:  {
+    __typename: "ModelCensusDataEntryConnection",
+    items?:  Array< {
+      __typename: "CensusDataEntry",
+      id: string,
+      FSA: string,
+      CID?: number | null,
+      TOTAL_COUNT?: number | null,
+      MALE_COUNT?: number | null,
+      FEMALE_COUNT?: number | null,
+      PROVINCE: CensusProvinceOption,
+      CATEGORY: string,
+      HEADER: string,
+      TOTAL_PERCENT?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type CensusDataByFSAQueryVariables = {
+  FSA?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCensusDataEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CensusDataByFSAQuery = {
+  censusDataByFSA?:  {
     __typename: "ModelCensusDataEntryConnection",
     items?:  Array< {
       __typename: "CensusDataEntry",

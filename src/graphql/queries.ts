@@ -143,6 +143,39 @@ export const donationDataByTypeFSA = /* GraphQL */ `
     }
   }
 `;
+export const donationDataByFSA = /* GraphQL */ `
+  query DonationDataByFSA(
+    $FSA: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelDonationDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    donationDataByFSA(
+      FSA: $FSA
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        TYPE
+        YEAR
+        NUM_FAM
+        TOT_DONS
+        NUM_DONS
+        MEDIAN_DON
+        DON_RATE
+        PROVINCE
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const donationDataByTypeProvince = /* GraphQL */ `
   query DonationDataByTypeProvince(
     $PROVINCE: ProvinceOption
@@ -189,6 +222,39 @@ export const censusDataByCategoryFSA = /* GraphQL */ `
   ) {
     censusDataByCategoryFSA(
       CID: $CID
+      FSA: $FSA
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        FSA
+        CID
+        TOTAL_COUNT
+        MALE_COUNT
+        FEMALE_COUNT
+        PROVINCE
+        CATEGORY
+        HEADER
+        TOTAL_PERCENT
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const censusDataByFSA = /* GraphQL */ `
+  query CensusDataByFSA(
+    $FSA: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelCensusDataEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    censusDataByFSA(
       FSA: $FSA
       sortDirection: $sortDirection
       filter: $filter

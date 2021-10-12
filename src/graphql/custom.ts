@@ -54,3 +54,34 @@ export const getAllFamilyDataQ = /* GraphQL */ `
     }
   }
 `;
+
+export const getAllFSAData = /* GraphQL */ `
+  query GetAllFSAData($FSA: String) {
+    censusDataByFSA(FSA: $FSA) {
+      items {
+        CID
+        CATEGORY
+        FEMALE_COUNT
+        FSA
+        HEADER
+        MALE_COUNT
+        PROVINCE
+        TOTAL_COUNT
+        TOTAL_PERCENT
+      }
+    }
+    donationDataByFSA(FSA: $FSA) {
+      items {
+        MEDIAN_DON
+        FSA
+        DON_RATE
+        NUM_DONS
+        NUM_FAM
+        PROVINCE
+        TOT_DONS
+        TYPE
+        YEAR
+      }
+    }
+  }
+`;

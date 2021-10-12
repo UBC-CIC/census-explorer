@@ -17,6 +17,7 @@ const useHoveredData = () => {
   const category = useSelectedCategory();
   const loading = useCensusDataLoading();
   if (!hovered) return { data: null, fsa: undefined };
+  if (!data) return { data: null, fsa: undefined };
   if (loading || !data[hovered] || !(data as any)[hovered]![selectedType])
     return { data: null, fsa: undefined };
   if (category === SelectedCategoryOption.CENSUS) {
