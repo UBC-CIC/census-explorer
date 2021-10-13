@@ -1,33 +1,39 @@
 {
-    "StartAt": "Parallel Donation and Census Processing",
+    "StartAt": "get_data",
     "States": {
-      "Parallel Donation and Census Processing": {
+      "get_data":{
+        "Type": "Task",
+        "Resource": "${GetDataArn}",
+        "OutputPath": "$.Payload",
+        "Next": "Parallel T1 and Census Processing"
+      },
+      "Parallel T1 and Census Processing": {
         "Type": "Parallel",
         "Branches": [
           {
-            "StartAt": "clean_and_combine_donations",
+            "StartAt": "clean_and_combine_T1",
             "States": {
-              "clean_and_combine_donations": {
+              "clean_and_combine_T1": {
                 "Type": "Task",
-                "Resource": "${CleanAndCombineDonationsArn}",
+                "Resource": "${CleanAndCombineT1Arn}",
                 "OutputPath": "$.Payload",
                 "Parameters": {
                   "Payload.$": "$"
                 },
-                "Next": "add_province_donation"
+                "Next": "add_province_T1"
               },
-              "add_province_donation": {
+              "add_province_T1": {
                 "Type": "Task",
-                "Resource": "${AddProvinceDonationArn}",
+                "Resource": "${AddProvinceT1Arn}",
                 "OutputPath": "$.Payload",
                 "Parameters": {
                   "Payload.$": "$"
                 },
-                "Next": "donations_to_DB"
+                "Next": "T1_to_DB"
               },
-              "donations_to_DB": {
+              "T1_to_DB": {
                 "Type": "Task",
-                "Resource": "${DonationsToDBArn}",
+                "Resource": "${T1ToDBArn}",
                 "OutputPath": "$.Payload",
                 "Parameters": {
                   "Payload.$": "$"
