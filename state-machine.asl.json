@@ -3,8 +3,12 @@
     "States": {
       "get_data":{
         "Type": "Task",
-        "Resource": "${GetDataArn}",
+        "Resource": "arn:aws:states:::lambda:invoke",
         "OutputPath": "$.Payload",
+        "Parameters": {
+          "FunctionName": "${GetDataArn}",
+          "Payload.$": "$"
+        },
         "Next": "Parallel T1 and Census Processing"
       },
       "Parallel T1 and Census Processing": {
@@ -15,27 +19,30 @@
             "States": {
               "clean_and_combine_T1": {
                 "Type": "Task",
-                "Resource": "${CleanAndCombineT1Arn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${CleanAndCombineT1Arn}",
                   "Payload.$": "$"
                 },
                 "Next": "add_province_T1"
               },
               "add_province_T1": {
                 "Type": "Task",
-                "Resource": "${AddProvinceT1Arn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${AddProvinceT1Arn}",
                   "Payload.$": "$"
                 },
                 "Next": "T1_to_DB"
               },
               "T1_to_DB": {
                 "Type": "Task",
-                "Resource": "${T1ToDBArn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${T1ToDBArn}",
                   "Payload.$": "$"
                 },
                 "End": true
@@ -47,9 +54,10 @@
             "States": {
               "clean_census": {
                 "Type": "Task",
-                "Resource": "${CleanCensusArn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${CleanCensusArn}",
                   "Payload.$": "$"
                 },
                 "Next": "Parallel"
@@ -62,9 +70,10 @@
                     "States": {
                       "map_headers_and_populations": {
                         "Type": "Task",
-                        "Resource": "${MapHeadersPopulationsArn}",
+                        "Resource": "arn:aws:states:::lambda:invoke",
                         "OutputPath": "$.Payload",
                         "Parameters": {
+                          "FunctionName": "${MapHeadersPopulationsArn}",
                           "Payload.$": "$"
                         },
                         "End": true
@@ -76,9 +85,10 @@
                     "States": {
                       "add_province_census": {
                         "Type": "Task",
-                        "Resource": "${AddProvinceCensusArn}",
+                        "Resource": "arn:aws:states:::lambda:invoke",
                         "OutputPath": "$.Payload",
                         "Parameters": {
+                          "FunctionName": "${AddProvinceCensusArn}",
                           "Payload.$": "$"
                         },
                         "End": true
@@ -90,27 +100,30 @@
               },
               "join_populations_and_census": {
                 "Type": "Task",
-                "Resource": "${JoinPopulationsCensusArn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${JoinPopulationsCensusArn}",
                   "Payload.$": "$"
                 },
                 "Next": "calculate_percent"
               },
               "calculate_percent": {
                 "Type": "Task",
-                "Resource": "${CalculatePercentArn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${CalculatePercentArn}",
                   "Payload.$": "$"
                 },
                 "Next": "census_to_DB"
               },
               "census_to_DB": {
                 "Type": "Task",
-                "Resource": "${CensusToDBArn}",
+                "Resource": "arn:aws:states:::lambda:invoke",
                 "OutputPath": "$.Payload",
                 "Parameters": {
+                  "FunctionName": "${CensusToDBArn}",
                   "Payload.$": "$"
                 },
                 "End": true
@@ -122,9 +135,10 @@
       },
       "clean_up_s3": {
         "Type": "Task",
-        "Resource": "${CleanUpS3Arn}",
+        "Resource": "arn:aws:states:::lambda:invoke",
         "OutputPath": "$.Payload",
         "Parameters": {
+          "FunctionName": "${CleanUpS3Arn}",
           "Payload.$": "$"
         },
         "End": true

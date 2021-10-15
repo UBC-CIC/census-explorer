@@ -1,4 +1,4 @@
-# Requirements
+# Requirement
 For deployment:
 * [AWS Account](https://aws.amazon.com/account/)
 * [GitHub Account](https://github.com/)
@@ -25,7 +25,7 @@ See the [front-end deployment guide]() # TODO: add link or integrate
 ## Step 2.3: Add a helper file for data preparation
 1. Log in to the S3 management console.
 2. Select the bucket you created in step 2.2.  Click **Create folder**, and name it "unprocessed-data".
-3. Select the new *unprocessed-data* folder.  Click **Upload**, and add the "headers.xlsx" file from the data directory in this repository.
+3. Select the new *unprocessed-data* folder.  Click **Upload**, and add the "headers.csv" file from the data directory in this repository.
 
 ## Step 2.4: Create lambda layer
 1. In a terminal in the layers directory, run the create_layer.sh bash script.  This will create a lambda layer that will be used in the CloudFormation layer deployed in step 2.4 to allow our lambdas access to certain Python libraries.
@@ -42,7 +42,7 @@ sam deploy --template step-fcn-template.yaml --guided
 
 ## Step 2.6: Trigger data preparation Step Function
 1. Log in to the Lambda management console.  Select **Step functions state machines** from the menu on the left.
-2. Select the state machine - the name should start with "DataProcessingStateMachine".
+2. Select the state machine - the name should start with "DataProcessingStateMachine-".
 3. Click **Execute**.  Leave all settings at default.
 
 Once the state machine finishes executing successfully, backend deployment and data preparation is complete!

@@ -1,14 +1,13 @@
 import pandas as pd
 import numpy as np
-from io import BytesIO
 import boto3
 
 def lambda_handler(event, context):
     # get census and header data from s3
     s3 = boto3.client("s3")
     s3.download_file(event["bucket"], "step-fcn-tmp/clean-census.csv", "/tmp/census.csv")
-    categories = pd.read_excel(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/headers.xlsx")["Body"].read()))
-
+    s3.download_file(event["bucket"], "unprocessed-data/headers.csv", "/tmp/headers.csv")
+    categories = pd.read_csv("/tmp/headers.csv")
     categories = categories.astype({"CATEGORY": "string", "KEEP": "string", "NEW_NAME": "string"})
 
     # clean up some hyperlinks that merged with the data during the copy-paste

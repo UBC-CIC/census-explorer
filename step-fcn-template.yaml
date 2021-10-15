@@ -52,6 +52,7 @@ Resources:
                   - s3:*
                   - "s3-object-lambda:*"
                 Resource:
+                  - Fn::Sub: arn:aws:s3:::${DataBucketName}
                   - Fn::Sub: arn:aws:s3:::${DataBucketName}/*
         - PolicyName: AmazonDynamoDBAccess
           PolicyDocument:
