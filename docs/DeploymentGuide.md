@@ -1,4 +1,4 @@
-# Requirement
+# Requirements
 For deployment:
 * [AWS Account](https://aws.amazon.com/account/)
 * [GitHub Account](https://github.com/)
