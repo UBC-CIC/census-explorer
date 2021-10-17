@@ -1,6 +1,6 @@
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { FSAToFamily, FSAToIncome } from "@types";
-import { DonationDataByTypeFSAQuery, DonationTypeOption } from "../../../API";
+import { DonationDataByTypeFsaQuery, DonationTypeOption } from "../../../API";
 import { API } from "aws-amplify";
 import { getAllFamilyDataQ } from "../../../graphql/custom";
 
@@ -25,7 +25,7 @@ const getAllIncomeData = async () => {
         variables: {
           TYPE,
         },
-      }) as Promise<GraphQLResult<DonationDataByTypeFSAQuery>>
+      }) as Promise<GraphQLResult<DonationDataByTypeFsaQuery>>
   );
 
   const responses = await Promise.all(promises);

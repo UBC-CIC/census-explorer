@@ -8,7 +8,6 @@ backend:
       commands:
         - "# Execute Amplify CLI with the helper script"
         # TODO Fetch this from SSM/CFN
-        - REACT_APP_TOPOJSON_URL=https://d8wjct2npqpdc.cloudfront.net
         - amplifyPush --simple
     postBuild:
       commands:
@@ -29,6 +28,7 @@ frontend:
     preBuild:
       commands:
         - npm install
+        - REACT_APP_TOPOJSON_URL=$(aws ssm get-parameter --name /censusexplorer/topodomain --query Parameter.Value --output text || echo "")
     build:
       commands:
         - npm run build

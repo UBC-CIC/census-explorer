@@ -164,6 +164,20 @@
         },
         "Description": "TopoJSON S3 Bucket Name"
       }
+    },
+    "CfDistributionDomainParameter": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/censusexplorer/topodomain",
+        "Type": "String",
+        "Value": {
+          "Fn::GetAtt": [
+            "CfDistribution",
+            "DomainName"
+          ]
+        },
+        "Description": "CloudFront for Topojson Domain Name"
+      }
     }
   },
   "Outputs": {

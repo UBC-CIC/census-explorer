@@ -1,10 +1,6 @@
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 import { FSAToFamily, FSAType } from "@types";
-import {
-  DonationDataByTypeFSAQuery,
-  similarSearchInput,
-  SimilarSearchQuery,
-} from "../../API";
+import { similarSearchInput, SimilarSearchQuery } from "../../API";
 import { API } from "aws-amplify";
 import { similarSearch } from "../../graphql/queries";
 
