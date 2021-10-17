@@ -39,7 +39,11 @@ sources, and persist them into:
 
 ## Deployment
 
-To deploy this solution into your AWS Account please follow our [Deployment Guide](docs/DeploymentGuide.md)
+To deploy the Frontend of this solution into your AWS Account press the following button.
+[![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/UBC-CIC/census-explorer-frontend)
+
+The backend must be deployed after the frontend has been deployed.
+Please follow the deployment steps in the [Backend Repo](https://github.com/UBC-CIC/census-explorer-backend).
 
 ## Credits
 
