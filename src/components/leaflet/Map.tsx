@@ -11,7 +11,7 @@ import AreaSelect from "./AreaSelect";
 import GeoJSONLayer from "./GeoJSONLayer";
 import Search from "@components/search/Search";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import useHoveredData from "@hooks/appstate/useHoveredData";
 
 type MapProps = {};
@@ -19,6 +19,12 @@ type MapProps = {};
 const UBC_LAT_LNG: LatLngTuple = [49.2606, -123.246];
 const CANADA_LAT_LNG: LatLngTuple = [56.1304, -106.3468];
 const Map = (props: MapProps) => {
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove as any);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove as any);
+    };
+  }, []);
   let loading = useProvincesLoading();
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({
     x: 0,
@@ -29,11 +35,11 @@ const Map = (props: MapProps) => {
   if (loading) {
     return <Spinner />;
   }
-  const handleMouseMove = _.throttle((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = _.throttle((e: MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY - 40 });
   }, 100);
   return (
-    <div onMouseMove={handleMouseMove}>
+    <>
       {!!hoveredData.fsa && (
         <div
           style={{
@@ -63,13 +69,12 @@ const Map = (props: MapProps) => {
             />
           ))}
         </LayerGroup>
-
         <ColorLegend />
         <OpacitySlider />
         <Selection />
         <AreaSelect />
       </MapContainer>
-    </div>
+    </>
   );
 };
 
