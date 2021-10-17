@@ -10,18 +10,18 @@ export type ModelCensusDataEntryConnection = {
 
 export type CensusDataEntry = {
   __typename: "CensusDataEntry",
-  id: string,
-  FSA: string,
+  id?: string,
+  FSA?: string,
   CID?: number | null,
   TOTAL_COUNT?: number | null,
   MALE_COUNT?: number | null,
   FEMALE_COUNT?: number | null,
-  PROVINCE: CensusProvinceOption,
-  CATEGORY: string,
-  HEADER: string,
+  PROVINCE?: CensusProvinceOption,
+  CATEGORY?: string,
+  HEADER?: string,
   TOTAL_PERCENT?: number | null,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string,
+  updatedAt?: string,
 };
 
 export enum CensusProvinceOption {
@@ -186,9 +186,9 @@ export type ModelDonationDataEntryConnection = {
 
 export type DonationDataEntry = {
   __typename: "DonationDataEntry",
-  id: string,
-  FSA: string,
-  TYPE: DonationTypeOption,
+  id?: string,
+  FSA?: string,
+  TYPE?: DonationTypeOption,
   YEAR?: number | null,
   NUM_FAM?: number | null,
   TOT_DONS?: number | null,
@@ -196,8 +196,8 @@ export type DonationDataEntry = {
   MEDIAN_DON?: number | null,
   DON_RATE?: number | null,
   PROVINCE?: ProvinceOption | null,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string,
+  updatedAt?: string,
 };
 
 export type CreateDonationDataEntryInput = {
@@ -241,7 +241,7 @@ export type UpdateDonationDataEntryInput = {
 };
 
 export type DeleteDonationDataEntryInput = {
-  id: string,
+  id?: string | null,
 };
 
 export type CreateCensusDataEntryInput = {
@@ -290,7 +290,7 @@ export type UpdateCensusDataEntryInput = {
 };
 
 export type DeleteCensusDataEntryInput = {
-  id: string,
+  id?: string | null,
 };
 
 export type similarSearchInput = {
@@ -303,15 +303,15 @@ export type similarSearchInput = {
 
 export type similarSearchOutput = {
   __typename: "similarSearchOutput",
-  FSAs?: SimilarResponseFSAs | null,
+  FSAs?: SimilarResponseFSAs,
   statusCode?: number | null,
   numResults?: number | null,
 };
 
 export type SimilarResponseFSAs = {
   __typename: "SimilarResponseFSAs",
-  donation: Array< string >,
-  census: Array< string >,
+  donation?: Array< string >,
+  census?: Array< string >,
 };
 
 export type ModelCensusDataEntryFilterInput = {
@@ -422,7 +422,7 @@ export type GetAllFSADataQuery = {
 };
 
 export type CreateDonationDataEntryMutationVariables = {
-  input: CreateDonationDataEntryInput,
+  input?: CreateDonationDataEntryInput,
   condition?: ModelDonationDataEntryConditionInput | null,
 };
 
@@ -445,7 +445,7 @@ export type CreateDonationDataEntryMutation = {
 };
 
 export type UpdateDonationDataEntryMutationVariables = {
-  input: UpdateDonationDataEntryInput,
+  input?: UpdateDonationDataEntryInput,
   condition?: ModelDonationDataEntryConditionInput | null,
 };
 
@@ -468,7 +468,7 @@ export type UpdateDonationDataEntryMutation = {
 };
 
 export type DeleteDonationDataEntryMutationVariables = {
-  input: DeleteDonationDataEntryInput,
+  input?: DeleteDonationDataEntryInput,
   condition?: ModelDonationDataEntryConditionInput | null,
 };
 
@@ -491,7 +491,7 @@ export type DeleteDonationDataEntryMutation = {
 };
 
 export type CreateCensusDataEntryMutationVariables = {
-  input: CreateCensusDataEntryInput,
+  input?: CreateCensusDataEntryInput,
   condition?: ModelCensusDataEntryConditionInput | null,
 };
 
@@ -514,7 +514,7 @@ export type CreateCensusDataEntryMutation = {
 };
 
 export type UpdateCensusDataEntryMutationVariables = {
-  input: UpdateCensusDataEntryInput,
+  input?: UpdateCensusDataEntryInput,
   condition?: ModelCensusDataEntryConditionInput | null,
 };
 
@@ -537,7 +537,7 @@ export type UpdateCensusDataEntryMutation = {
 };
 
 export type DeleteCensusDataEntryMutationVariables = {
-  input: DeleteCensusDataEntryInput,
+  input?: DeleteCensusDataEntryInput,
   condition?: ModelCensusDataEntryConditionInput | null,
 };
 
@@ -577,7 +577,7 @@ export type SimilarSearchQuery = {
 };
 
 export type GetDonationDataEntryQueryVariables = {
-  id: string,
+  id?: string,
 };
 
 export type GetDonationDataEntryQuery = {
@@ -598,14 +598,14 @@ export type GetDonationDataEntryQuery = {
   } | null,
 };
 
-export type ListDonationDataEntriesQueryVariables = {
+export type ListDonationDataEntrysQueryVariables = {
   filter?: ModelDonationDataEntryFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListDonationDataEntriesQuery = {
-  listDonationDataEntries?:  {
+export type ListDonationDataEntrysQuery = {
+  listDonationDataEntrys?:  {
     __typename: "ModelDonationDataEntryConnection",
     items?:  Array< {
       __typename: "DonationDataEntry",
@@ -627,7 +627,7 @@ export type ListDonationDataEntriesQuery = {
 };
 
 export type GetCensusDataEntryQueryVariables = {
-  id: string,
+  id?: string,
 };
 
 export type GetCensusDataEntryQuery = {
@@ -648,14 +648,14 @@ export type GetCensusDataEntryQuery = {
   } | null,
 };
 
-export type ListCensusDataEntriesQueryVariables = {
+export type ListCensusDataEntrysQueryVariables = {
   filter?: ModelCensusDataEntryFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListCensusDataEntriesQuery = {
-  listCensusDataEntries?:  {
+export type ListCensusDataEntrysQuery = {
+  listCensusDataEntrys?:  {
     __typename: "ModelCensusDataEntryConnection",
     items?:  Array< {
       __typename: "CensusDataEntry",
@@ -676,7 +676,7 @@ export type ListCensusDataEntriesQuery = {
   } | null,
 };
 
-export type DonationDataByTypeFSAQueryVariables = {
+export type DonationDataByTypeFsaQueryVariables = {
   TYPE?: DonationTypeOption | null,
   FSA?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
@@ -685,7 +685,7 @@ export type DonationDataByTypeFSAQueryVariables = {
   nextToken?: string | null,
 };
 
-export type DonationDataByTypeFSAQuery = {
+export type DonationDataByTypeFsaQuery = {
   donationDataByTypeFSA?:  {
     __typename: "ModelDonationDataEntryConnection",
     items?:  Array< {
@@ -707,7 +707,7 @@ export type DonationDataByTypeFSAQuery = {
   } | null,
 };
 
-export type DonationDataByFSAQueryVariables = {
+export type DonationDataByFsaQueryVariables = {
   FSA?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelDonationDataEntryFilterInput | null,
@@ -715,7 +715,7 @@ export type DonationDataByFSAQueryVariables = {
   nextToken?: string | null,
 };
 
-export type DonationDataByFSAQuery = {
+export type DonationDataByFsaQuery = {
   donationDataByFSA?:  {
     __typename: "ModelDonationDataEntryConnection",
     items?:  Array< {
@@ -768,7 +768,7 @@ export type DonationDataByTypeProvinceQuery = {
   } | null,
 };
 
-export type CensusDataByCategoryFSAQueryVariables = {
+export type CensusDataByCategoryFsaQueryVariables = {
   CID?: number | null,
   FSA?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
@@ -777,7 +777,7 @@ export type CensusDataByCategoryFSAQueryVariables = {
   nextToken?: string | null,
 };
 
-export type CensusDataByCategoryFSAQuery = {
+export type CensusDataByCategoryFsaQuery = {
   censusDataByCategoryFSA?:  {
     __typename: "ModelCensusDataEntryConnection",
     items?:  Array< {
@@ -799,7 +799,7 @@ export type CensusDataByCategoryFSAQuery = {
   } | null,
 };
 
-export type CensusDataByFSAQueryVariables = {
+export type CensusDataByFsaQueryVariables = {
   FSA?: string | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelCensusDataEntryFilterInput | null,
@@ -807,7 +807,7 @@ export type CensusDataByFSAQueryVariables = {
   nextToken?: string | null,
 };
 
-export type CensusDataByFSAQuery = {
+export type CensusDataByFsaQuery = {
   censusDataByFSA?:  {
     __typename: "ModelCensusDataEntryConnection",
     items?:  Array< {
@@ -829,7 +829,7 @@ export type CensusDataByFSAQuery = {
   } | null,
 };
 
-export type CensusDataByProvinceCIDQueryVariables = {
+export type CensusDataByProvinceCidQueryVariables = {
   PROVINCE?: CensusProvinceOption | null,
   CID?: ModelFloatKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
@@ -838,7 +838,7 @@ export type CensusDataByProvinceCIDQueryVariables = {
   nextToken?: string | null,
 };
 
-export type CensusDataByProvinceCIDQuery = {
+export type CensusDataByProvinceCidQuery = {
   censusDataByProvinceCID?:  {
     __typename: "ModelCensusDataEntryConnection",
     items?:  Array< {

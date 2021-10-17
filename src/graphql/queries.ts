@@ -32,13 +32,13 @@ export const getDonationDataEntry = /* GraphQL */ `
     }
   }
 `;
-export const listDonationDataEntries = /* GraphQL */ `
-  query ListDonationDataEntries(
+export const listDonationDataEntrys = /* GraphQL */ `
+  query ListDonationDataEntrys(
     $filter: ModelDonationDataEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listDonationDataEntries(
+    listDonationDataEntrys(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -79,13 +79,13 @@ export const getCensusDataEntry = /* GraphQL */ `
     }
   }
 `;
-export const listCensusDataEntries = /* GraphQL */ `
-  query ListCensusDataEntries(
+export const listCensusDataEntrys = /* GraphQL */ `
+  query ListCensusDataEntrys(
     $filter: ModelCensusDataEntryFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listCensusDataEntries(
+    listCensusDataEntrys(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -108,8 +108,8 @@ export const listCensusDataEntries = /* GraphQL */ `
     }
   }
 `;
-export const donationDataByTypeFSA = /* GraphQL */ `
-  query DonationDataByTypeFSA(
+export const donationDataByTypeFsa = /* GraphQL */ `
+  query DonationDataByTypeFsa(
     $TYPE: DonationTypeOption
     $FSA: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -143,8 +143,8 @@ export const donationDataByTypeFSA = /* GraphQL */ `
     }
   }
 `;
-export const donationDataByFSA = /* GraphQL */ `
-  query DonationDataByFSA(
+export const donationDataByFsa = /* GraphQL */ `
+  query DonationDataByFsa(
     $FSA: String
     $sortDirection: ModelSortDirection
     $filter: ModelDonationDataEntryFilterInput
@@ -211,8 +211,8 @@ export const donationDataByTypeProvince = /* GraphQL */ `
     }
   }
 `;
-export const censusDataByCategoryFSA = /* GraphQL */ `
-  query CensusDataByCategoryFSA(
+export const censusDataByCategoryFsa = /* GraphQL */ `
+  query CensusDataByCategoryFsa(
     $CID: Float
     $FSA: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
@@ -246,8 +246,8 @@ export const censusDataByCategoryFSA = /* GraphQL */ `
     }
   }
 `;
-export const censusDataByFSA = /* GraphQL */ `
-  query CensusDataByFSA(
+export const censusDataByFsa = /* GraphQL */ `
+  query CensusDataByFsa(
     $FSA: String
     $sortDirection: ModelSortDirection
     $filter: ModelCensusDataEntryFilterInput
@@ -279,8 +279,8 @@ export const censusDataByFSA = /* GraphQL */ `
     }
   }
 `;
-export const censusDataByProvinceCID = /* GraphQL */ `
-  query CensusDataByProvinceCID(
+export const censusDataByProvinceCid = /* GraphQL */ `
+  query CensusDataByProvinceCid(
     $PROVINCE: CensusProvinceOption
     $CID: ModelFloatKeyConditionInput
     $sortDirection: ModelSortDirection

@@ -106,6 +106,8 @@ type CensusDataEntry
   TOTAL_PERCENT: Float
 }
 
+# Queries
+
 type Query {
   similarSearch(input: similarSearchInput): similarSearchOutput
     @function(name: "similarSearch-${env}")
