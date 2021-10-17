@@ -28,7 +28,7 @@ sources, and persist them into:
 
 ## Application Screenshots
 
-![heatmap](./docs/screenshots/MainUI.png)
+![heatmap](./docs/screenshots/mainUI.png)
 
 <h6 align="center">Interactive User Interface</h6>
 
