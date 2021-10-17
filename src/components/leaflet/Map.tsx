@@ -10,6 +10,9 @@ import "leaflet-area-select";
 import AreaSelect from "./AreaSelect";
 import GeoJSONLayer from "./GeoJSONLayer";
 import Search from "@components/search/Search";
+import _ from "lodash";
+import React, { useState } from "react";
+import useHoveredData from "@hooks/appstate/useHoveredData";
 
 type MapProps = {};
 
@@ -17,13 +20,37 @@ const UBC_LAT_LNG: LatLngTuple = [49.2606, -123.246];
 const CANADA_LAT_LNG: LatLngTuple = [56.1304, -106.3468];
 const Map = (props: MapProps) => {
   let loading = useProvincesLoading();
+  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const hoveredData = useHoveredData();
 
   if (loading) {
     return <Spinner />;
   }
+  const handleMouseMove = _.throttle((e: React.MouseEvent<HTMLDivElement>) => {
+    setMousePos({ x: e.clientX, y: e.clientY - 40 });
+  }, 100);
   return (
-    <>
-      <MapContainer center={UBC_LAT_LNG} zoom={9} maxZoom={12}>
+    <div onMouseMove={handleMouseMove}>
+      {!!hoveredData.fsa && (
+        <div
+          style={{
+            position: "absolute",
+            pointerEvents: "none",
+            zIndex: 10000,
+            top: mousePos.y,
+            left: mousePos.x,
+            backgroundColor: "white",
+            borderRadius: "5px",
+            padding: 5,
+          }}
+        >
+          {hoveredData.fsa}
+        </div>
+      )}
+      <MapContainer center={CANADA_LAT_LNG} zoom={3} maxZoom={12}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -42,7 +69,7 @@ const Map = (props: MapProps) => {
         <Selection />
         <AreaSelect />
       </MapContainer>
-    </>
+    </div>
   );
 };
 

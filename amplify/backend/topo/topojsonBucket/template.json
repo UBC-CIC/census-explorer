@@ -153,6 +153,17 @@
         }
       },
       "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+    },
+    "TopoJSONBucketNameParameter": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Name": "/censusexplorer/topoBucketName",
+        "Type": "String",
+        "Value": {
+          "Ref": "S3Bucket"
+        },
+        "Description": "TopoJSON S3 Bucket Name"
+      }
     }
   },
   "Outputs": {

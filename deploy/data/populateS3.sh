@@ -4,7 +4,8 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$parent_path"
 
 # TODO: change this to dynamic bucket name
-BUCKET=amplify-censusexplorer-develop-184535-to-s3bucket-1bmo2n82hqcml
+# BUCKET=amplify-censusexplorer-develop-184535-to-s3bucket-1bmo2n82hqcml
+BUCKET=$1
 
 FULL_PATH="full/*"
 OUTLINE_PATH="outlines/*"

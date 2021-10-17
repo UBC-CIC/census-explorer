@@ -14,6 +14,7 @@ backend:
       commands:
         - yum install -y jq
         - export AWS_REGION=$(aws configure get region)
+        - export BUCKET_NAME=$(aws ssm get-parameter --name /censusexplorer/topoBucketName --query Parameter.Value --output text || echo "")
         - export ACCOUNTID=$(aws sts get-caller-identity --query Account --output text)
         - export PROJECT_NAME=$(cat ./amplify/.config/project-config.json | jq -r '.projectName')
         - export ENV_NAME=$(cat ./amplify/.config/local-env-info.json | jq -r '.envName')
@@ -21,6 +22,8 @@ backend:
         - export BRANCH_NAME=$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.productionBranch.branchName')
         - export DOMAIN=$BRANCH_NAME.$(aws amplify get-app --app-id $AMPLIFY_APP_ID | jq -r '.app.defaultDomain')
         - echo $(ls)
+        - cd deploy/data
+        - ./populateS3.sh $BUCKET_NAME
 frontend:
   phases:
     preBuild:
