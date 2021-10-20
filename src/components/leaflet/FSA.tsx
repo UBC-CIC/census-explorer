@@ -25,7 +25,7 @@ const getColorFromState = (
     return theme.palette.secondary.main;
   }
   if (selected) {
-    return "goldenrod";
+    return "red";
   }
   if (hovered) {
     return darken(baseColor, 0.2);

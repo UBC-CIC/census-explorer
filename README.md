@@ -17,6 +17,7 @@ sources, and persist them into:
 | [Application Screenshots](#application-screenshots) | Check out the application's user interface.    |
 | [Stack Details](#stack-details)                     | Learn more about each stack of the application |
 | [Deployment](#deployment)                           | Learn how to deploy this project yourself.     |
+| [User Guide](#user-guide)                           | Learn how to use the heatmap interface.        |
 | [Credits](#credits)                                 | Meet the team behind this                      |
 | [License](#license)                                 | License details.                               |
 
@@ -35,7 +36,7 @@ sources, and persist them into:
 ## Stack Details
 
 - [Frontend User Interface](./docs/FrontendArchitecture.md)
-- [Backend ETL](./docs/BackendETL.md)
+- [Backend ETL](https://github.com/UBC-CIC/census-explorer-backend)
 
 ## Deployment
 
@@ -44,6 +45,10 @@ To deploy the Frontend of this solution into your AWS Account press the followin
 
 The backend must be deployed after the frontend has been deployed.
 Please follow the deployment steps in the [Backend Repo](https://github.com/UBC-CIC/census-explorer-backend).
+
+## User Guide
+
+Please see our user guide [here](./docs/UserGuide.md)
 
 ## Credits
 
