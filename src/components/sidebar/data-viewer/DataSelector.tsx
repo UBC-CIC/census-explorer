@@ -5,7 +5,13 @@ import useCensusHeaders from "@hooks/census/useCensusHeaders";
 import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
 import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import strings from "@l10n/strings";
-import { Button, ButtonGroup, Collapse, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  Collapse,
+  makeStyles,
+  Tooltip,
+} from "@material-ui/core";
 import { SelectedCategoryOption } from "@types";
 import { useContext } from "react";
 import CensusOptions from "./CensusOptions";
@@ -13,6 +19,7 @@ import DonationOptions from "./DonationOptions";
 import FamilyOptions from "./FamilyOptions";
 import IncomeOptions from "./IncomeOptions";
 import { useState } from "react";
+import { Info } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   familyButton: {
     width: "50%",
@@ -58,6 +65,11 @@ const DataSelector = () => {
       }
     >
       <Button
+        startIcon={
+          <Tooltip title="Visualize Donation Data based on Child and Marriage Status">
+            <Info />
+          </Tooltip>
+        }
         variant={
           selected === SelectedCategoryOption.FAMILY ? "contained" : "outlined"
         }
@@ -70,6 +82,11 @@ const DataSelector = () => {
         {strings.familyData}
       </Button>
       <Button
+        startIcon={
+          <Tooltip title="Visualize Donation Data based on Gross Income">
+            <Info />
+          </Tooltip>
+        }
         variant={
           selected === SelectedCategoryOption.INCOME ? "contained" : "outlined"
         }
@@ -98,6 +115,11 @@ const DataSelector = () => {
     >
       <ButtonGroup orientation="vertical">
         <Button
+          startIcon={
+            <Tooltip title="Visualize Donation Data from 2016 ">
+              <Info />
+            </Tooltip>
+          }
           variant={
             showDonation ||
             selected === SelectedCategoryOption.FAMILY ||
@@ -114,6 +136,11 @@ const DataSelector = () => {
         </Button>
         <DonationSection />
         <Button
+          startIcon={
+            <Tooltip title="Visualize Data from the 2016 Census">
+              <Info />
+            </Tooltip>
+          }
           variant={
             selected === SelectedCategoryOption.CENSUS
               ? "contained"
