@@ -1,13 +1,20 @@
 import CensusDataContext from "@context/census/CensusDataProvider";
 import useCensusHeaders from "@hooks/census/useCensusHeaders";
-import { MenuItem, Select } from "@material-ui/core";
+import { makeStyles, MenuItem, Select } from "@material-ui/core";
 import { useContext, useEffect } from "react";
 
 type CensusSubCategoriesProps = {
   selectedHeader: string;
 };
 
+const useStyles = makeStyles((theme) => ({
+  selector: {
+    width: "100%",
+    flex: 1,
+  },
+}));
 const CensusSubCategories = ({ selectedHeader }: CensusSubCategoriesProps) => {
+  const classes = useStyles();
   const headers = useCensusHeaders();
   const selected = headers.get(selectedHeader);
   // const [, setSelectedCID] = useState<number>(0);
@@ -23,10 +30,13 @@ const CensusSubCategories = ({ selectedHeader }: CensusSubCategoriesProps) => {
   }, [headers, selectedHeader]);
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Select
+        variant="outlined"
+        color="secondary"
         onChange={(e) => changeUpperSubcategory(e.target.value as number)}
         value={selectedCID}
+        className={classes.selector}
       >
         {selected?.map((option) => (
           <MenuItem value={option.CID}>{option.category}</MenuItem>

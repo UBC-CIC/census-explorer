@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     borderTopLeftRadius: 0,
     borderTop: 0,
     justifyContent: "space-evenly",
-    border: `1px solid ${theme.palette.primary.main}`,
+    border: `1px solid ${theme.palette.secondary.main}`,
   },
   numericalOption: {
     flex: 1,
@@ -40,7 +40,7 @@ const DonationOptions = (props: DonationOptionsProps) => {
   const classes = useStyles();
   return (
     <ButtonGroup
-      color="primary"
+      color="secondary"
       variant="text"
       className={classes.numericalOptionGroup}
     >

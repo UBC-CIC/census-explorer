@@ -1,13 +1,19 @@
 import useCensusDataLoading from "@hooks/census/useCensusDataLoading";
 import useCensusHeaders from "@hooks/census/useCensusHeaders";
-import { MenuItem, Select } from "@material-ui/core";
+import { makeStyles, MenuItem, Select } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import CensusSubCategories from "./CensusSubCategories";
 
 type CensusCategoriesProps = {};
 
+const useStyles = makeStyles((theme) => ({
+  selector: {
+    width: "100%",
+  },
+}));
 const CensusCategories = (props: CensusCategoriesProps) => {
   const headers = useCensusHeaders();
+  const classes = useStyles();
   const [selectedHeader, setSelectedHeader] = useState<string>("");
   const renderHeaders = () => {
     const menuItems = [];
@@ -40,19 +46,23 @@ const CensusCategories = (props: CensusCategoriesProps) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        width: "100%",
       }}
     >
       <div
         style={{
           flexDirection: "row",
+          flex: 1,
+          width: "100%",
           alignItems: "space-between",
         }}
       >
-        Category:{" "}
         <Select
-          variant="filled"
+          variant="outlined"
+          color="secondary"
           onChange={(e) => handleChangeCategory(e.target.value as string)}
           value={selectedHeader}
+          className={classes.selector}
         >
           {renderHeaders()}
         </Select>

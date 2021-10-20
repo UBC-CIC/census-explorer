@@ -278,6 +278,7 @@ const Histogram = (props: HistogramProps) => {
       >
         <svg
           viewBox="0 0 310 150"
+          height="200"
           id={"histogram"}
           onMouseLeave={() => setBounds(undefined)}
         />

@@ -18,6 +18,7 @@ import useProvincesLoading from "@hooks/province/useProvincesLoading";
 import { ThemeProvider } from "@material-ui/core";
 import { appStyles } from "@styles";
 import { ReactNode } from "react";
+import HoverArea from "./leaflet/HoverArea";
 import Map from "./leaflet/Map";
 import Sidebar from "./sidebar/Sidebar";
 // ------------------------
@@ -66,6 +67,7 @@ const AppCore = () => {
                       <HoveredProvider>
                         <HoveredBoundsProvider>
                           <OpacityProvider>
+                            <HoverArea />
                             <Map />
                           </OpacityProvider>
                           <Sidebar />

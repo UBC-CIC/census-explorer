@@ -5,16 +5,18 @@ import useCensusHeaders from "@hooks/census/useCensusHeaders";
 import useFamilyDataLoading from "@hooks/family/useFamilyDataLoading";
 import useIncomeDataLoading from "@hooks/income/useIncomeDataLoading";
 import strings from "@l10n/strings";
-import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Button, ButtonGroup, Collapse, makeStyles } from "@material-ui/core";
 import { SelectedCategoryOption } from "@types";
 import { useContext } from "react";
 import CensusOptions from "./CensusOptions";
 import DonationOptions from "./DonationOptions";
 import FamilyOptions from "./FamilyOptions";
 import IncomeOptions from "./IncomeOptions";
-
+import { useState } from "react";
 const useStyles = makeStyles((theme) => ({
-  familyButton: {},
+  familyButton: {
+    width: "50%",
+  },
   censusButton: {
     borderBottomWidth: 1,
     borderBottomColor: `${theme.palette.primary.main} !important`,
@@ -28,10 +30,62 @@ const DataSelector = () => {
   const incomeLoading = useIncomeDataLoading();
   const familyLoading = useFamilyDataLoading();
   const headers = useCensusHeaders();
+  const [showDonation, setShowDonation] = useState(true);
+  const [prevDonation, setPrevDonation] = useState(
+    SelectedCategoryOption.FAMILY
+  );
   const { selected, setSelected } = useContext(SelectedCategoryContext);
   const handleSelectOption = (option: SelectedCategoryOption) => {
+    if (option === SelectedCategoryOption.CENSUS) {
+      setShowDonation(false);
+      if (selected !== SelectedCategoryOption.CENSUS) setPrevDonation(selected);
+    }
     setSelected(option);
   };
+
+  const handlePressDonation = () => {
+    if (showDonation) return;
+    setShowDonation(true);
+    setSelected(prevDonation);
+  };
+
+  const DonationSection = () => (
+    <Collapse
+      in={
+        showDonation ||
+        selected === SelectedCategoryOption.FAMILY ||
+        selected === SelectedCategoryOption.INCOME
+      }
+    >
+      <Button
+        variant={
+          selected === SelectedCategoryOption.FAMILY ? "contained" : "outlined"
+        }
+        className={classes.familyButton}
+        color="secondary"
+        onClick={() => handleSelectOption(SelectedCategoryOption.FAMILY)}
+        disabled={familyLoading}
+        endIcon={familyLoading ? <Spinner /> : null}
+      >
+        {strings.familyData}
+      </Button>
+      <Button
+        variant={
+          selected === SelectedCategoryOption.INCOME ? "contained" : "outlined"
+        }
+        color="secondary"
+        className={classes.familyButton}
+        onClick={() => handleSelectOption(SelectedCategoryOption.INCOME)}
+        disabled={incomeLoading}
+        endIcon={incomeLoading ? <Spinner /> : null}
+      >
+        {strings.incomeData}
+      </Button>
+      <FamilyOptions />
+
+      <IncomeOptions />
+    </Collapse>
+  );
 
   return (
     <div
@@ -45,33 +99,20 @@ const DataSelector = () => {
       <ButtonGroup orientation="vertical">
         <Button
           variant={
-            selected === SelectedCategoryOption.FAMILY
-              ? "contained"
-              : "outlined"
-          }
-          className={classes.familyButton}
-          color="primary"
-          onClick={() => handleSelectOption(SelectedCategoryOption.FAMILY)}
-          disabled={familyLoading}
-          endIcon={familyLoading ? <Spinner /> : null}
-        >
-          {strings.familyData}
-        </Button>
-        <FamilyOptions />
-        <Button
-          variant={
+            showDonation ||
+            selected === SelectedCategoryOption.FAMILY ||
             selected === SelectedCategoryOption.INCOME
               ? "contained"
               : "outlined"
           }
+          className={classes.censusButton}
+          disabled={!headers.size}
           color="primary"
-          onClick={() => handleSelectOption(SelectedCategoryOption.INCOME)}
-          disabled={incomeLoading}
-          endIcon={incomeLoading ? <Spinner /> : null}
+          onClick={handlePressDonation}
         >
-          {strings.incomeData}
+          {strings.donationData}
         </Button>
-        <IncomeOptions />
+        <DonationSection />
         <Button
           variant={
             selected === SelectedCategoryOption.CENSUS
