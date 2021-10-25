@@ -44,7 +44,7 @@ The file headers.csv in the data folder was created by copying the table from [S
 To deploy this solution into your AWS account, please follow the [Deployment Guide](https://github.com/UBC-CIC/census-explorer-backend/docs/DeploymentGuide.md).
 
 ## User Guide
-Link to frontend repo???
+Please see the [user guide](https://github.com/UBC-CIC/census-explorer-frontend/blob/master/docs/UserGuide.md).
 
 ## Changelog
 * [DATE]: Initial release.
