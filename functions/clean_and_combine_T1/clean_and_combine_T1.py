@@ -6,8 +6,8 @@ import boto3
 def lambda_handler(event, context):
     # get donation data from s3
     s3 = boto3.client("s3")
-    family_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/Donations by Family Type - 2006 to 2018 (FSAs).csv")["Body"].read()))
-    income_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/Donations by Income Group - 2006 to 2018 (FSAs).csv")["Body"].read()))
+    family_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/donations_by_family_type.csv")["Body"].read()))
+    income_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/donations_by_income_group.csv")["Body"].read()))
 
     # combine both datasets into one
     family_donations = family_donations.rename(columns={"FamilyType": "TYPE"})

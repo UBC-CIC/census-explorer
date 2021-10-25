@@ -5,7 +5,7 @@ import boto3
 def lambda_handler(event, context):
     # get census data from s3
     s3 = boto3.client("s3")
-    s3.download_file(event["bucket"], "unprocessed-data/FSA_CSV_data.csv", "/tmp/census.csv")
+    s3.download_file(event["bucket"], "unprocessed-data/census_data.csv", "/tmp/census.csv")
     
     # new tmp file for clean data
     open("/tmp/clean_census.csv", "w").close()

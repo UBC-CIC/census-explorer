@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     # extract the contents of the zip folder and upload only the data itself to s3
     with ZipFile("/tmp/census.zip", "r") as zip_file:
         zip_file.extractall("/tmp/")
-    s3.upload_file(Bucket=bucket, Key="unprocessed-data/FSA_CSV_data.csv", Filename="/tmp/98-401-X2016046_English_CSV_data.csv")
+    s3.upload_file(Bucket=bucket, Key="unprocessed-data/census_data.csv", Filename="/tmp/98-401-X2016046_English_CSV_data.csv")
 
     # get T1 data from ??? and upload to s3
 

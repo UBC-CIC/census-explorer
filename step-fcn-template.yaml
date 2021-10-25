@@ -73,6 +73,7 @@ Resources:
                   - "*"
                   
   # layer used by the data processing roles
+  # contains requirements for Pandas and Numpy Python libraries
   PandaNumpyLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
