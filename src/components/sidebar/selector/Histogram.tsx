@@ -12,7 +12,13 @@ import useCurrentScale from "@hooks/quantized/useCurrentScale";
 import useFilteredData from "@hooks/quantized/useFilteredData";
 import useFilteredDomain from "@hooks/quantized/useFilteredDomain";
 import strings from "@l10n/strings";
-import { makeStyles, Slider, Typography, useTheme } from "@material-ui/core";
+import {
+  makeStyles,
+  Slider,
+  Tooltip,
+  Typography,
+  useTheme,
+} from "@material-ui/core";
 import getFormatFunction from "@utils/getFormatFunction";
 import * as d3 from "d3";
 import * as fc from "d3fc";
@@ -300,19 +306,18 @@ const Histogram = (props: HistogramProps) => {
           max={97}
         />
       </div>
-      <Typography id="input-slider" gutterBottom>
-        {strings.deviation}: {deviations}
-      </Typography>
-      <Slider
-        defaultValue={1}
-        valueLabelDisplay="auto"
-        value={deviations}
-        onChange={handleDeviationSliderChange}
-        step={1}
-        marks
-        min={1}
-        max={10}
-      />
+      <Tooltip title="Use this slider to change the X scale of the histogram">
+        <Slider
+          defaultValue={1}
+          valueLabelDisplay="auto"
+          value={deviations}
+          onChange={handleDeviationSliderChange}
+          step={1}
+          marks
+          min={1}
+          max={10}
+        />
+      </Tooltip>
     </div>
   );
 };
