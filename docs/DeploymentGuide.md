@@ -14,7 +14,7 @@ For prototyping:
 # Step 1: Front-end Deployment
 See the [front-end deployment guide](https://github.com/UBC-CIC/census-explorer-frontend#deployment).
 
-# Step 2: Backend/Data Preparation Deployment
+# Step 2: Back-end/Data Preparation Deployment
 ## Step 2.1: Clone this repository
 ## Step 2.2: Create an S3 bucket for data
 1. Log into the S3 management console.

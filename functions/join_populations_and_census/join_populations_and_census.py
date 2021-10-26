@@ -1,8 +1,12 @@
 import pandas as pd
 import boto3
 from io import BytesIO
+from subprocess import call
 
 def lambda_handler(event, context):
+    # clear tmp storage
+    call("rm -rf /tmp/*", shell=True)
+    
     # get census and header/population data from s3
     s3 = boto3.client("s3")
     s3.download_file((event[1])["bucket"], "step-fcn-tmp/census-add-province.csv", "/tmp/census.csv")

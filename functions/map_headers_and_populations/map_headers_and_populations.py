@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
 import boto3
+from subprocess import call
 
 def lambda_handler(event, context):
+    # clear tmp storage
+    call("rm -rf /tmp/*", shell=True)
+    
     # get census and header data from s3
     s3 = boto3.client("s3")
     s3.download_file(event["bucket"], "step-fcn-tmp/clean-census.csv", "/tmp/census.csv")
