@@ -9,7 +9,6 @@ For prototyping:
 
 # Step 0: Request T1 data from Statistics Canada
 1. Email "emailaddress" and request ... # TODO
-2. Once you have the two files, rename them to "donations_by_family_type.csv"and "donations_by_income_group.csv".
 
 # Step 1: Front-end Deployment
 To deploy the Frontend of this solution into your AWS Account, press the following button:
@@ -33,7 +32,7 @@ sam deploy --template step-fcn-template.yaml --guided
 
 **Note:** Make sure this step completes successfully before moving on to the next step.
 
-2. When the deployment is complete, a parameter called BucketName will be output.  This is the bucket you will be uploading data to in the future, so remember the name.
+2. When the deployment is complete, a parameter with the key *BucketName* will be output.  This is the bucket you will be uploading data to in the future, so remember the name.
 
 <img src="../images/step2.2.2.png">
 
@@ -45,7 +44,7 @@ sam deploy --template step-fcn-template.yaml --guided
 
 <img src="../images/step2.3.2_2.png">
 
-3. Select the new *unprocessed-data* folder.  Click **Upload**, and add the "headers.csv" file from the data directory in this repository and the two files obtained from Statistics Canada in step 0 ("donations_by_family_type.csv" and "donations_by_income_group.csv").
+3. Select the new *unprocessed-data* folder.  Click **Upload**, and add the "headers.csv" file from the data directory in this repository and the two files obtained from Statistics Canada in step 0 (the names of these files don't matter).
 
 <img src="../images/step2.3.3_1.png">
 
@@ -54,7 +53,7 @@ sam deploy --template step-fcn-template.yaml --guided
 <img src="../images/step2.3.3_3.png">
 
 ## Step 2.4: Trigger data preparation Step Function
-1. Log in to the Lambda management console.  Select **Step functions state machines** from the menu on the left.
+1. Log in to the Lambda management console.  Select **Step Functions state machines** from the menu on the left.
 2. Select the state machine - the name should start with "DataProcessingStateMachine-".
 3. Click **Execute**.  Leave all settings at default.
 

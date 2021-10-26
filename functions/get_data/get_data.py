@@ -17,11 +17,6 @@ def lambda_handler(event, context):
     with ZipFile("/tmp/census.zip", "r") as zip_file:
         zip_file.extractall("/tmp/")
     s3.upload_file(Bucket=bucket, Key="unprocessed-data/census_data.csv", Filename="/tmp/98-401-X2016046_English_CSV_data.csv")
-
-    # get T1 data from ??? and upload to s3
-
-    # s3.upload_file(Bucket=bucket, Key="unprocessed-data/Donations by Family Type - 2006 to 2018 (FSAs).csv", Filename="/tmp/Donations by Family Type - 2006 to 2018 (FSAs).csv")
-    # s3.upload_file(Bucket=bucket, Key="unprocessed-data/Donations by Income Group - 2006 to 2018 (FSAs).csv", Filename="/tmp/Donations by Income Group - 2006 to 2018 (FSAs).csv")
     
     # get the names of the DynamoDB tables from ssm
     censusDB = ssm.get_parameter(Name="/censusexplorer/censusDB")

@@ -6,13 +6,14 @@ import boto3
 def lambda_handler(event, context):
     # get donation data from s3
     s3 = boto3.client("s3")
-    family_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/donations_by_family_type.csv")["Body"].read()))
-    income_donations = pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key="unprocessed-data/donations_by_income_group.csv")["Body"].read()))
+    items = s3.list_objects(Bucket=event["bucket"], Prefix="unprocessed-data/")["Contents"]
+    donations = [item["Key"] for item in items if (item["Key"] != "unprocessed-data/headers.csv" and item["Key"] != "unprocessed-data/census_data.csv" and item["Key"] != "unprocessed-data/")]
+    
+    donations = [pd.read_csv(BytesIO(s3.get_object(Bucket=event["bucket"], Key=donation)["Body"].read())) for donation in donations]
 
     # combine both datasets into one
-    family_donations = family_donations.rename(columns={"FamilyType": "TYPE"})
-    income_donations = income_donations.rename(columns={"IncomeGroup": "TYPE"})
-    donations = pd.concat([family_donations, income_donations], ignore_index=True)
+    donations = [(donation.rename(columns={"FamilyType": "TYPE"}) if "FamilyType" in donation.columns else donation.rename(columns={"IncomeGroup": "TYPE"})) for donation in donations]
+    donations = pd.concat(donations, ignore_index=True)
 
     # remove unnecessary columns
     donations = donations.drop(columns=["Place", "Name_EN", "Name_FR"])
