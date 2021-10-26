@@ -2,12 +2,12 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Template
 
-Parameters:
-  DataBucketName:
-    Type: String
-    Description: S3 bucket containing the data and files
-
 Resources:
+  # bucket for data storage
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+
   # IAM role for state machine
   DataProcessingStateMachineRole:
     Type: AWS::IAM::Role
@@ -52,8 +52,11 @@ Resources:
                   - s3:*
                   - "s3-object-lambda:*"
                 Resource:
-                  - Fn::Sub: arn:aws:s3:::${DataBucketName}
-                  - Fn::Sub: arn:aws:s3:::${DataBucketName}/*
+                  - !GetAtt DataBucket.Arn
+                  - !Join
+                    - ''
+                    - - !GetAtt DataBucket.Arn
+                      - '/*'
         - PolicyName: AmazonDynamoDBAccess
           PolicyDocument:
             Version: '2012-10-17'
@@ -246,4 +249,9 @@ Resources:
     Properties:
       Name: /censusexplorer/bucketName
       Type: String
-      Value: !Ref DataBucketName
+      Value: !Ref DataBucket
+
+Outputs:
+  BucketName: 
+    Description: 'Name of the bucket created for data storage'
+    Value: !Ref DataBucket
