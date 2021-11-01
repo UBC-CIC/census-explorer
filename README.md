@@ -5,18 +5,12 @@ This prototype draws from publicly available information, more specifically the 
 ## Table of Contents
 |Index| Description|
 |:----------------|:-----------|
-| [Demo](#app-demo) | Explore 2016 Canadian Census and T1 data. | 
 | [Stack Overview](#stack-overview) | Learn more about each stack of the application. | 
 | [High Level Architecture](#high-level-architecture) | Examine the application architecture. |
 | [Deployment Guide](#deployment-guide) | Learn how to deploy this project. |
 | [User Guide](#user-guide) | Learn to use the map interface. |
-| [Changelog](#changelog) | History of what has changed. |
 | [Credits](#credits) | Meet the team behind the solution. |
 | [License](#license) | License details. |
-
-
-## App Demo
-Add link
 
 ## Stack Overview
 * **Frontend**: The ReactJS framework was used to develop the frontend of the application.  AWS Amplify was used to interface with other Amazon Web Services such as: Amazon S3, AWS Lambda and Amazon DynamoDB. The library used to display the map is react-leaflet / leaflet.js, which has a GeoJSON layer attached. All other components were developed in React from scratch. 
@@ -41,13 +35,10 @@ Add link
 The file headers.csv in the data folder was created by copying the table from [Statistics Canada](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=01&Geo2=&Code2=&SearchText=Canada&SearchType=Begins&SearchPR=01&B1=All&TABID=1&type=0) into a spreadsheet in order to find the category groupings that were not otherwise represented in the Census data.  After copying the table, the actual statistics were removed, and each category was marked with whether or not it would be kept for the app.  Each category was numbered from 1 to 2247, corresponding to the ID given in the Census data (and ID was necessary as the categories do not have unique names).  The file was then saved as a csv and used for further processing withing the data preparation step function.
 
 ## Deployment Guide
-To deploy this solution into your AWS account, please follow the [Deployment Guide](https://github.com/UBC-CIC/census-explorer-backend/docs/DeploymentGuide.md).
+To deploy this solution into your AWS account, please follow the [Deployment Guide](https://github.com/UBC-CIC/census-explorer-backend/blob/master/docs/DeploymentGuide.md).
 
 ## User Guide
 Please see the [user guide](https://github.com/UBC-CIC/census-explorer-frontend/blob/master/docs/UserGuide.md).
-
-## Changelog
-* [DATE]: Initial release.
 
 ## Credits
 This application was architected and developed by Trevor Flanigan and Alyssa da Costa, with guidance from the [UBC CIC](https://cic.ubc.ca/) technical and project management teams.

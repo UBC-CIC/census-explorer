@@ -10,12 +10,12 @@ For prototyping:
 # Step 0: Request T1 data from Statistics Canada
 1. Email "emailaddress" and request ... # TODO
 
-# Step 1: Front-end Deployment
-To deploy the Frontend of this solution into your AWS Account, press the following button:
+# Step 1: Frontend Deployment
+To deploy the frontend of this solution into your AWS Account, press the following button:
 
 [![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/UBC-CIC/census-explorer-frontend)
 
-# Step 2: Back-end/Data Preparation Deployment
+# Step 2: Backend/Data Preparation Deployment
 ## Step 2.1: Clone this repository
 
 ## Step 2.2: Deploy CloudFormation template
@@ -51,6 +51,8 @@ sam deploy --template step-fcn-template.yaml --guided
 <img src="../images/step2.3.3_2.png">
 
 <img src="../images/step2.3.3_3.png">
+
+**Note:** Make sure the files finish uploading before moving on to the next step.
 
 ## Step 2.4: Trigger data preparation Step Function
 1. Log in to the Lambda management console.  Select **Step Functions state machines** from the menu on the left.
