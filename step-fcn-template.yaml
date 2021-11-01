@@ -43,14 +43,16 @@ Resources:
                 - lambda.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: AmazonS3FullAccess
+        - PolicyName: AmazonS3Access
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Action:
-                  - s3:*
-                  - "s3-object-lambda:*"
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:DeleteObject
                 Resource:
                   - !GetAtt DataBucket.Arn
                   - !Join
@@ -63,7 +65,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - dynamodb:*
+                  - dynamodb:BatchWriteItem
                 Resource:
                   - arn:aws:dynamodb:*:*:table/*
         - PolicyName: GetParameters
@@ -71,7 +73,7 @@ Resources:
             Version: '2012-10-17'
             Statement:
               - Effect: Allow
-                Action: ssm:Get*
+                Action: ssm:GetParameter
                 Resource:
                   - "*"
                   
