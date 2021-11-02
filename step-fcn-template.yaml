@@ -1,0 +1,259 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Template
+
+Resources:
+  # bucket for data storage
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties: {}
+
+  # IAM role for state machine
+  DataProcessingStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DataProcessingStateMachineInvokeLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource:
+                  - Fn::Sub: arn:*:lambda:*:${AWS::AccountId}:function:*
+
+  # IAM role for lambdas
+  DataProcessingLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: AmazonS3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:DeleteObject
+                Resource:
+                  - !GetAtt DataBucket.Arn
+                  - !Join
+                    - ''
+                    - - !GetAtt DataBucket.Arn
+                      - '/*'
+        - PolicyName: AmazonDynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:BatchWriteItem
+                Resource:
+                  - arn:aws:dynamodb:*:*:table/*
+        - PolicyName: GetParameters
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ssm:GetParameter
+                Resource:
+                  - "*"
+                  
+  # layer used by the data processing roles
+  # contains requirements for Pandas and Numpy Python libraries
+  PandaNumpyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      CompatibleRuntimes: 
+        - "python3.7"
+      ContentUri: ./layers/lambda_layer.zip
+
+  # lambdas used in data processing step function
+  GetData:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: get_data.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/get_data
+      Description: ''
+      MemorySize: 128
+      Timeout: 180
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+
+  CleanAndCombineT1:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: clean_and_combine_T1.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/clean_and_combine_T1
+      Description: ''
+      MemorySize: 512
+      Timeout: 5
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+  
+  AddProvinceT1:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: add_province_T1.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/add_province_T1
+      Description: ''
+      MemorySize: 256
+      Timeout: 5
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  T1ToDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: T1_to_DB.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/T1_to_DB
+      Description: ''
+      MemorySize: 256
+      Timeout: 180
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  CleanCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: clean_census.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/clean_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 90
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  MapHeadersAndPopulations:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: map_headers_and_populations.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/map_headers_and_populations
+      Description: ''
+      MemorySize: 512
+      Timeout: 90
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  AddProvinceCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: add_province_census.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/add_province_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 90
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  JoinPopulationsAndCensus:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: join_populations_and_census.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/join_populations_and_census
+      Description: ''
+      MemorySize: 1024
+      Timeout: 600
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  CalculatePercent:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: calculate_percent.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/calculate_percent
+      Description: ''
+      MemorySize: 512
+      Timeout: 300
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  CensusToDB:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: census_to_DB.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/census_to_DB
+      Description: ''
+      MemorySize: 1024
+      Timeout: 900
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+      Layers:
+        - !Ref PandaNumpyLayer
+
+  CleanUpS3:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: clean_up_s3.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./functions/clean_up_s3
+      Description: ''
+      MemorySize: 128
+      Timeout: 10
+      Role: !GetAtt DataProcessingLambdaRole.Arn
+
+  # data processing step fcn
+  DataProcessingStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      DefinitionUri: ./state-machine.asl.json
+      DefinitionSubstitutions: 
+        GetDataArn: !GetAtt GetData.Arn
+        CleanAndCombineT1Arn: !GetAtt CleanAndCombineT1.Arn
+        AddProvinceT1Arn: !GetAtt AddProvinceT1.Arn
+        T1ToDBArn: !GetAtt T1ToDB.Arn
+        CleanCensusArn: !GetAtt CleanCensus.Arn
+        MapHeadersPopulationsArn: !GetAtt MapHeadersAndPopulations.Arn
+        AddProvinceCensusArn: !GetAtt AddProvinceCensus.Arn
+        JoinPopulationsCensusArn: !GetAtt JoinPopulationsAndCensus.Arn
+        CalculatePercentArn: !GetAtt CalculatePercent.Arn
+        CensusToDBArn: !GetAtt CensusToDB.Arn
+        CleanUpS3Arn: !GetAtt CleanUpS3.Arn
+      Role: !GetAtt DataProcessingStateMachineRole.Arn
+
+  # add BucketName to ssm for access within the state machine
+  BucketNameSSM:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /censusexplorer/bucketName
+      Type: String
+      Value: !Ref DataBucket
+
+Outputs:
+  BucketName: 
+    Description: 'Name of the bucket created for data storage'
+    Value: !Ref DataBucket
