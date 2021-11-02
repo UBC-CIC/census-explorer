@@ -43,15 +43,15 @@ This prototype draws from publicly available information, more specifically the 
 
 ### Manual Data Processing
 
-The file headers.csv in the data folder was created by copying the table from [Statistics Canada](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=01&Geo2=&Code2=&SearchText=Canada&SearchType=Begins&SearchPR=01&B1=All&TABID=1&type=0) into a spreadsheet in order to find the category groupings that were not otherwise represented in the Census data. After copying the table, the actual statistics were removed, and each category was marked with whether or not it would be kept for the app. Each category was numbered from 1 to 2247, corresponding to the ID given in the Census data (and ID was necessary as the categories do not have unique names). The file was then saved as a csv and used for further processing withing the data preparation step function.
+The file headers.csv in the data folder was created by copying the table from [Statistics Canada](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=01&Geo2=&Code2=&SearchText=Canada&SearchType=Begins&SearchPR=01&B1=All&TABID=1&type=0) into a spreadsheet in order to find the category groupings that were not otherwise represented in the Census data. After copying the table, the actual statistics were removed, and each category was marked with whether or not it would be kept for the app. Each category was numbered from 1 to 2247, corresponding to the ID given in the Census data (an ID was necessary as the categories do not have unique names). The file was then saved as a csv and used for further processing within the data preparation step function.
 
 ## Deployment Guide
 
-To deploy this solution into your AWS account, please follow the [Deployment Guide](https://github.com/UBC-CIC/census-explorer-backend/blob/master/docs/DeploymentGuide.md).
+To deploy this solution into your AWS account, please follow the [Deployment Guide](./docs/DeploymentGuide.md).
 
 ## User Guide
 
-Please see the [user guide](https://github.com/UBC-CIC/census-explorer-frontend/blob/master/docs/UserGuide.md).
+Please see the [user guide](./docs/UserGuide.md).
 
 ## Credits
 
