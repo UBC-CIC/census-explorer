@@ -2,58 +2,60 @@
 
 ## Project Overview
 
-This prototype draws from publicly available information, more specifically the 2016 Census Canada and 2018 T1 datasets, and makes them accessible through a user-friendly interactive map. This application allows users to consume, interpret and analyze data based on parameters that are relevant to them such as: age, income and geography. This solution acknowledges that in many cases nonprofits and charities do not have the necessary tools or expertise to interpret raw data, so it aims to make the data comprehensible for users without a data science background. With this information organizations will be able to improve their decision making process regarding programming and services in areas such as fundraising, recruiting staff and allocation of resources.
-
-The backend uses [AWS Lambda](https://aws.amazon.com/lambda/) functions to get data from the multiple data
-sources, and persist them into:
-
-- [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - for viewing content based on parameterized searches
+This prototype draws from publicly available information, more specifically the 2016 Census Canada and 2016 T1 datasets, and makes them accessible through a user-friendly interactive map. This application allows users to consume, interpret and analyze data based on parameters that are relevant to them such as: age, income and geography. This solution acknowledges that in many cases nonprofits and charities do not have the necessary tools or expertise to interpret raw data, so it aims to make the data comprehensible for users without a data science background. With this information organizations will be able to improve their decision making process regarding programming and services in areas such as fundraising, recruiting staff and allocation of resources.
 
 ## Table of Contents
 
-| Index                                               | Description                                    |
-| :-------------------------------------------------- | :--------------------------------------------- |
-| [High Level Architecture](#high-level-architecture) | Examine the application architecture.          |
-| [Application Screenshots](#application-screenshots) | Check out the application's user interface.    |
-| [Stack Details](#stack-details)                     | Learn more about each stack of the application |
-| [Deployment](#deployment)                           | Learn how to deploy this project yourself.     |
-| [User Guide](#user-guide)                           | Learn how to use the heatmap interface.        |
-| [Credits](#credits)                                 | Meet the team behind this                      |
-| [License](#license)                                 | License details.                               |
+| Index                                               | Description                                     |
+| :-------------------------------------------------- | :---------------------------------------------- |
+| [Stack Overview](#stack-overview)                   | Learn more about each stack of the application. |
+| [High Level Architecture](#high-level-architecture) | Examine the application architecture.           |
+| [Deployment Guide](#deployment-guide)               | Learn how to deploy this project.               |
+| [User Guide](#user-guide)                           | Learn to use the map interface.                 |
+| [Credits](#credits)                                 | Meet the team behind the solution.              |
+| [License](#license)                                 | License details.                                |
+
+## Stack Overview
+
+- **Frontend**: The ReactJS framework was used to develop the frontend of the application. AWS Amplify was used to interface with other Amazon Web Services such as: Amazon S3, AWS Lambda and Amazon DynamoDB. The library used to display the map is react-leaflet / leaflet.js, which has a GeoJSON layer attached. All other components were developed in React from scratch.
+
+- **Data Preparation**: All data was initially processed using a AWS Step Function running a sequence of AWS Lambdas.
+
+- **Data Storage**: All data is saved in Amazon S3 and Amazon DynamoDB. Namely, GeoJSON files are stored in Amazon S3, and Census/T1 data is stored in Amazon DynamoDB.
+
+- **Data Processing**: The backend has AWS Lambda functions to process incoming data from Amazon DynamoDB, fetched through a GraphQL API.
 
 ## High Level Architecture
 
-![alt text](docs/ArchitectureDiagram.png)
-
-<h6 align="center">Architecture Diagram</h6>
+<img src="./docs/screenshots/architecture_diagram.png">
 
 ## Application Screenshots
 
 ![heatmap](./docs/screenshots/mainUI.png)
 
-<h6 align="center">Interactive User Interface</h6>
+### Datasets
 
-## Stack Details
+- **Census Data**: The 2016 Census data contains various statistics from the Canadian Census, such as Age, Sex, Type of Dwelling, Families, Households, Marital Status, Language, Income, Immigration and Ethnocultural Diversity, Housing, Aboriginal Peoples, Education, Labour, Journey to Work, Mobility and Migration, and Language of Work for Canada and Forward Sortation Areas. Each statistic is aggregated by Forward Sortation Area (FSA). This data was obtained from the [Statistics Canada website](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/download-telecharger/comp/page_dl-tc.cfm?Lang=E).
 
-- [Frontend User Interface](./docs/FrontendArchitecture.md)
-- [Backend ETL](https://github.com/UBC-CIC/census-explorer-backend)
+- **T1 Donation Data by Family Type**: The T1 Donation Data by Family Type contains data about the charitable donations made by different family types. This includes total amount donated, median donation amount, number of donations made, and donation rate. Each statistic is aggregated by Forward Sortation Area (FSA).
 
-## Deployment
+- **T1 Donation Data by Income Group**: The T1 Donation Data by Income Group contains data about the charitable donations made by different income groups. This includes total amount donated, median donation amount, number of donations made, and donation rate. Each statistic is aggregated by Forward Sortation Area (FSA).
 
-To deploy the Frontend of this solution into your AWS Account press the following button.
-[![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/UBC-CIC/census-explorer-frontend)
+### Manual Data Processing
 
-The backend must be deployed after the frontend has been deployed.
-Please follow the deployment steps in the [Backend Repo](https://github.com/UBC-CIC/census-explorer-backend).
+The file headers.csv in the data folder was created by copying the table from [Statistics Canada](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/details/page.cfm?Lang=E&Geo1=PR&Code1=01&Geo2=&Code2=&SearchText=Canada&SearchType=Begins&SearchPR=01&B1=All&TABID=1&type=0) into a spreadsheet in order to find the category groupings that were not otherwise represented in the Census data. After copying the table, the actual statistics were removed, and each category was marked with whether or not it would be kept for the app. Each category was numbered from 1 to 2247, corresponding to the ID given in the Census data (and ID was necessary as the categories do not have unique names). The file was then saved as a csv and used for further processing withing the data preparation step function.
+
+## Deployment Guide
+
+To deploy this solution into your AWS account, please follow the [Deployment Guide](https://github.com/UBC-CIC/census-explorer-backend/blob/master/docs/DeploymentGuide.md).
 
 ## User Guide
 
-Please see our user guide [here](./docs/UserGuide.md)
+Please see the [user guide](https://github.com/UBC-CIC/census-explorer-frontend/blob/master/docs/UserGuide.md).
 
 ## Credits
 
-This application was architected and developed by Trevor Flanigan and Alyssa da Costa, with guidance from the [UBC CIC](https://cic.ubc.ca/)
-technical and project management teams.
+This application was architected and developed by Trevor Flanigan and Alyssa da Costa, with guidance from the [UBC CIC](https://cic.ubc.ca/) technical and project management teams.
 
 ## License
 
