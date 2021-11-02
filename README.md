@@ -17,7 +17,7 @@ This prototype draws from publicly available information, more specifically the 
 
 ## Stack Overview
 
-- **Frontend**: The ReactJS framework was used to develop the frontend of the application. AWS Amplify was used to interface with other Amazon Web Services such as: Amazon S3, AWS Lambda and Amazon DynamoDB. The library used to display the map is react-leaflet / leaflet.js, which has a GeoJSON layer attached. All other components were developed in React from scratch.
+- **Frontend**: The ReactJS framework was used to develop the frontend of the application. AWS Amplify was used to interface with other Amazon Web Services such as: Amazon S3, AWS Lambda and Amazon DynamoDB. The library used to display the map is react-leaflet / leaflet.js, which has a GeoJSON layer attached. All other components were developed in React from scratch. For more info on the frontend, see [Frontend Architecture](./docs/FrontendArchitecture.md)
 
 - **Data Preparation**: All data was initially processed using a AWS Step Function running a sequence of AWS Lambdas.
 
