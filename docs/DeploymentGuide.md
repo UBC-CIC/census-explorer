@@ -16,9 +16,44 @@ For prototyping:
 
 # Step 1: Frontend Deployment
 
+## Create a Service Role
+
+Please create a new service role in your AWS Account.
+
+1. Log into the AWS Console on your AWS Account with IAM Permissions.
+   ![awsconsole](./screenshots/awsConsole.png)
+2. Search for IAM and click on the first suggestion.
+   ![IAM](./screenshots/iam.png)
+3. Click on Roles in the left sidebar.
+   ![roles](./screenshots/roles.png)
+4. Click on Create Role
+5. Scroll down and click on Amplify
+   ![amplify](./screenshots/amplify.png)
+6. Click next until you get to the Review page.
+   Name the role: This example uses 'censusexplorer-amplify-backend-role'
+   ![review](./screenshots/review.png)
+7. Click Create Role.
+8. Find your new role by searching for it in the roles search bar. Click on it.
+   ![search](./screenshots/search.png)
+9. Click on Add inline policy
+10. Click on the JSON tab, and replace the text box with the contents of [this file](./servicePolicy.json).
+11. Click on Review Policy, and name it appropriately. Eg: 'census-explorer-backend-policy'
+12. Click on Create Policy. You should see something similar to this:
+    ![policies](./screenshots/policies.png)
+
+## Deploy the Frontend
+
 To deploy the frontend of this solution into your AWS Account, press the following button:
 
 [![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/UBC-CIC/census-explorer)
+
+This should take you to the following screen: Click on Connect to Github and log in to your Girhub Account.
+![amplifyConsole](./screenshots/amplifyConsole.png)
+
+**From the dropdown, make sure to choose the role that you just made!**
+![dropdown](./screenshots/dropdown.png)
+
+Click on save and deploy.
 
 # Step 2: Backend/Data Preparation Deployment
 
