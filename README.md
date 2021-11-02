@@ -6,15 +6,16 @@ This prototype draws from publicly available information, more specifically the 
 
 ## Table of Contents
 
-| Index                                               | Description                                       |
-| :-------------------------------------------------- | :------------------------------------------------ |
-| [Stack Overview](#stack-overview)                   | Learn more about each stack of the application.   |
-| [High Level Architecture](#high-level-architecture) | Examine the application architecture.             |
-| [Deployment Guide](#deployment-guide)               | Learn how to deploy this project.                 |
-| [User Guide](#user-guide)                           | Learn to use the map interface.                   |
-| [Pricing Breakdown](#pricing)                       | Breakdown of how much this solution costs to run. |
-| [Credits](#credits)                                 | Meet the team behind the solution.                |
-| [License](#license)                                 | License details.                                  |
+| Index                                               | Description                                                      |
+| :-------------------------------------------------- | :--------------------------------------------------------------- |
+| [Stack Overview](#stack-overview)                   | Learn more about each stack of the application.                  |
+| [High Level Architecture](#high-level-architecture) | Examine the application architecture.                            |
+| [Deployment Guide](#deployment-guide)               | Learn how to deploy this project.                                |
+| [User Guide](#user-guide)                           | Learn to use the map interface.                                  |
+| [Pricing Breakdown](#pricing)                       | Breakdown of how much this solution costs to run.                |
+| [Recommendations](#recommendations)                 | Considerations for extending the functionality of this solution. |
+| [Credits](#credits)                                 | Meet the team behind the solution.                               |
+| [License](#license)                                 | License details.                                                 |
 
 ## Stack Overview
 
@@ -57,6 +58,10 @@ Please see the [user guide](./docs/UserGuide.md).
 ## Pricing
 
 Please see the [pricing breakdown](./docs/pricing.md).
+
+## Recommendations
+
+Please see the [Recommendations](./docs/Recommendations.md).
 
 ## Credits
 
