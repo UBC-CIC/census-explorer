@@ -24,6 +24,10 @@
     "S3DeploymentRootKey": {
       "Type": "String",
       "Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
+    },
+    "ProjectName": {
+      "Type": "String",
+      "Description": "Name of this Amplify Project"
     }
   },
   "Resources": {
@@ -34,7 +38,9 @@
     "CensusTableNameParameter": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "/censusexplorer/censusDB",
+        "Name": {
+          "Fn::Sub": "/amplify/${ProjectName}/${env}/censusDB"
+        },
         "Type": "String",
         "Value": {
           "Fn::ImportValue": {
@@ -47,7 +53,9 @@
     "DonationDataEntryTableParameter": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "/censusexplorer/donationDB",
+        "Name": {
+          "Fn::Sub": "/amplify/${ProjectName}/${env}/donationDB"
+        },
         "Type": "String",
         "Value": {
           "Fn::ImportValue": {

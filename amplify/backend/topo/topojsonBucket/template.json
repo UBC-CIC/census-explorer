@@ -7,6 +7,10 @@
       "Type": "String",
       "Description": "The environment name. e.g. Dev, Test, or Production",
       "Default": "NONE"
+    },
+    "ProjectName": {
+      "Type": "String",
+      "Description": "Name of Amplify Project"
     }
   },
   "Resources": {
@@ -157,7 +161,9 @@
     "TopoJSONBucketNameParameter": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "/censusexplorer/topoBucketName",
+        "Name": {
+          "Fn::Sub": "/amplify/${ProjectName}/${env}/topoBucketName"
+        },
         "Type": "String",
         "Value": {
           "Ref": "S3Bucket"
@@ -168,7 +174,9 @@
     "CfDistributionDomainParameter": {
       "Type": "AWS::SSM::Parameter",
       "Properties": {
-        "Name": "/censusexplorer/topodomain",
+        "Name": {
+          "Fn::Sub": "/amplify/${ProjectName}/${env}/topodomain"
+        },
         "Type": "String",
         "Value": {
           "Fn::GetAtt": [

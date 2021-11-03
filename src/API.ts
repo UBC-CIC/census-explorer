@@ -241,7 +241,7 @@ export type UpdateDonationDataEntryInput = {
 };
 
 export type DeleteDonationDataEntryInput = {
-  id?: string | null,
+  id: string,
 };
 
 export type CreateCensusDataEntryInput = {
@@ -290,7 +290,7 @@ export type UpdateCensusDataEntryInput = {
 };
 
 export type DeleteCensusDataEntryInput = {
-  id?: string | null,
+  id: string,
 };
 
 export type similarSearchInput = {
