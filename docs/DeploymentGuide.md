@@ -47,7 +47,7 @@ To deploy the frontend of this solution into your AWS Account, press the followi
 
 [![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/UBC-CIC/census-explorer)
 
-This should take you to the following screen: Click on Connect to Github and log in to your Girhub Account.
+This should take you to the following screen: Click on **Connect to Github** and log in to your Github Account.
 ![amplifyConsole](./screenshots/amplifyConsole.png)
 
 **From the dropdown, make sure to choose the role that you just made!**
@@ -65,37 +65,43 @@ Click on save and deploy.
 
    Parameter details:
 
-   - Stack Name: An identifier for your stack.
-   - AWS Region: The region where the solution will be deployed.
+   - *Stack Name*: An identifier for your stack.
+   - *AWS Region*: The region where the solution will be deployed.
+   - *AmplifyAppName*: The name of the Amplify app created previously.
+   - *AmplifyBackendEnv: The name of the Amplify backend environment of the app created previously.
+
+   To find *AmplifyAppName* and *AmplifyBackendEnv*, go to the Amplify console, and click on the app you created during frontend deployment.  In the example provided below, the app is called "census-explorer", and the backend environment is called "devu".
+
+<img src="./screenshots/step2.2.1_1.png">
 
 ```bash
 sam deploy --template step-fcn-template.yaml --guided
 ```
 
-<img src="../images/step2.2.1.png">
+<img src="./screenshots/step2.2.1_2.png">
 
 **Note:** Make sure this step completes successfully before moving on to the next step.
 
 2. When the deployment is complete, a parameter with the key _BucketName_ will be output. This is the bucket you will be uploading data to in the future, so remember the name.
 
-<img src="../images/step2.2.2.png">
+<img src="./screenshots/step2.2.2.png">
 
 ## Step 2.3: Upload files for data preparation
 
 1. Log in to the S3 management console.
 2. Select the bucket created by the CloudFormation template in step 2.2. Click **Create folder**, and name it "unprocessed-data".
 
-<img src="../images/step2.3.2_1.png">
+<img src="./screenshots/step2.3.2_1.png">
 
-<img src="../images/step2.3.2_2.png">
+<img src="./screenshots/step2.3.2_2.png">
 
 3. Select the new _unprocessed-data_ folder. Click **Upload**, and add the "headers.csv" file from the data directory in this repository and the two files obtained from Statistics Canada in step 0 (the names of these files don't matter).
 
-<img src="../images/step2.3.3_1.png">
+<img src="./screenshots/step2.3.3_1.png">
 
-<img src="../images/step2.3.3_2.png">
+<img src="./screenshots/step2.3.3_2.png">
 
-<img src="../images/step2.3.3_3.png">
+<img src="./screenshots/step2.3.3_3.png">
 
 **Note:** Make sure the files finish uploading before moving on to the next step.
 
