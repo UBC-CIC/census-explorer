@@ -21,7 +21,7 @@ This prototype draws from publicly available information, more specifically the 
 
 - **Frontend**: The ReactJS framework was used to develop the frontend of the application. AWS Amplify was used to interface with other Amazon Web Services such as: Amazon S3, AWS Lambda and Amazon DynamoDB. The library used to display the map is react-leaflet / leaflet.js, which has a GeoJSON layer attached. All other components were developed in React from scratch. For more info on the frontend, see [Frontend Architecture](./docs/FrontendArchitecture.md).
 
-- **Data Preparation**: All data was initially processed using a AWS Step Function running a sequence of AWS Lambdas.  For more information on the data preparation process, see [Backend ETL](./docs/BackendETL.md).
+- **Data Preparation**: All data was initially processed using a AWS Step Function running a sequence of AWS Lambdas. For more information on the data preparation process, see [Backend ETL](./docs/BackendETL.md).
 
 - **Data Storage**: All data is saved in Amazon S3 and Amazon DynamoDB. Namely, GeoJSON files are stored in Amazon S3, and Census/T1 data is stored in Amazon DynamoDB.
 
@@ -54,6 +54,11 @@ Please see the [Recommendations](./docs/Recommendations.md).
 ## Credits
 
 This application was architected and developed by Trevor Flanigan and Alyssa da Costa, with guidance from the [UBC CIC](https://cic.ubc.ca/) technical and project management teams.
+
+Adapted from Statistics Canada, Census Explorer, 2021. This does not
+constitute an endorsement by Statistics Canada of this product.
+Data provided by Statistics Canada has been modified for use in this
+project.
 
 ## License
 
