@@ -2,6 +2,7 @@ import Search from "@components/search/Search";
 import { sidebarStyles } from "@styles";
 import { SelectorShown } from "@types";
 import { useRef, useState } from "react";
+import Acknowledgement from "./Acknowledgement";
 import DataSelector from "./data-viewer/DataSelector";
 import InfoSection from "./InfoSection";
 import Histogram from "./selector/Histogram";
@@ -20,6 +21,7 @@ const Sidebar = (props: SidebarProps) => {
       {/* <Search /> */}
       <InfoSection />
       <DataSelector />
+      <Acknowledgement />
     </div>
   );
 };
