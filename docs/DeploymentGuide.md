@@ -10,9 +10,6 @@ For prototyping:
 
 - [Python 3.7 or greater](https://realpython.com/installing-python/)
 
-# Step 0: Request T1 data from Statistics Canada
-
-1. Email "emailaddress" and request ... # TODO
 
 # Step 1: Frontend Deployment
 
@@ -68,7 +65,7 @@ Click on save and deploy.
    - *Stack Name*: An identifier for your stack.
    - *AWS Region*: The region where the solution will be deployed.
    - *AmplifyAppName*: The name of the Amplify app created previously.
-   - *AmplifyBackendEnv: The name of the Amplify backend environment of the app created previously.
+   - *AmplifyBackendEnv*: The name of the Amplify backend environment of the app created previously.
 
    To find *AmplifyAppName* and *AmplifyBackendEnv*, go to the Amplify console, and click on the app you created during frontend deployment.  In the example provided below, the app is called "census-explorer", and the backend environment is called "devu".
 
@@ -95,7 +92,7 @@ sam deploy --template step-fcn-template.yaml --guided
 
 <img src="./screenshots/step2.3.2_2.png">
 
-3. Select the new _unprocessed-data_ folder. Click **Upload**, and add the "headers.csv" file from the data directory in this repository and the two files obtained from Statistics Canada in step 0 (the names of these files don't matter).
+3. Select the new _unprocessed-data_ folder. Click **Upload**, and add the "headers.csv", "Donations by Family Type - 2006 to 2018 (FSAs).csv", and "Donations by Income Group - 2006 to 2018 (FSAs).csv" files from the data directory of this repository.
 
 <img src="./screenshots/step2.3.3_1.png">
 
