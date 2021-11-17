@@ -2,6 +2,14 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Template
 
+Parameters:
+  AmplifyAppName:
+    Type: String
+    Description: The name of the Amplify app created previously.
+  AmplifyBackendEnv:
+    Type: String
+    Description: The name of the Amplify backend environment of the app created previously.
+
 Resources:
   # bucket for data storage
   DataBucket:
@@ -97,6 +105,11 @@ Resources:
       MemorySize: 128
       Timeout: 180
       Role: !GetAtt DataProcessingLambdaRole.Arn
+      Environment: 
+        Variables:
+          BucketName: !Ref DataBucket
+          AmplifyAppName: !Ref AmplifyAppName
+          AmplifyBackendEnv: !Ref AmplifyBackendEnv
 
   CleanAndCombineT1:
     Type: 'AWS::Serverless::Function'
@@ -244,14 +257,6 @@ Resources:
         CensusToDBArn: !GetAtt CensusToDB.Arn
         CleanUpS3Arn: !GetAtt CleanUpS3.Arn
       Role: !GetAtt DataProcessingStateMachineRole.Arn
-
-  # add BucketName to ssm for access within the state machine
-  BucketNameSSM:
-    Type: AWS::SSM::Parameter
-    Properties:
-      Name: /censusexplorer/bucketName
-      Type: String
-      Value: !Ref DataBucket
 
 Outputs:
   BucketName: 
